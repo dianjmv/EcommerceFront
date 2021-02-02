@@ -1,0 +1,45 @@
+// -------------------------
+// --- You can add your custom CSS here and it will overwrite template styles.
+// -------------------------
+@import "variables";
+.position-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.position-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.position-center {
+    display: flex;
+    justify-content: center;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+@media (min-width: 1200px) {
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .social-network {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-column-gap: 7px;
+    }
+
+}
+
+.social-network__image {
+    width: 100%;
+    height: 100%;
+}
+.contact-form{
+    background-color: $blue-south;
+}

@@ -1,0 +1,608 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210129.114914.19608.0.001.json",
+    "dumpEventTime": "2021-01-29T11:49:14Z",
+    "dumpEventTimeStamp": "1611938954315",
+    "processId": 19608,
+    "cwd": "C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\.bin\\\\..\\next\\dist\\bin\\next",
+      "dev"
+    ],
+    "nodejsVersion": "v12.16.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.16.0",
+      "v8": "7.8.279.23-node.31",
+      "uv": "1.34.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.4",
+      "http_parser": "2.9.3",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.16.0/node-v12.16.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.16.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.19042",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1831578,
+        "nice": 0,
+        "sys": 1895062,
+        "idle": 28622343,
+        "irq": 537437
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1023734,
+        "nice": 0,
+        "sys": 412250,
+        "idle": 30912703,
+        "irq": 23343
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 3179859,
+        "nice": 0,
+        "sys": 1172687,
+        "idle": 27996140,
+        "irq": 21250
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1189750,
+        "nice": 0,
+        "sys": 276171,
+        "idle": 30882765,
+        "irq": 5531
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 2464921,
+        "nice": 0,
+        "sys": 862000,
+        "idle": 29021781,
+        "irq": 15125
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1049875,
+        "nice": 0,
+        "sys": 310437,
+        "idle": 30988375,
+        "irq": 7515
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 2055406,
+        "nice": 0,
+        "sys": 702078,
+        "idle": 29591203,
+        "irq": 16937
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1112640,
+        "nice": 0,
+        "sys": 264187,
+        "idle": 30971859,
+        "irq": 5062
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1929468,
+        "nice": 0,
+        "sys": 969875,
+        "idle": 29449343,
+        "irq": 14640
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 916406,
+        "nice": 0,
+        "sys": 244796,
+        "idle": 31187484,
+        "irq": 5015
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 2944250,
+        "nice": 0,
+        "sys": 930750,
+        "idle": 28473687,
+        "irq": 14750
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 750781,
+        "nice": 0,
+        "sys": 256875,
+        "idle": 31341015,
+        "irq": 5328
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1841953,
+        "nice": 0,
+        "sys": 756296,
+        "idle": 29750421,
+        "irq": 14453
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 782687,
+        "nice": 0,
+        "sys": 273921,
+        "idle": 31292062,
+        "irq": 4875
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1460781,
+        "nice": 0,
+        "sys": 548406,
+        "idle": 30339484,
+        "irq": 10375
+      },
+      {
+        "model": "AMD Ryzen 7 1700 Eight-Core Processor          ",
+        "speed": 2994,
+        "user": 1840750,
+        "nice": 0,
+        "sys": 577875,
+        "idle": 29930062,
+        "irq": 6437
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Ethernet",
+        "internal": false,
+        "mac": "60:45:cb:a0:1a:6e",
+        "address": "2800:bf0:2c0:1012:fc1a:a84d:dd67:4cff",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Ethernet",
+        "internal": false,
+        "mac": "60:45:cb:a0:1a:6e",
+        "address": "2800:bf0:2c0:1012:542:c6e4:a83c:da08",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Ethernet",
+        "internal": false,
+        "mac": "60:45:cb:a0:1a:6e",
+        "address": "fe80::fc1a:a84d:dd67:4cff",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 3
+      },
+      {
+        "name": "Ethernet",
+        "internal": false,
+        "mac": "60:45:cb:a0:1a:6e",
+        "address": "192.168.100.10",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "vEthernet (WSL)",
+        "internal": false,
+        "mac": "00:15:5d:50:84:e2",
+        "address": "fe80::bc54:a850:4a5d:f5f1",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 19
+      },
+      {
+        "name": "vEthernet (WSL)",
+        "internal": false,
+        "mac": "00:15:5d:50:84:e2",
+        "address": "172.20.192.1",
+        "netmask": "255.255.240.0",
+        "family": "IPv4"
+      }
+    ],
+    "host": "DESKTOP-HN5PEG7"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff6dd9119f9",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
+    },
+    {
+      "pc": "0x00007ff6dd915e1c",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
+    },
+    {
+      "pc": "0x00007ff6dd914dd8",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
+    },
+    {
+      "pc": "0x00007ff6dda1364b",
+      "symbol": "v8::base::CPU::has_sse+38363"
+    },
+    {
+      "pc": "0x00007ff6de22a11e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff6de2121f1",
+      "symbol": "v8::SharedArrayBuffer::Externalize+833"
+    },
+    {
+      "pc": "0x00007ff6de0de74c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff6de0e99a0",
+      "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
+    },
+    {
+      "pc": "0x00007ff6de0e64c4",
+      "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
+    },
+    {
+      "pc": "0x00007ff6de0dbce3",
+      "symbol": "v8::internal::Heap::CollectGarbage+1283"
+    },
+    {
+      "pc": "0x00007ff6de0da354",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2452"
+    },
+    {
+      "pc": "0x00007ff6de0fb53d",
+      "symbol": "v8::internal::Factory::NewFillerObject+61"
+    },
+    {
+      "pc": "0x00007ff6dde60e21",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+1665"
+    },
+    {
+      "pc": "0x00007ff6de674fad",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+546637"
+    },
+    {
+      "pc": "0x00000123568232c7",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2157334528,
+    "totalCommittedMemory": 2157334528,
+    "usedMemory": 2139708856,
+    "availableMemory": 49654864,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 32808,
+        "used": 32808,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 8388608,
+        "committedMemory": 8388608,
+        "capacity": 4189824,
+        "used": 123296,
+        "available": 4066528
+      },
+      "old_space": {
+        "memorySize": 1211777024,
+        "committedMemory": 1211777024,
+        "capacity": 1207364448,
+        "used": 1206446704,
+        "available": 917744
+      },
+      "code_space": {
+        "memorySize": 3313664,
+        "committedMemory": 3313664,
+        "capacity": 2872320,
+        "used": 2872320,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 7081984,
+        "committedMemory": 7081984,
+        "capacity": 4403520,
+        "used": 4403520,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 925888512,
+        "committedMemory": 925888512,
+        "capacity": 925285920,
+        "used": 925285920,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 622592,
+        "committedMemory": 622592,
+        "capacity": 544288,
+        "used": 544288,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 4189824,
+        "used": 0,
+        "available": 4189824
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 1369.33,
+    "kernelCpuSeconds": 87.609,
+    "cpuConsumptionPercent": 22.3217,
+    "maxRss": 2090647552,
+    "pageFaults": {
+      "IORequired": 20458769,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 74728,
+      "writes": 1995
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\danny\\AppData\\Roaming",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "DESKTOP-HN5PEG7",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "CONDA_DEFAULT_ENV": "base",
+    "CONDA_EXE": "C:\\Users\\danny\\Anaconda3\\Scripts\\conda.exe",
+    "CONDA_PREFIX": "C:\\Users\\danny\\Anaconda3",
+    "CONDA_PROMPT_MODIFIER": "(base) ",
+    "CONDA_PYTHON_EXE": "C:\\Users\\danny\\Anaconda3\\python.exe",
+    "CONDA_SHLVL": "1",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\danny",
+    "INIT_CWD": "C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront",
+    "JD2_HOME": "C:\\Users\\danny\\AppData\\Local\\JDownloader 2.0",
+    "LOCALAPPDATA": "C:\\Users\\danny\\AppData\\Local",
+    "LOGONSERVER": "\\\\DESKTOP-HN5PEG7",
+    "NEXT_PUBLIC_BASE_URI": "http://localhost:3030",
+    "NODE": "C:\\Program Files\\nodejs\\node.exe",
+    "NODE_ENV": "development",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"dev\"],\"original\":[\"dev\"]}",
+    "npm_config_bin_links": "true",
+    "npm_config_ignore_optional": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_init_license": "MIT",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "npm_config_save_prefix": "^",
+    "npm_config_strict_ssl": "true",
+    "npm_config_user_agent": "yarn/1.22.5 npm/? node/v12.16.0 win32 x64",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_version_git_message": "v%s",
+    "npm_config_version_git_sign": "",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_tag_prefix": "v",
+    "npm_execpath": "C:\\Program Files (x86)\\Yarn\\bin\\yarn.js",
+    "npm_lifecycle_event": "dev",
+    "npm_lifecycle_script": "next dev",
+    "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_package_dependencies_autoprefixer": "^10.2.3",
+    "npm_package_dependencies_axios": "^0.21.1",
+    "npm_package_dependencies_bootstrap": "4.5.3",
+    "npm_package_dependencies_classnames": "2.2.6",
+    "npm_package_dependencies_next": "10.0.2",
+    "npm_package_dependencies_next_redux_wrapper": "6.0.2",
+    "npm_package_dependencies_photoswipe": "4.1.3",
+    "npm_package_dependencies_postcss": "^8.2.4",
+    "npm_package_dependencies_query_string": "6.13.7",
+    "npm_package_dependencies_react": "17.0.1",
+    "npm_package_dependencies_reactstrap": "8.7.1",
+    "npm_package_dependencies_react_dom": "17.0.1",
+    "npm_package_dependencies_react_input_range": "1.3.0",
+    "npm_package_dependencies_react_intl": "5.10.2",
+    "npm_package_dependencies_react_redux": "7.2.2",
+    "npm_package_dependencies_react_slick": "0.27.13",
+    "npm_package_dependencies_react_toastify": "6.1.0",
+    "npm_package_dependencies_redux": "4.0.5",
+    "npm_package_dependencies_redux_devtools_extension": "2.13.8",
+    "npm_package_dependencies_redux_thunk": "2.3.0",
+    "npm_package_dependencies_sass": "1.29.0",
+    "npm_package_dependencies_slick_carousel": "1.8.1",
+    "npm_package_dependencies_tailwindcss": "^2.0.2",
+    "npm_package_dependencies__fortawesome_fontawesome_free": "5.15.1",
+    "npm_package_description": "First, run the development server:",
+    "npm_package_devDependencies_babel_plugin_inline_react_svg": "1.1.2",
+    "npm_package_devDependencies_eslint": "7.13.0",
+    "npm_package_devDependencies_eslint_config_airbnb": "18.2.1",
+    "npm_package_devDependencies_eslint_plugin_import": "2.22.1",
+    "npm_package_devDependencies_eslint_plugin_jsx_a11y": "6.4.1",
+    "npm_package_devDependencies_eslint_plugin_react": "7.21.5",
+    "npm_package_devDependencies_husky": "^4.3.5",
+    "npm_package_devDependencies_prettier": "2.2.1",
+    "npm_package_devDependencies_typescript": "4.0.5",
+    "npm_package_devDependencies__typescript_eslint_eslint_plugin": "4.8.1",
+    "npm_package_devDependencies__typescript_eslint_parser": "4.8.1",
+    "npm_package_devDependencies__types_classnames": "2.2.11",
+    "npm_package_devDependencies__types_node": "14.14.8",
+    "npm_package_devDependencies__types_photoswipe": "4.1.0",
+    "npm_package_devDependencies__types_react": "16.9.56",
+    "npm_package_devDependencies__types_reactstrap": "8.7.2",
+    "npm_package_devDependencies__types_react_redux": "7.1.11",
+    "npm_package_devDependencies__types_react_slick": "0.23.4",
+    "npm_package_husky_hooks_pre_commit": "yarn format ",
+    "npm_package_husky_hooks_pre_push": "yarn format",
+    "npm_package_name": "stroyka.react",
+    "npm_package_private": "true",
+    "npm_package_readmeFilename": "README.md",
+    "npm_package_scripts_build": "next build",
+    "npm_package_scripts_build_and_start": "next build && next start",
+    "npm_package_scripts_dev": "next dev",
+    "npm_package_scripts_format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "npm_package_scripts_start": "next start",
+    "npm_package_version": "1.7.0",
+    "NUMBER_OF_PROCESSORS": "16",
+    "NVM_HOME": "C:\\Users\\danny\\AppData\\Roaming\\nvm",
+    "NVM_SYMLINK": "C:\\Program Files\\nodejs",
+    "OneDrive": "C:\\Users\\danny\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\danny\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Users\\danny\\AppData\\Local\\Temp\\yarn--1611932426960-0.4234804859232353;C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\.bin;C:\\Users\\danny\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;C:\\Program Files\\libexec\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Users\\danny\\Anaconda3;C:\\Users\\danny\\Anaconda3\\Library\\mingw-w64\\bin;C:\\Users\\danny\\Anaconda3\\Library\\usr\\bin;C:\\Users\\danny\\Anaconda3\\Library\\bin;C:\\Users\\danny\\Anaconda3\\Scripts;C:\\Users\\danny\\Anaconda3\\bin;C:\\Users\\danny\\Anaconda3\\condabin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32\\OpenSSH;C:\\Program Files\\kubectl;C:\\Program Files\\helm\\windows-amd64;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32\\OpenSSH;C:\\wamp64\\bin\\php\\php7.3.1;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files (x86)\\Yarn\\bin;C:\\Users\\danny\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Program Files\\nodejs;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\ProgramData\\DockerDesktop\\version-bin;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Users\\danny\\.windows-build-tools\\python27;C:\\Users\\danny\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\danny\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\danny\\Anaconda3\\Scripts;C:\\Users\\danny\\Anaconda3;C:\\Users\\danny\\Anaconda3\\Library\\bin;C:\\Users\\danny\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\danny\\AppData\\Local\\Yarn\\bin;C:\\Program Files\\heroku\\bin",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.CPL",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "AMD64 Family 23 Model 1 Stepping 1, AuthenticAMD",
+    "PROCESSOR_LEVEL": "23",
+    "PROCESSOR_REVISION": "0101",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "C:\\Users\\danny\\Documents\\WindowsPowerShell\\Modules;;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "SITE_NAME": "South Import",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\danny\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\danny\\AppData\\Local\\Temp",
+    "TMPDIR": "C:\\Users\\Public\\Documents\\Wondershare\\CreatorTemp",
+    "USERDOMAIN": "DESKTOP-HN5PEG7",
+    "USERDOMAIN_ROAMINGPROFILE": "DESKTOP-HN5PEG7",
+    "USERNAME": "danny",
+    "USERPROFILE": "C:\\Users\\danny",
+    "VIPSHOME": "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release",
+    "VS110COMNTOOLS": "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\",
+    "VS120COMNTOOLS": "G:\\visual2013\\Common7\\Tools\\",
+    "windir": "C:\\WINDOWS",
+    "WSLENV": "WT_SESSION::WT_PROFILE_ID",
+    "WT_PROFILE_ID": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "WT_SESSION": "f46d651c-bfb8-4b02-8ce4-b0ef28fc1a30",
+    "YARN_WRAP_OUTPUT": "false",
+    "_CONDA_EXE": "C:\\Users\\danny\\Anaconda3\\Scripts\\conda.exe",
+    "_CONDA_ROOT": "C:\\Users\\danny\\Anaconda3",
+    "__NEXT_PROCESSED_ENV": "true"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll",
+    "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release\\sharp.node",
+    "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release\\libgobject-2.0-0.dll",
+    "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release\\libvips-cpp.dll",
+    "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release\\libglib-2.0-0.dll",
+    "C:\\WINDOWS\\System32\\ole32.dll",
+    "C:\\WINDOWS\\System32\\SHELL32.dll",
+    "\\\\?\\C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront\\node_modules\\sharp\\build\\Release\\libvips-42.dll"
+  ]
+}
