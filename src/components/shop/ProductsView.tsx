@@ -19,6 +19,7 @@ import {
     useShopProductsListIsLoading,
     useShopResetFiltersThunk,
 } from '../../store/shop/shopHooks';
+import {useProductsAvailable} from "../../store/product/productHooks";
 
 export type ProductsViewLayout = 'grid' | 'grid-with-features' | 'list';
 
@@ -52,6 +53,7 @@ function ProductsView(props: ProductsViewProps) {
     const productsList = useShopProductsList();
     const options = useShopOptions();
     const filterValues = useShopFilterValues();
+    const productsState = useProductsAvailable();
 
     const handlePageChange = useSetOption('page', parseFloat);
     const handleSortChange = useSetOption('sort', (event) => event.target.value);
@@ -59,7 +61,7 @@ function ProductsView(props: ProductsViewProps) {
 
     const shopResetFilters = useShopResetFiltersThunk();
 
-    if (productsList === null) {
+    if (productsState.products === null) {
         return null;
     }
 
@@ -87,14 +89,14 @@ function ProductsView(props: ProductsViewProps) {
         );
     });
 
-    const productsListItems = productsList.items.map((product) => (
+    const productsListItems = productsState.products.map((product) => (
         <div key={product.id} className="products-list__item">
             <ProductCard product={product} />
         </div>
     ));
 
     const rootClasses = classNames('products-view', {
-        'products-view--loading': isLoading,
+        'products-view--loading': false,
     });
 
     const viewOptionsClasses = classNames('view-options', {
@@ -112,7 +114,7 @@ function ProductsView(props: ProductsViewProps) {
                         <div className="view-options__filters-button">
                             <button type="button" className="filters-button" onClick={openSidebarFn}>
                                 <Filters16Svg className="filters-button__icon" />
-                                <span className="filters-button__title">Filters</span>
+                                <span className="filters-button__title">Filtros</span>
                                 {!!filtersCount && <span className="filters-button__counter">{filtersCount}</span>}
                             </button>
                         </div>
@@ -123,17 +125,17 @@ function ProductsView(props: ProductsViewProps) {
                                 </div>
                             </div>
                         </div>
-                        <div className="view-options__legend">
-                            {`Showing ${productsList.from}—${productsList.to} of ${productsList.total} products`}
-                        </div>
+                        {/*<div className="view-options__legend">*/}
+                        {/*    {`Showing ${productsList.from}—${productsList.to} of ${productsList.total} products`}*/}
+                        {/*</div>*/}
                         <div className="view-options__divider" />
                         <div className="view-options__control">
-                            <label htmlFor="view-options-sort">Sort By</label>
+                            <label htmlFor="view-options-sort">Ordenar Por</label>
                             <div>
                                 <select
                                     id="view-options-sort"
                                     className="form-control form-control-sm"
-                                    value={options.sort || productsList.sort}
+                                    value={options.sort }
                                     onChange={handleSortChange}
                                 >
                                     <option value="default">Default</option>
@@ -143,14 +145,13 @@ function ProductsView(props: ProductsViewProps) {
                             </div>
                         </div>
                         <div className="view-options__control">
-                            <label htmlFor="view-options-limit">Show</label>
+                            <label htmlFor="view-options-limit">Ver</label>
                             <div>
                                 <select
                                     id="view-options-limit"
                                     className="form-control form-control-sm"
-                                    value={options.limit || productsList.limit}
-                                    onChange={handleLimitChange}
-                                >
+                                    value={options.limit }
+                                    onChange={handleLimitChange}>
                                     <option value="6">6</option>
                                     <option value="12">12</option>
                                     <option value="18">18</option>
@@ -166,16 +167,15 @@ function ProductsView(props: ProductsViewProps) {
                     data-layout={layout !== 'list' ? grid : layout}
                     data-with-features={layout === 'grid-with-features' ? 'true' : 'false'}
                 >
-                    <div className="products-list__body">
+                    <div className="products-list__body ">
                         {productsListItems}
                     </div>
                 </div>
 
                 <div className="products-view__pagination">
                     <Pagination
-                        current={options.page || productsList.page}
+                        current={options.page }
                         siblings={2}
-                        total={productsList.pages}
                         onPageChange={handlePageChange}
                     />
                 </div>
@@ -184,19 +184,18 @@ function ProductsView(props: ProductsViewProps) {
     } else {
         content = (
             <div className="products-view__empty">
-                <div className="products-view__empty-title">No matching items</div>
-                <div className="products-view__empty-subtitle">Try resetting the filters</div>
+                <div className="products-view__empty-title">No existen elemntos</div>
+                <div className="products-view__empty-subtitle">Intenta reiniciar los filtros</div>
                 <button
                     type="button"
                     className="btn btn-primary btn-sm"
                     onClick={shopResetFilters}
                 >
-                    Reset filters
+                    Reiniciar los filtros
                 </button>
             </div>
         );
     }
-
     return (
         <div className={rootClasses}>
             <div className="products-view__loader" />

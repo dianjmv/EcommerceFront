@@ -43,7 +43,7 @@ export interface ShopPageCategoryProps {
     sidebarPosition?: ShopPageCategorySidebarPosition;
 }
 
-function ShopPageCategory(props: ShopPageCategoryProps) {
+function ShopPageSegment(props: ShopPageCategoryProps) {
     const { columns, viewMode, sidebarPosition = 'start',  } = props;
     const offcanvas = columns === 3 ? 'mobile' : 'always';
     const productsViewGrid = `grid-${columns}-${columns > 3 ? 'full' : 'sidebar'}` as ProductsViewGrid;
@@ -202,4 +202,4 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
     );
 }
 
-export default ShopPageCategory;
+export default ShopPageSegment;

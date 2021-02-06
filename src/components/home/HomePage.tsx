@@ -11,21 +11,14 @@ import {ICompanyInfo} from '../../interfaces/company-info';
 import {useCompanyInformation, useDeferredData, useProductColumns, useProductTabs} from '../../services/hooks';
 
 // blocks
-import BlockBanner from '../blocks/BlockBanner';
-import BlockBrands from '../blocks/BlockBrands';
-import BlockCategories from '../blocks/BlockCategories';
-import BlockFeatures from '../blocks/BlockFeatures';
-import BlockPosts from '../blocks/BlockPosts';
+
 import BlockProductColumns, {BlockProductColumnsItem} from '../blocks/BlockProductColumns';
 import BlockProducts from '../blocks/BlockProducts';
-import BlockProductsCarousel from '../blocks/BlockProductsCarousel';
+
 import BlockSlideShow from '../blocks/BlockSlideShow';
 
 // data stubs
-import dataBlogPosts from '../../data/blogPosts';
-import dataShopBlockCategories from '../../data/shopBlockCategories';
-import theme from '../../data/theme';
-import {getCompanyInfo} from "../../api/companyInfo";
+
 import {useCompanyAddInfo, useCompanyInfo} from "../../store/company/companyHooks";
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
 import {getProductsApi} from "../../api/products";
@@ -50,10 +43,12 @@ function HomePage(props: HomePageOneProps) {
     const {initData} = props;
     const [company, setCompany] = useState<ICompanyInfo>();
     const companyInfo = useCompanyInfo();
+    const addProductsState = useAddProducts();
     const productsAvailables = useProductsAvailable()
     const brandsCompany = useBrandCompany();
-    const [products, setProducts] = useState<IProduct[]|[]> ([]);
-    useEffect(()=>{
+    const [products, setProducts] = useState<IProduct[] | []>([]);
+    useEffect(() => {
+        getProductsApi().then(({data})=>(addProductsState(data)))
         setProducts(productsAvailables.products)
     }, [productsAvailables.products])
 
@@ -61,8 +56,7 @@ function HomePage(props: HomePageOneProps) {
         setCompany(companyInfo)
     }, [companyInfo])
 
-    const baseUrl= new BaseRepository();
-
+    const baseUrl = new BaseRepository();
 
 
     /**
@@ -89,44 +83,17 @@ function HomePage(props: HomePageOneProps) {
     /**
      * Latest products.
      */
-    const latestProducts = useProductTabs(
-        useMemo(() => [
-            {id: 1, name: 'All', categorySlug: undefined},
-            {id: 2, name: 'Power Tools', categorySlug: 'power-tools'},
-            {id: 3, name: 'Hand Tools', categorySlug: 'hand-tools'},
-            {id: 4, name: 'Plumbing', categorySlug: 'plumbing'},
-        ], []),
-        (tab) => shopApi.getLatestProducts({limit: 8, category: tab.categorySlug}),
-        initData?.latestProducts,
-    );
 
-    /**
-     * Product columns.
-     */
-    const columns = initData?.productColumns || useProductColumns(
-        useMemo(() => [
-            {
-                title: 'Top Rated Products',
-                source: () => shopApi.getTopRatedProducts({limit: 3}),
-            },
-            {
-                title: 'Special Offers',
-                source: () => shopApi.getDiscountedProducts({limit: 3}),
-            },
-            {
-                title: 'Bestsellers',
-                source: () => shopApi.getPopularProducts({limit: 3}),
-            },
-        ], []),
-    );
+
+
 
     return (
         <Fragment>
             <Head>
-                <title>{companyInfo !== undefined ? companyInfo.company_name: null}</title>
+                <title>{companyInfo !== undefined ? companyInfo.company_name : null}</title>
             </Head>
 
-            {useMemo(() => <BlockSlideShow/>, [])}
+            {companyInfo !== undefined ? useMemo(() => <BlockSlideShow banners={companyInfo.banners}/>, []) :null}
 
 
             {useMemo(() => (
@@ -141,21 +108,20 @@ function HomePage(props: HomePageOneProps) {
                 <h2 className={'block-header__title font-bold'}>Nuestras marcas</h2>
                 <div className={'mt-12 md:flex grid grid-cols-1 md:justify-center'}>
                     {
-                        brandsCompany.brands.length>0? brandsCompany.brands.map((brand)=>{
-                            return(
+                        brandsCompany.brands.length > 0 ? brandsCompany.brands.map((brand) => {
+                            return (
                                 <AppLink href={`brands/${brand.slug}`} key={brand.code} className={'md:pl-0 pl-32'}>
-                                    <img  src={`${baseUrl.getBaseUrl()}${brand.thumbnail_image.url}`} alt=""/>
+                                    <img src={`${baseUrl.getBaseUrl()}${brand.thumbnail_image.url}`} alt=""/>
                                 </AppLink>
                             )
-                        }):null
+                        }) : null
 
 
                     }
                 </div>
             </div>
-            <SocialNetworks />
+            <SocialNetworks/>
             <ContactForm/>
-
         </Fragment>
     );
 }

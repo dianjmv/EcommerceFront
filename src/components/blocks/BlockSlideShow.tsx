@@ -15,6 +15,7 @@ import {IBanners} from "../../interfaces/banners";
 
 export interface BlockSlideShowProps {
     withDepartments?: boolean;
+    banners: IBanners[]
 }
 
 const slickSettings = {
@@ -78,7 +79,7 @@ const _slides = [
 ];
 
 function BlockSlideShow(props: BlockSlideShowProps) {
-    const { withDepartments = false } = props;
+    const { withDepartments = false, banners=[] } = props;
     const direction = useDirection();
     const departmentsAreaRef = useRef<HTMLDivElement | null>(null);
     const isDesktop = useMedia('(min-width: 992px)');
@@ -94,11 +95,7 @@ function BlockSlideShow(props: BlockSlideShowProps) {
     }, [isDesktop, departmentsAreaRef]);
 
     useEffect(()=>{
-        getCompanyBanners().then(({data})=>{
-            setSlides(data);
-        }).catch((er)=>{
-            console.error(er)
-        })
+        setSlides(banners)
     }, [])
 
 

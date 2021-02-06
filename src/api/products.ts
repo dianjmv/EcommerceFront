@@ -8,3 +8,8 @@ export function getProductsApi(){
     const url = `${baseUrl.getBaseUrl()}/products`;
     return axios.get<IProduct[]>(url);
 }
+
+export function getProductBySlug(slug:string){
+    const url = `${baseUrl.getBaseUrl()}/products/?slug=${slug}`;
+    return axios.get<IProduct[]>(url);
+}

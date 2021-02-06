@@ -1,10 +1,16 @@
 // third-party
 import { GetServerSideProps } from 'next';
 // application
-import shopApi from '../../../api/shop';
+
 import ShopPageProduct from '../../../components/shop/ShopPageProduct';
 import SitePageNotFound from '../../../components/site/SitePageNotFound';
 import { IProduct } from '../../../interfaces/product';
+import {getProductBySlug} from "../../../api/products";
+
+
+export interface PageProps {
+    product: IProduct | null;
+}
 
 export interface PageProps {
     product: IProduct | null;
@@ -17,9 +23,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     if (typeof context.params?.slug === 'string') {
         const { slug } = context.params;
 
-        product = await shopApi.getProductBySlug(slug);
+        await getProductBySlug(slug).then(({data})=>(product = data[0]));
     }
-
     return {
         props: {
             product,
@@ -32,7 +37,9 @@ function Page({ product }: PageProps) {
         return <SitePageNotFound />;
     }
 
-    return <ShopPageProduct product={product} />;
+
+    return <ShopPageProduct product={product} layout="sidebar" />;
 }
 
 export default Page;
+

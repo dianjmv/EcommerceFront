@@ -16,4 +16,5 @@ export interface IBanners {
     image_classic: ImageBanner,
     image_mobile: ImageBanner
     link_purchase: ILinkPurchase
+
 }

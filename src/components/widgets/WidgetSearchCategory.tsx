@@ -14,7 +14,7 @@ export interface WidgetCategoriesProps {
     location?: WidgetCategoriesLocation;
 }
 
-function WidgetCategories(props: WidgetCategoriesProps) {
+function WidgetSearchCategory(props: WidgetCategoriesProps) {
     const { categories = [], location = 'blog' } = props;
     const categoriesList = categories.map((category) => {
         const renderCategory: RenderCategoryFn = ({ toggle, setItemRef, setContentRef }) => {
@@ -22,10 +22,13 @@ function WidgetCategories(props: WidgetCategoriesProps) {
             let childrenItems;
             return (
                 <li className="widget-categories__item" ref={setItemRef}>
-                    <div className="widget-categories__row">
-                        <AppLink href={`/shop/categories/${category.slug}`}>
+                    <div className="widget-categories__row flex">
+                        <AppLink href={`/shop/categories/${category.slug}`} >
                             <ArrowRoundedRight6x9Svg className="widget-categories__arrow" />
-                            {category.name}
+                            <div className={'flex items-center'}>
+                                <img src={`${process.env.NEXT_PUBLIC_BASE_URI}${category.icon.url}`} alt=""  className={'mr-2'}/>
+                                {category.name}
+                            </div>
                         </AppLink>
                         {expander}
                     </div>
@@ -47,4 +50,4 @@ function WidgetCategories(props: WidgetCategoriesProps) {
     );
 }
 
-export default WidgetCategories;
+export default WidgetSearchCategory;

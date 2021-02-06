@@ -50,7 +50,9 @@ export interface IProduct {
     reviews: IReview[];
     preguntas: IQuestion[];
     especificaciones: ISpec[];
-    resumenOpiniones: IOptionsSummary
+    resumenOpiniones: IOptionsSummary;
+    slug: string;
+    model:string;
 }
 
 export interface IOptionsSummary {
@@ -65,6 +67,7 @@ export interface IOptionsSummary {
 export interface ICharacteristic{
     id: number;
     descripcion: string;
+    title:string;
 }
 
 export type IProductsList = IPaginatedList<IProduct> & IFilterableList<IProduct, IFilter>;

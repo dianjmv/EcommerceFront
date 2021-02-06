@@ -18,7 +18,9 @@ import AppLink from './AppLink';
 import StroykaSlick, { SlickProps } from './StroykaSlick';
 import ZoomIn24Svg from '../../svg/zoom-in-24.svg';
 import { useDirection } from '../../store/locale/localeHooks';
-
+import {ImageBanner} from "../../interfaces/imageBanner";
+// @ts-ignore
+import ReactImageZoom from 'react-image-zoom';
 const slickSettingsFeatured = {
     dots: false,
     arrows: false,
@@ -95,7 +97,7 @@ type CreateGalleryFn = (
 export type ProductGalleryLayout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
 export interface ProductGalleryProps {
-    images: string[];
+    images: ImageBanner[];
     layout: ProductGalleryLayout;
 }
 
@@ -184,6 +186,7 @@ function ProductGallery(props: ProductGalleryProps) {
                 return;
             }
 
+            // @ts-ignore
             galleryRef.current = createGallery(items, options);
             galleryRef.current.listen('beforeChange', () => {
                 if (galleryRef.current && slickFeaturedRef.current) {
@@ -291,7 +294,7 @@ function ProductGallery(props: ProductGalleryProps) {
                     */}
                 <img
                     className="product-image__img"
-                    src={image}
+                    src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
                     alt=""
                     ref={(element) => { imagesRefs.current[index] = element; }}
                     data-width="700"
@@ -314,7 +317,7 @@ function ProductGallery(props: ProductGalleryProps) {
                 className={classes}
             >
                 <div className="product-image__body">
-                    <img className="product-image__img product-gallery__carousel-image" src={image} alt="" />
+                    <img className="product-image__img product-gallery__carousel-image" src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}` } alt="" />
                 </div>
             </button>
         );

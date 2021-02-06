@@ -1,5 +1,6 @@
 import { ICustomFields } from './custom-fields';
 import {ImageBanner} from "./imageBanner";
+import {IProduct} from "./product";
 
 export interface IBaseCategory {
     type: string;
@@ -13,6 +14,8 @@ export interface IBaseCategory {
     updated_at: string;
     thumbnail_image: ImageBanner;
     banner_images: ImageBanner[];
+    icon: ImageBanner;
+    products: IProduct[];
 }
 
 export interface IShopCategory extends IBaseCategory {

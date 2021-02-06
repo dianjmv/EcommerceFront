@@ -17,6 +17,7 @@ export interface CompanyInfoState {
     updated_at: string;
     logo: any;
     social_networks: any[];
-    catalog: ICatalog;
-    catalog_cover: Image
+    catalog: any;
+    catalog_cover: any
+    banners: any[]
 }

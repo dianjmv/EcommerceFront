@@ -60,7 +60,7 @@ function ProductCard(props: ProductCardProps) {
     if (product.images && product.images.length > 0) {
         image = (
             <div className="product-card__image product-image">
-                <AppLink href={'/products'} className="product-image__body">
+                <AppLink href={`shop/products/${product.slug}` } className="product-image__body">
                     <img className="product-image__img" src={`${baseUrl.getBaseUrl()}${product.images[0].url}`} alt="" />
                 </AppLink>
             </div>
@@ -75,7 +75,7 @@ function ProductCard(props: ProductCardProps) {
         );
 
 
-    if (product.caracteristicas && product.caracteristicas.length) {
+    if (product.caracteristicas) {
         features = (
             <ul className="product-card__features-list">
                 {product.caracteristicas.filter((x) => x.id).map((attribute, index) => (
@@ -83,7 +83,6 @@ function ProductCard(props: ProductCardProps) {
                 ))}
             </ul>
         );
-        console.log(features)
     }
 
     return (
@@ -108,17 +107,17 @@ function ProductCard(props: ProductCardProps) {
             {image}
             <div className="product-card__info">
                 <div className="product-card__name">
-                    <AppLink href={'products/'}>{product.title}</AppLink>
+                    <AppLink href={`/shop/products/${product.slug}`}>{product.title}</AppLink>
                 </div>
                 <div className="product-card__rating">
-                    <Rating value={product.resumenOpiniones.promedio} />
+                    <Rating value={ product.resumenOpiniones ? product.resumenOpiniones.promedio:0} />
                     <div className=" product-card__rating-legend">{`${product.reviews.length} Reviews`}</div>
                 </div>
                 {features}
             </div>
             <div className="product-card__actions">
                 <div className="product-card__availability">
-                    Availability:
+                    Disponibilidad:
                     <span className="text-success">In Stock</span>
                 </div>
                 {price}
@@ -143,37 +142,9 @@ function ProductCard(props: ProductCardProps) {
                                         'btn-loading': loading,
                                     })}
                                 >
-                                    Add To Cart
+                                    Agregar al Carrito
                                 </button>
                             </Fragment>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => wishlistAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Wishlist16Svg />
-                            </button>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => compareAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Compare16Svg />
-                            </button>
                         )}
                     />
                 </div>

@@ -27,7 +27,10 @@ const initialState: CompanyInfoState = {
     created_at: '',
     updated_at: '',
     logo: [],
-    social_networks: []
+    social_networks: [],
+    banners: [],
+    catalog: [],
+    catalog_cover: []
 }
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 
