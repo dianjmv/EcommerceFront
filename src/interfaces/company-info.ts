@@ -19,5 +19,6 @@ export interface ICompanyInfo{
     social_networks: SocialNetwork[];
     catalog: ICatalog;
     catalog_cover: Image;
-    banners: IBanners[]
+    banners: IBanners[];
+    blog_page_banner: IBanners;
 }

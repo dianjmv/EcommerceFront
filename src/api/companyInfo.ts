@@ -5,11 +5,18 @@ import {IBanners} from "../interfaces/banners";
 
 
 const baseUrl = new BaseRepository();
-
-export function getCompanyInfo() {
-    const url = `${baseUrl.getBaseUrl()}/company-informations`
-    return axios.get<ICompanyInfo[]>(url)
+class CompanyRepository{
+    public getCompanyInfo(){
+        const url = `${baseUrl.getBaseUrl()}/company-informations`
+        return axios.get<ICompanyInfo[]>(url)
+    }
 }
+export default CompanyRepository
+
+
+
+
+
 
 export function getCompanyBanners() {
     const url = `${baseUrl.getBaseUrl()}/banners`

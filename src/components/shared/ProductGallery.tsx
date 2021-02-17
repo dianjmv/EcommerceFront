@@ -21,6 +21,12 @@ import { useDirection } from '../../store/locale/localeHooks';
 import {ImageBanner} from "../../interfaces/imageBanner";
 // @ts-ignore
 import ReactImageZoom from 'react-image-zoom';
+import {Magnifier,
+    GlassMagnifier,
+    SideBySideMagnifier,
+    PictureInPictureMagnifier,
+    MOUSE_ACTIVATION,
+    TOUCH_ACTIVATION} from 'react-image-magnifiers'
 const slickSettingsFeatured = {
     dots: false,
     arrows: false,
@@ -276,31 +282,28 @@ function ProductGallery(props: ProductGalleryProps) {
         getIndexDependOnDirRef.current = getIndexDependOnDir;
     }, [getIndexDependOnDir]);
 
+
     const featured = images.map((image, index) => (
         <div key={index} className="product-image product-image--location--gallery">
-            <AppLink
-                href={`/${image}`}
-                className="product-image__body"
-                target="_blank"
-                onClick={(event: MouseEvent) => handleFeaturedClick(event, index)}
-            >
-                {/*
-                    The data-width and data-height attributes must contain the size of a larger
-                    version of the product image.
+            <SideBySideMagnifier
+                imageSrc={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
+                className="input-position"
+                largeImageSrc={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
+                alwaysInPlace={false}
+                overlayOpacity={0.6}
+                switchSides={false}
+                inPlaceMinBreakpoint={641}
+                fillAvailableSpace={false}
+                fillAlignTop={false}
+                fillGapTop={0}
+                fillGapRight={10}
+                fillGapBottom={10}
+                fillGapLeft={10}
+                zoomContainerBorder="1px solid #ccc"
+                zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
+                style={{position:'relative'}}
+            />
 
-                    If you do not know the image size, you can remove the data-width and data-height
-                    attribute, in which case the width and height will be obtained from the
-                    naturalWidth and naturalHeight property of img.product-image__img.
-                    */}
-                <img
-                    className="product-image__img"
-                    src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
-                    alt=""
-                    ref={(element) => { imagesRefs.current[index] = element; }}
-                    data-width="700"
-                    data-height="700"
-                />
-            </AppLink>
         </div>
     ));
 

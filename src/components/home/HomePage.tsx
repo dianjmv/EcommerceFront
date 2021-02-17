@@ -21,12 +21,14 @@ import BlockSlideShow from '../blocks/BlockSlideShow';
 
 import {useCompanyAddInfo, useCompanyInfo} from "../../store/company/companyHooks";
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
-import {getProductsApi} from "../../api/products";
+import ProductsRepository from "../../api/productsRepository";
 import {useBrandCompany} from "../../store/brand/brandHooks";
 import BaseRepository from "../../api/repository/baseRepository";
 import AppLink from "../shared/AppLink";
 import SocialNetworks from "../social-networks/SocialNetworks";
 import ContactForm from "../contact/ContactForm";
+import {ImageBanner} from "../../interfaces/imageBanner";
+import BlockSlideHome from '../blocks/BlockSlideHome';
 
 export interface InitData {
     featuredProducts?: IProduct[];
@@ -41,19 +43,23 @@ export interface HomePageOneProps {
 
 function HomePage(props: HomePageOneProps) {
     const {initData} = props;
-    const [company, setCompany] = useState<ICompanyInfo>();
+    const [company, setCompany] = useState<ICompanyInfo>() ;
     const companyInfo = useCompanyInfo();
     const addProductsState = useAddProducts();
     const productsAvailables = useProductsAvailable()
     const brandsCompany = useBrandCompany();
     const [products, setProducts] = useState<IProduct[] | []>([]);
+    const productsRepository= new ProductsRepository()
+
     useEffect(() => {
-        getProductsApi().then(({data})=>(addProductsState(data)))
+        productsRepository.getAllProducts().then(({data})=>(addProductsState(data)))
         setProducts(productsAvailables.products)
-    }, [productsAvailables.products])
+
+    }, [])
 
     useEffect(() => {
         setCompany(companyInfo)
+
     }, [companyInfo])
 
     const baseUrl = new BaseRepository();
@@ -80,6 +86,8 @@ function HomePage(props: HomePageOneProps) {
         shopApi.getPopularProducts({limit: 7})
     ), [], initData?.bestsellers);
 
+
+
     /**
      * Latest products.
      */
@@ -87,36 +95,35 @@ function HomePage(props: HomePageOneProps) {
 
 
 
+    // @ts-ignore
     return (
         <Fragment>
             <Head>
                 <title>{companyInfo !== undefined ? companyInfo.company_name : null}</title>
             </Head>
 
-            {companyInfo !== undefined ? useMemo(() => <BlockSlideShow banners={companyInfo.banners}/>, []) :null}
+            { <BlockSlideHome banners={companyInfo.banners}/> }
 
 
-            {useMemo(() => (
+            {productsAvailables.products !== []? useMemo(() => (
                 <BlockProducts
                     title="Productos Destacados"
                     layout="large-first"
-                    products={products.filter(product => product.is_featured)}
+                    products={productsAvailables.products.filter(product => product.is_featured)}
 
                 />
-            ), [products])}
+            ) , [productsAvailables.products]) :null}
             <div className={'text-center mt-10'}>
                 <h2 className={'block-header__title font-bold'}>Nuestras marcas</h2>
                 <div className={'mt-12 md:flex grid grid-cols-1 md:justify-center'}>
                     {
                         brandsCompany.brands.length > 0 ? brandsCompany.brands.map((brand) => {
                             return (
-                                <AppLink href={`brands/${brand.slug}`} key={brand.code} className={'md:pl-0 pl-32'}>
+                                <AppLink href={`/shop/brands/${brand.slug}`} key={brand.code} className={'md:pl-0 pl-32'}>
                                     <img src={`${baseUrl.getBaseUrl()}${brand.thumbnail_image.url}`} alt=""/>
                                 </AppLink>
                             )
                         }) : null
-
-
                     }
                 </div>
             </div>

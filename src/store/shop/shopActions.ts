@@ -1,8 +1,8 @@
 import shopApi from '../../api/shop';
-import { IFilterValues, IListOptions } from '../../interfaces/list';
-import { IProductsList } from '../../interfaces/product';
-import { IShopCategory } from '../../interfaces/category';
-import { SHOP_NAMESPACE } from './shopTypes';
+import {IFilterValues, IListOptions} from '../../interfaces/list';
+import {IProduct, IProductsList} from '../../interfaces/product';
+import {IShopCategory} from '../../interfaces/category';
+import {SHOP_NAMESPACE} from './shopTypes';
 import {
     SHOP_FETCH_CATEGORY_SUCCESS,
     SHOP_FETCH_PRODUCTS_LIST_START,
@@ -20,9 +20,12 @@ import {
     ShopSetOptionValueAction,
     ShopThunkAction,
 } from './shopActionTypes';
+import ProductsRepository from "../../api/productsRepository";
 
-let cancelPreviousCategoryRequest = () => {};
-let cancelPreviousProductsListRequest = () => {};
+let cancelPreviousCategoryRequest = () => {
+};
+let cancelPreviousProductsListRequest = () => {
+};
 
 export function shopInit(
     categorySlug: string | null,
@@ -50,7 +53,7 @@ export function shopFetchProductsListStart(): ShopFetchProductsListStartAction {
     };
 }
 
-export function shopFetchProductsListSuccess(productsList: IProductsList): ShopFetchProductsListSuccessAction {
+export function shopFetchProductsListSuccess(productsList: IProduct[]): ShopFetchProductsListSuccessAction {
     return {
         type: SHOP_FETCH_PRODUCTS_LIST_SUCCESS,
         productsList,
@@ -84,7 +87,9 @@ export function shopFetchCategoryThunk(categorySlug: string | null): ShopThunkAc
         let canceled = false;
 
         cancelPreviousCategoryRequest();
-        cancelPreviousCategoryRequest = () => { canceled = true; };
+        cancelPreviousCategoryRequest = () => {
+            canceled = true;
+        };
 
         let request: Promise<IShopCategory | null>;
 
@@ -107,27 +112,30 @@ export function shopFetchCategoryThunk(categorySlug: string | null): ShopThunkAc
 export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
     return async (dispatch, getState) => {
         let canceled = false;
+        const productsRepository = new ProductsRepository()
 
         cancelPreviousProductsListRequest();
-        cancelPreviousProductsListRequest = () => { canceled = true; };
+        cancelPreviousProductsListRequest = () => {
+            canceled = true;
+        };
 
         dispatch(shopFetchProductsListStart());
 
         const shopState = getState()[SHOP_NAMESPACE];
 
-        let { filters } = shopState;
+        let {filters} = shopState;
 
         if (shopState.categorySlug !== null) {
-            filters = { ...filters, category: shopState.categorySlug };
+            filters = {...filters, category: shopState.categorySlug};
         }
 
-        const productsList = await shopApi.getProductsList(shopState.options, filters);
+        await productsRepository.getAllProducts().then(({data}) => (dispatch(shopFetchProductsListSuccess(data))));
 
         if (canceled) {
             return;
         }
 
-        dispatch(shopFetchProductsListSuccess(productsList));
+
     };
 }
 

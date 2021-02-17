@@ -30,10 +30,11 @@ import {useShop} from '../../store/shop/shopHooks';
 // data stubs
 import theme from '../../data/theme';
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
-import {getProductsApi} from "../../api/products";
+
 import {useCompanyInfo} from "../../store/company/companyHooks";
 import {IBrand} from "../../interfaces/brand";
 import ContactForm from "../contact/ContactForm";
+import ProductsRepository from "../../api/productsRepository";
 
 export type ShopPageCategoryColumns = 3 | 4 | 5;
 export type ShopPageCategoryViewMode = 'grid' | 'grid-with-features' | 'list';
@@ -56,6 +57,7 @@ function ShopPageBrand(props: ShopPageCategoryProps) {
     const productsState = useProductsAvailable();
     const addProducts = useAddProducts();
     const companyInfo = useCompanyInfo();
+    const productsRepository = new ProductsRepository();
 
 
     const router = useRouter();
@@ -101,7 +103,7 @@ function ShopPageBrand(props: ShopPageCategoryProps) {
             if (productsState.products.length > 0) {
                 setLatestProducts(productsState.products)
             } else {
-                getProductsApi().then(({data}) => {
+                productsRepository.getAllProducts().then(({data}) => {
                     addProducts(data)
                     setLatestProducts(data)
                 })
@@ -110,7 +112,7 @@ function ShopPageBrand(props: ShopPageCategoryProps) {
             if (productsState.products.length > 0) {
                 setLatestProducts(productsState.products)
             } else {
-                getProductsApi().then(({data}) => {
+                productsRepository.getAllProducts().then(({data}) => {
                     addProducts(data)
                     setLatestProducts(data)
                 })
@@ -138,7 +140,7 @@ function ShopPageBrand(props: ShopPageCategoryProps) {
 
     const breadcrumb = [
         {title: 'Inicio', url: url.home()},
-        {title: 'Tienda', url: url.catalog()},
+        {title: 'Marcas', url: '/shop/'},
         {title: brand.name, url: `/shop/brands/${brand.slug}`}
     ];
     let pageTitle = '';
@@ -166,20 +168,22 @@ function ShopPageBrand(props: ShopPageCategoryProps) {
         content = (
             <div className="container">
                 <div className="block">{productsView}</div>
-                {sidebarComponent}
+
             </div>
         );
     } else {
         const sidebar = (
             <div className="shop-layout__sidebar">
-                {sidebarComponent}
+
             </div>
         );
 
         content = (
             <div className="container">
                 <div className={`shop-layout shop-layout--sidebar--${sidebarPosition}`}>
-                    {sidebarPosition === 'start' && sidebar}
+                    <div className="shop-layout__sidebar">
+                        {sidebarComponent}
+                    </div>
                     <div className="shop-layout__content">
                         <div className="block">{productsView}</div>
                     </div>

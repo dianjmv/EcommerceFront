@@ -30,8 +30,10 @@ import { useShop } from '../../store/shop/shopHooks';
 // data stubs
 import theme from '../../data/theme';
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
-import {getProductsApi} from "../../api/products";
+
 import {useCompanyInfo} from "../../store/company/companyHooks";
+import ProductsRepository from "../../api/productsRepository";
+
 
 export type ShopPageCategoryColumns = 3 | 4 | 5;
 export type ShopPageCategoryViewMode = 'grid' | 'grid-with-features' | 'list';
@@ -63,6 +65,7 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     const openSidebarFn = useCallback(() => setSidebarOpen(true), [setSidebarOpen]);
     const closeSidebarFn = useCallback(() => setSidebarOpen(false), [setSidebarOpen]);
+    const productsRepository = new ProductsRepository()
 
 
 
@@ -95,12 +98,11 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
     // Load latest products.
     useEffect(() => {
         let canceled = false;
-
         if (offcanvas === 'always') {
             if (productsState.products.length>0){
                 setLatestProducts(productsState.products)
             }else {
-                getProductsApi().then(({data})=>{
+                productsRepository.getAllProducts().then(({data})=>{
                     addProducts(data)
                     setLatestProducts(data)
                 })
@@ -109,13 +111,12 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
             if (productsState.products.length>0){
                 setLatestProducts(productsState.products)
             }else {
-                getProductsApi().then(({data})=>{
+                productsRepository.getAllProducts().then(({data})=>{
                     addProducts(data)
                     setLatestProducts(data)
                 })
             }
         }
-
         return () => {
             canceled = true;
         };
@@ -157,7 +158,6 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
             grid={productsViewGrid}
             offcanvas={offcanvas}
             openSidebarFn={openSidebarFn}
-
         />
     );
 
@@ -178,7 +178,9 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
         content = (
             <div className="container">
                 <div className={`shop-layout shop-layout--sidebar--${sidebarPosition}`}>
-                    {sidebarPosition === 'start' && sidebar}
+                    <div className="shop-layout__sidebar">
+                        {sidebarComponent}
+                    </div>
                     <div className="shop-layout__content">
                         <div className="block">{productsView}</div>
                     </div>
@@ -188,7 +190,6 @@ function ShopPageCategory(props: ShopPageCategoryProps) {
         );
     }
 
-    console.log(latestProducts)
     return (
         <Fragment>
             <Head>

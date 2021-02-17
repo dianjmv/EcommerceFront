@@ -19,6 +19,7 @@ function IndicatorCart() {
     const cartRemoveItem = useCartRemoveItem();
     let dropdown;
     let totals;
+    console.log(cart)
 
     if (cart.totals.length > 0) {
         totals = cart.totals.map((total, index) => (
@@ -57,7 +58,7 @@ function IndicatorCart() {
             image = (
                 <div className="product-image dropcart__product-image">
                     <AppLink href={url.product(item.product)} className="product-image__body">
-                        <img className="product-image__img" src={item.product.images[0]} alt="" />
+                        <img className="product-image__img" src={`${process.env.NEXT_PUBLIC_BASE_URI}${item.product.images[0].url}` } alt="" />
                     </AppLink>
                 </div>
             );
@@ -85,7 +86,7 @@ function IndicatorCart() {
                 {image}
                 <div className="dropcart__product-info">
                     <div className="dropcart__product-name">
-                        <AppLink href={url.product(item.product)}>{item.product.name}</AppLink>
+                        <AppLink href={url.product(item.product)}>{item.product.title}</AppLink>
                     </div>
                     {options}
                     <div className="dropcart__product-meta">
@@ -119,8 +120,8 @@ function IndicatorCart() {
                 </div>
 
                 <div className="dropcart__buttons">
-                    <AppLink href={url.cart()} className="btn btn-secondary">View Cart</AppLink>
-                    <AppLink href={url.checkout()} className="btn btn-primary">Checkout</AppLink>
+                    <AppLink href={url.cart()} className="btn btn-secondary">Ver el Carrito</AppLink>
+                    <AppLink href={url.checkout()} className="btn btn-primary">Pagar</AppLink>
                 </div>
             </div>
         );
@@ -128,7 +129,7 @@ function IndicatorCart() {
         dropdown = (
             <div className="dropcart">
                 <div className="dropcart__empty">
-                    Your shopping cart is empty!
+                    Tu carrito está vacío
                 </div>
             </div>
         );

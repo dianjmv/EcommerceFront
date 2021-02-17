@@ -8,8 +8,8 @@ import rootReducer from './root/rootReducer';
 import version from './version';
 import { FirstArgType } from './types';
 import { RootState } from './root/rootTypes';
-import {useAddBrandCompany} from "./brand/brandHooks";
-import {getCompanyBrands} from "../api/brand";
+
+
 
 export const save = (state: any) => {
     try {
@@ -21,9 +21,6 @@ export const save = (state: any) => {
 };
 
 export const load = () => {
-
-
-
 
     if (!process.browser) {
         return undefined;

@@ -57,13 +57,8 @@ function calcTotals(items: CartItem[]): CartTotal[] {
     return [
         {
             type: 'shipping',
-            title: 'Shipping',
-            price: 25,
-        },
-        {
-            type: 'tax',
-            title: 'Tax',
-            price: subtotal * 0.2,
+            title: 'Envio',
+            price: 10,
         },
     ];
 }
@@ -80,8 +75,8 @@ function addItem(state: CartState, product: IProduct, options: CartItemOption[],
             id: lastItemId,
             product: JSON.parse(JSON.stringify(product)),
             options: JSON.parse(JSON.stringify(options)),
-            price: product.price,
-            total: product.price * quantity,
+            price: product.sale_price,
+            total: product.sale_price * quantity,
             quantity,
         }];
     } else {

@@ -4,14 +4,17 @@ import {GetServerSideProps} from "next";
 import SitePageNotFound from "../../../../components/site/SitePageNotFound";
 import {useAddProducts} from "../../../../store/product/productHooks";
 import {useEffect, useState} from "react";
-import {getProductsApi} from "../../../../api/products";
+
 
 import ShopPageBrand from "../../../../components/shop/ShopPageBrand";
 
 import {IBrand} from "../../../../interfaces/brand";
-import {getBrandBySlug} from "../../../../api/brands";
+
 import React from "react";
 import exp from "constants";
+import BrandsRepository from "../../../../api/brandsRepository";
+import ProductsRepository from "../../../../api/productsRepository";
+import {useAddFilterProduct} from "../../../../store/filter/filterHooks";
 
 export interface PageProps {
     products: IProduct[] | null;
@@ -22,10 +25,11 @@ export interface PageProps {
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
     let products: IProduct[] | null = [];
     let brand: IBrand | null = null
+    const brandsRepository = new BrandsRepository()
 
     if (typeof context.params?.slug === 'string') {
         const {slug} = context.params;
-        await getBrandBySlug(slug).then(({data}) => {
+        await brandsRepository.getBrandBySlug(slug).then(({data}) => {
             products = data[0].products;
             brand = data[0]
         });
@@ -47,9 +51,11 @@ function Page({products, brand}: PageProps) {
     const [allProductsList, setProductsList] = useState<IProduct[]>([])
     const [categoryProducts, setCategoryProducts] = useState<IProduct[]>([])
     const ids: number[] = products.map(product => product.id)
+    const productsRepository = new ProductsRepository()
+    const addFilter = useAddFilterProduct();
     useEffect(() => {
-        getProductsApi().then(({data}) => (setProductsList(data)))
-    }, [])
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+    }, [brand])
 
     useEffect(() => {
         setCategoryProducts(allProductsList.filter((product) => (ids.includes(product.id)
@@ -58,8 +64,13 @@ function Page({products, brand}: PageProps) {
 
     useEffect(() => {
         productsState(categoryProducts)
+        addFilter({
+            type:'brands',
+            slug:brand.slug,
+            value:true
+        })
     }, [categoryProducts])
 
-    return <ShopPageBrand columns={3} viewMode="grid" sidebarPosition="start" brand={brand}/>;
+    return <ShopPageBrand columns={4} viewMode="grid" brand={brand}/>;
 }
 export default Page;

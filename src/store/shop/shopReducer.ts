@@ -1,4 +1,4 @@
-// application
+    // application
 import { IFilterValues } from '../../interfaces/list';
 import { SHOP_NAMESPACE, ShopState } from './shopTypes';
 import {

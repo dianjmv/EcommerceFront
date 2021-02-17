@@ -30,8 +30,10 @@ import { useShop } from '../../store/shop/shopHooks';
 // data stubs
 import theme from '../../data/theme';
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
-import {getProductsApi} from "../../api/products";
+import ProductsRepository from "../../api/productsRepository";
 import {useCompanyInfo} from "../../store/company/companyHooks";
+import {ISegment} from "../../interfaces/segment";
+import ContactForm from "../contact/ContactForm";
 
 export type ShopPageCategoryColumns = 3 | 4 | 5;
 export type ShopPageCategoryViewMode = 'grid' | 'grid-with-features' | 'list';
@@ -41,10 +43,11 @@ export interface ShopPageCategoryProps {
     columns: ShopPageCategoryColumns;
     viewMode: ShopPageCategoryViewMode;
     sidebarPosition?: ShopPageCategorySidebarPosition;
+    segment?: ISegment[]
 }
 
 function ShopPageSegment(props: ShopPageCategoryProps) {
-    const { columns, viewMode, sidebarPosition = 'start',  } = props;
+    const { columns, viewMode, sidebarPosition = 'start', segment=[]  } = props;
     const offcanvas = columns === 3 ? 'mobile' : 'always';
     const productsViewGrid = `grid-${columns}-${columns > 3 ? 'full' : 'sidebar'}` as ProductsViewGrid;
 
@@ -53,6 +56,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     const productsState = useProductsAvailable();
     const addProducts = useAddProducts();
     const companyInfo = useCompanyInfo();
+    const productsRepository = new ProductsRepository()
 
 
 
@@ -100,7 +104,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
             if (productsState.products.length>0){
                 setLatestProducts(productsState.products)
             }else {
-                getProductsApi().then(({data})=>{
+                productsRepository.getAllProducts().then(({data})=>{
                     addProducts(data)
                     setLatestProducts(data)
                 })
@@ -109,7 +113,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
             if (productsState.products.length>0){
                 setLatestProducts(productsState.products)
             }else {
-                getProductsApi().then(({data})=>{
+                productsRepository.getAllProducts().then(({data})=>{
                     addProducts(data)
                     setLatestProducts(data)
                 })
@@ -138,9 +142,10 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
 
     const breadcrumb = [
         { title: 'Inicio', url: url.home() },
-        { title: 'Tienda', url: url.catalog() },
+        { title: 'Segmentos', url: url.catalog() },
+        {title: segment[0].name}
     ];
-    let pageTitle = 'Tienda';
+    let pageTitle = '';
     let content;
 
     // if (shopState.category) {
@@ -171,14 +176,16 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     } else {
         const sidebar = (
             <div className="shop-layout__sidebar">
-                {sidebarComponent}
+
             </div>
         );
 
         content = (
             <div className="container">
                 <div className={`shop-layout shop-layout--sidebar--${sidebarPosition}`}>
-                    {sidebarPosition === 'start' && sidebar}
+                    <div className="shop-layout__sidebar">
+                        {sidebarComponent}
+                    </div>
                     <div className="shop-layout__content">
                         <div className="block">{productsView}</div>
                     </div>
@@ -192,12 +199,20 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     return (
         <Fragment>
             <Head>
-                <title>{companyInfo !== undefined ? companyInfo.company_name: null} | Tienda</title>
+                <title>{companyInfo !== undefined ? companyInfo.company_name: null} | Segmentos</title>
             </Head>
+            <div className={'bg-gray-200 text-center text-white font-bold text-5xl py-20'} style={{
+                backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${segment[0].banner.url})`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center'
+            }}>
+                {segment[0].name}
+            </div>
 
             <PageHeader header={pageTitle} breadcrumb={breadcrumb} />
-
             {content}
+            <ContactForm/>
         </Fragment>
     );
 }

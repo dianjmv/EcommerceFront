@@ -20,4 +20,5 @@ export interface CompanyInfoState {
     catalog: any;
     catalog_cover: any
     banners: any[]
+    blog_page_banner: any
 }

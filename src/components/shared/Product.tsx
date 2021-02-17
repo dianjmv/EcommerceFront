@@ -108,10 +108,10 @@ function Product(props: ProductProps) {
                     <div className={'mt-2'}>
                         <p className={'font-bold text-black'}>SKU:{product.code}</p>
                         <div className={'flex font-bold'}><span className={'text-black'}>Categorias: </span>
-                            <ul>
+                            <ul className={'flex'}>
                                 {
                                     product.product_categories.map((categories) => {
-                                        return (<li className={'mx-2'} key={categories.id}>
+                                        return (<li className={'mx-1'} key={categories.id}>
                                             <AppLink
                                                 href={`/shop/categories/${categories.slug}`}>{categories.name}</AppLink>,
                                         </li>)

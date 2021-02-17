@@ -1,7 +1,7 @@
 // application
 import { ICategory } from '../../interfaces/category';
 import { IFilterValues, IListOptions } from '../../interfaces/list';
-import { IProductsList } from '../../interfaces/product';
+import {IProduct, IProductsList} from '../../interfaces/product';
 
 export const SHOP_NAMESPACE = 'shop';
 
@@ -11,7 +11,7 @@ export interface ShopState {
     categoryIsLoading: boolean;
     category: ICategory | null;
     productsListIsLoading: boolean;
-    productsList: IProductsList | null;
+    productsList: IProduct[] | null;
     options: IListOptions;
     filters: IFilterValues;
 }

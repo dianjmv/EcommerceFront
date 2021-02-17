@@ -1,10 +1,7 @@
 import {BrandStateType} from "./brandType";
-import {getCompanyBrands} from "../../api/brand";
-import {COMPANY_ADD_INFO, CompanyAddInfoAction} from "../company/companyActionsType";
 import {ADD_BRANDS, AddBrandsActionType} from "./brandActionsType";
 import {IBrand} from "../../interfaces/brand";
 import {withClientState} from "../client";
-import {COMPANY_INFO_NAMESPACE} from "../company/companyReducer";
 
 
 function addBrand(state: BrandStateType, brands: IBrand[]): BrandStateType {
