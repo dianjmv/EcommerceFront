@@ -115,10 +115,13 @@ function ProductsView(props: ProductsViewProps) {
             for (const filter of filtersActivated.filters) {
                 if (filter.type === 'categories' || filter.type === 'brands' || filter.type === 'segments') {
                     productsFiltered = products.filter(produc => {
+                        console.log((produc.sale_price >= min && produc.sale_price <= max))
                             return (
                                 (produc.product_categories.filter(category => category.slug === filter.slug).length > 0 ||
                                     produc.brands.filter(brand => brand.slug === filter.slug).length > 0 ||
                                     produc.segments.filter(segment => segment.slug === filter.slug).length > 0)
+                                &&
+                                (produc.sale_price >= min && produc.sale_price <= max)
                             )
                         }
                     )

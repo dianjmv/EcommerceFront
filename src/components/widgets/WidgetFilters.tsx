@@ -27,6 +27,7 @@ import CurrencyFormat from "../shared/CurrencyFormat";
 import ProductsRepository from "../../api/productsRepository";
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
 import {IProduct} from "../../interfaces/product";
+import {filter} from "domutils";
 
 type WidgetFiltersProps = {
     title?: ReactNode;
@@ -131,13 +132,17 @@ function WidgetFilters(props: WidgetFiltersProps) {
                 haveFilters = true;
             }
         }
-        if (haveFilters){
+        if (haveFilters) {
             filterProducts(productsState.products)
-        }else{
-            productsRepository.getAllProducts().then(({data})=>(filterProducts(data)))
+        } else {
+            productsRepository.getAllProducts().then(({data}) => (filterProducts(data)))
         }
 
-    }, [filtersActivated.filters])
+    }, [
+        filtersActivated.filters,
+        filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.min,
+        filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.max
+    ])
 
 
     function handleChangePrice(event: any) {
@@ -160,10 +165,15 @@ function WidgetFilters(props: WidgetFiltersProps) {
             for (const filter of filtersActivated.filters) {
                 if (filter.type === 'categories' || filter.type === 'brands' || filter.type === 'segments') {
                     productsFiltered = products.filter(produc => {
+                        console.log((produc.sale_price >= min && produc.sale_price <= max))
                             return (
-                                (produc.product_categories.filter(category => category.slug === filter.slug).length > 0 ||
+                                (
+                                    (produc.product_categories.filter(category => category.slug === filter.slug).length > 0 ||
                                     produc.brands.filter(brand => brand.slug === filter.slug).length > 0 ||
                                     produc.segments.filter(segment => segment.slug === filter.slug).length > 0)
+                                    &&
+                                    (produc.sale_price >= min && produc.sale_price <= max)
+                                )
                             )
                         }
                     )
@@ -183,7 +193,10 @@ function WidgetFilters(props: WidgetFiltersProps) {
                 <InputRange
                     minValue={0}
                     maxValue={999}
-                    value={{min: minValue, max: maxValue}}
+                    value={{
+                        min: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ? filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.min : minValue,
+                        max: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ? filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.max : maxValue
+                    }}
                     step={1}
                     onChange={handleChangePrice}
                 />
