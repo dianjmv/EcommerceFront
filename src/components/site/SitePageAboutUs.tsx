@@ -8,6 +8,17 @@ import url from '../../services/url';
 
 // data stubs
 import theme from '../../data/theme';
+import {useCompanyAddInfo, useCompanyInfo} from "../../store/company/companyHooks";
+// @ts-ignore
+import MDReactComponent from 'markdown-react-js';
+import CompanyRepository from "../../api/companyInfo";
+import {useEffect, useState} from "react";
+import {ICompanyInfo} from "../../interfaces/company-info";
+import {
+    ShopPageCategoryColumns,
+    ShopPageCategorySidebarPosition,
+    ShopPageCategoryViewMode
+} from "../shop/ShopPageCategory";
 
 const slickSettings = {
     dots: true,
@@ -33,68 +44,31 @@ const slickSettings = {
         },
     ],
 };
+interface SitePageAboutUsProps {
+    banner: string;
+    content: string;
+    tittle:string
+}
 
-function SitePageAboutUs() {
+function SitePageAboutUs(props:SitePageAboutUsProps) {
+    const {banner, content, tittle} = props
+    const companyInfo = useCompanyInfo();
+
     return (
         <div className="block about-us">
             <Head>
-                <title>{`About Us — ${theme.name}`}</title>
+                <title>{`${companyInfo.company_name} | ${tittle}`}</title>
             </Head>
 
-            <div className="about-us__image" style={{ backgroundImage: 'url("/images/aboutus.jpg")' }} />
+            <div className="about-us__image"
+                 style={{backgroundImage: `url("${process.env.NEXT_PUBLIC_BASE_URI}${companyInfo ? banner : ''}")`}}/>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-12 col-xl-10">
                         <div className="about-us__body">
-                            <h1 className="about-us__title">About Us</h1>
+                            <h1 className="about-us__title text-5xl font-bold">{tittle}</h1>
                             <div className="about-us__text typography">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Cras lacus metus, convallis ut leo nec, tincidunt
-                                    eleifend justo. Ut felis orci, hendrerit a pulvinar et,
-                                    gravida ac lorem. Sed vitae molestie sapien, at
-                                    sollicitudin tortor.
-                                </p>
-                                <p>
-                                    Duis id volutpat libero, id vestibulum purus.Donec euismod
-                                    accumsan felis,egestas lobortis velit tempor vitae. Integer
-                                    eget velit fermentum, dignissim odio non, bibendum velit.
-                                </p>
-                            </div>
-                            <div className="about-us__team">
-                                <h2 className="about-us__team-title">Meat Our Team</h2>
-                                <div className="about-us__team-subtitle text-muted">
-                                    Want to work in our friendly team?
-                                    <br />
-                                    <AppLink href={url.contacts()}>Contact us</AppLink>
-                                    {' '}
-                                    and we will consider your candidacy.
-                                </div>
-                                <div className="about-us__teammates teammates">
-                                    <StroykaSlick {...slickSettings}>
-                                        <div className="teammates__item teammate">
-                                            <div className="teammate__avatar">
-                                                <img src="/images/teammates/teammate-1.jpg" alt="" />
-                                            </div>
-                                            <div className="teammate__name">Michael Russo</div>
-                                            <div className="teammate__position text-muted">Chief Executive Officer</div>
-                                        </div>
-                                        <div className="teammates__item teammate">
-                                            <div className="teammate__avatar">
-                                                <img src="/images/teammates/teammate-2.jpg" alt="" />
-                                            </div>
-                                            <div className="teammate__name">Katherine Miller</div>
-                                            <div className="teammate__position text-muted">Marketing Officer</div>
-                                        </div>
-                                        <div className="teammates__item teammate">
-                                            <div className="teammate__avatar">
-                                                <img src="/images/teammates/teammate-3.jpg" alt="" />
-                                            </div>
-                                            <div className="teammate__name">Anthony Harris</div>
-                                            <div className="teammate__position text-muted">Finance Director</div>
-                                        </div>
-                                    </StroykaSlick>
-                                </div>
+                                <MDReactComponent text={content}/>
                             </div>
                         </div>
                     </div>

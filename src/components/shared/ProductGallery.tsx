@@ -27,6 +27,7 @@ import {Magnifier,
     PictureInPictureMagnifier,
     MOUSE_ACTIVATION,
     TOUCH_ACTIVATION} from 'react-image-magnifiers'
+import ReactImageMagnify from "react-image-magnify";
 const slickSettingsFeatured = {
     dots: false,
     arrows: false,
@@ -285,24 +286,56 @@ function ProductGallery(props: ProductGalleryProps) {
 
     const featured = images.map((image, index) => (
         <div key={index} className="product-image product-image--location--gallery">
-            <SideBySideMagnifier
-                imageSrc={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
-                className="input-position"
-                largeImageSrc={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
-                alwaysInPlace={false}
-                overlayOpacity={0.6}
-                switchSides={false}
-                inPlaceMinBreakpoint={641}
-                fillAvailableSpace={false}
-                fillAlignTop={false}
-                fillGapTop={0}
-                fillGapRight={10}
-                fillGapBottom={10}
-                fillGapLeft={10}
-                zoomContainerBorder="1px solid #ccc"
-                zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
-                style={{position:'relative'}}
-            />
+            <div className={'md:grid hidden'}>
+                <ReactImageMagnify {...{
+                    className:'bg-gray-300 z-50',
+                    enlargedImageContainerClassName: 'bg-gray-300 z-50 ml-32 border-2 border-gray-400',
+                    enlargedImagePortalId:'zoom-img-id',
+                    enlargedImageContainerStyle:{
+                        position:'fixed',
+                        left:'980px',
+                        top:'170px',
+                        width: '800px'
+                    },
+                    enlargedImageClassName:'bg-gray-300 z-50 ',
+                    smallImage: {
+                        alt: 'Wristwatch by Ted Baker London',
+                        isFluidWidth: true,
+                        src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
+                    },
+                    largeImage: {
+                        src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
+                        width: 1200,
+                        height: 1800
+                    }
+                }} />
+            </div>
+            <div className={'md:hidden '}>
+                <AppLink
+                    href={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
+                    className="product-image__body"
+                    target="_blank"
+                    onClick={(event: MouseEvent) => handleFeaturedClick(event, index)}
+                >
+                    {/*
+                    The data-width and data-height attributes must contain the size of a larger
+                    version of the product image.
+
+                    If you do not know the image size, you can remove the data-width and data-height
+                    attribute, in which case the width and height will be obtained from the
+                    naturalWidth and naturalHeight property of img.product-image__img.
+                    */}
+                    <img
+                        className="product-image__img"
+                        src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
+                        alt=""
+                        ref={(element) => { imagesRefs.current[index] = element; }}
+                        data-width="700"
+                        data-height="700"
+                    />
+                </AppLink>
+
+            </div>
 
         </div>
     ));
@@ -330,11 +363,6 @@ function ProductGallery(props: ProductGalleryProps) {
         <div className="product__gallery">
             <div className="product-gallery">
                 <div className="product-gallery__featured">
-                    {layout !== 'quickview' && (
-                        <button type="button" className="product-gallery__zoom" onClick={handleZoomButtonClick}>
-                            <ZoomIn24Svg />
-                        </button>
-                    )}
                     <StroykaSlick
                         ref={slickFeaturedRef}
                         {...slickSettingsFeatured}

@@ -44,7 +44,11 @@ function resetFilters() {
 
 
 const initialState: IFilterProductType = {
-    filters: []
+    filters: [{
+        type: 'price',
+        slug: 'price',
+        value: {min: 0, max: 999}
+    }]
 }
 export const FILTER_PRODUCT_NAMESPACE = 'filterProduct';
 

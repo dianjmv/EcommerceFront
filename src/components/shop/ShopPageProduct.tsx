@@ -163,7 +163,7 @@ function ShopPageProduct(props: ShopPageProductProps) {
 
                         {relatedProducts.length > 0 && (
                             <BlockProductsCarousel
-                                title="Related Products"
+                                title="Productos Relacionados"
                                 layout="grid-4-sm"
                                 products={relatedProducts}
                                 withSidebar

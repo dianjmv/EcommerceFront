@@ -17,7 +17,9 @@ import {IProduct} from '../../interfaces/product';
 import {useCompareAddItem} from '../../store/compare/compareHooks';
 import {useWishlistAddItem} from '../../store/wishlist/wishlistHooks';
 import {useCartAddItem} from '../../store/cart/cartHooks';
-
+import {SideBySideMagnifier} from "react-image-magnifiers";
+// @ts-ignore
+import ReactImageMagnify from 'react-image-magnify'
 export type ProductLayout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
 export interface ProductProps {
@@ -47,8 +49,7 @@ function Product(props: ProductProps) {
         <div className={`product product--layout--${layout}`}>
             <div className="product__content">
                 <ProductGallery layout={layout} images={product.images}/>
-
-                <div className="product__info">
+                <div className="product__info" id={'zoom-img-id'}>
                     <div className="product__wishlist-compare">
                         <AsyncAction
                             action={() => wishlistAddItem(product)}

@@ -65,8 +65,8 @@ function ProductCard(props: ProductCardProps) {
 
                 {
                     showDetail ?
-                        <div className={'bg-blue-700 text-white px-2 py-2'}>
-                            <ul className={'product-image__body text-sm'}>
+                        <AppLink href={`/shop/products/${product.slug}`} className="product-image__body bg-blue-600 text-white">
+                            <ul className={'product-image__img text-sm '}>
                                 {
                                     product.caracteristicas.map((especification) => (
                                         <li key={especification.id}>
@@ -75,14 +75,13 @@ function ProductCard(props: ProductCardProps) {
                                     ))
                                 }
                             </ul>
-                        </div>
+                        </AppLink>
                         :
                         <AppLink href={`/shop/products/${product.slug}`} className="product-image__body">
                             <img className="product-image__img" src={`${baseUrl.getBaseUrl()}${product.images[0].url}`}
                                  alt=""/>
                         </AppLink>
                 }
-
             </div>
         );
     }
