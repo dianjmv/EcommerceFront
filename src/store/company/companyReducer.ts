@@ -30,7 +30,8 @@ const initialState: CompanyInfoState = {
     social_networks: [],
     banners: [],
     catalog: [],
-    catalog_cover: []
+    catalog_cover: [],
+    blog_page_banner: ''
 }
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 

@@ -17,7 +17,9 @@ import {IProduct} from '../../interfaces/product';
 import {useCompareAddItem} from '../../store/compare/compareHooks';
 import {useWishlistAddItem} from '../../store/wishlist/wishlistHooks';
 import {useCartAddItem} from '../../store/cart/cartHooks';
-
+import {SideBySideMagnifier} from "react-image-magnifiers";
+// @ts-ignore
+import ReactImageMagnify from 'react-image-magnify'
 export type ProductLayout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
 export interface ProductProps {
@@ -47,8 +49,7 @@ function Product(props: ProductProps) {
         <div className={`product product--layout--${layout}`}>
             <div className="product__content">
                 <ProductGallery layout={layout} images={product.images}/>
-
-                <div className="product__info">
+                <div className="product__info" id={'zoom-img-id'}>
                     <div className="product__wishlist-compare">
                         <AsyncAction
                             action={() => wishlistAddItem(product)}
@@ -108,10 +109,10 @@ function Product(props: ProductProps) {
                     <div className={'mt-2'}>
                         <p className={'font-bold text-black'}>SKU:{product.code}</p>
                         <div className={'flex font-bold'}><span className={'text-black'}>Categorias: </span>
-                            <ul>
+                            <ul className={'flex'}>
                                 {
                                     product.product_categories.map((categories) => {
-                                        return (<li className={'mx-2'} key={categories.id}>
+                                        return (<li className={'mx-1'} key={categories.id}>
                                             <AppLink
                                                 href={`/shop/categories/${categories.slug}`}>{categories.name}</AppLink>,
                                         </li>)

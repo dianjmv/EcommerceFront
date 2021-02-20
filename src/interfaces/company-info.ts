@@ -2,6 +2,7 @@ import {SocialNetwork} from "./social-network";
 import {IBanners} from "./banners";
 import {ICatalog} from "./catalog";
 import {Image} from "./image";
+import {ImageBanner} from "./imageBanner";
 
 export interface ICompanyInfo{
     id: number;
@@ -19,5 +20,12 @@ export interface ICompanyInfo{
     social_networks: SocialNetwork[];
     catalog: ICatalog;
     catalog_cover: Image;
-    banners: IBanners[]
+    banners: IBanners[];
+    blog_page_banner: IBanners;
+    about_us_banner: ImageBanner
+    faqs_banner: ImageBanner
+    privacy_politics_banner: ImageBanner
+    terms_and_conditions_banner: ImageBanner
+    devolution:string;
+    devolution_banner:ImageBanner
 }

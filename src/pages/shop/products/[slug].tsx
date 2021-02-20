@@ -5,7 +5,8 @@ import { GetServerSideProps } from 'next';
 import ShopPageProduct from '../../../components/shop/ShopPageProduct';
 import SitePageNotFound from '../../../components/site/SitePageNotFound';
 import { IProduct } from '../../../interfaces/product';
-import {getProductBySlug} from "../../../api/products";
+import ProductsRepository from "../../../api/productsRepository";
+
 
 
 export interface PageProps {
@@ -19,11 +20,10 @@ export interface PageProps {
 // noinspection JSUnusedGlobalSymbols
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
     let product: IProduct | null = null;
-
+    const productsRepository = new ProductsRepository()
     if (typeof context.params?.slug === 'string') {
         const { slug } = context.params;
-
-        await getProductBySlug(slug).then(({data})=>(product = data[0]));
+        await productsRepository.getProductBySlug(slug).then(({data})=>(product = data[0]));
     }
     return {
         props: {

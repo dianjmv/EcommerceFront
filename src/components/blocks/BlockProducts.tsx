@@ -33,15 +33,12 @@ function BlockProducts(props: BlockProductsProps) {
             </div>
         );
     }
-
     if (products.length > 0) {
         const productsList = products.map((product, index) => (
             <div key={index} className="block-products__list-item ">
                 <ProductCard product={product} />
             </div>
         ));
-        console.log(productsList)
-
         smalls = (
             <div className="block-products__list ">
                 {productsList}

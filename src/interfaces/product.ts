@@ -9,6 +9,7 @@ import exp from "constants";
 import {IVariant} from "./variant";
 import {ICollection} from "./collection";
 import {IQuestion} from "./question";
+import {ISegment} from "./segment";
 
 export interface IProductAttributeValue {
     slug: string;
@@ -53,6 +54,7 @@ export interface IProduct {
     resumenOpiniones: IOptionsSummary;
     slug: string;
     model:string;
+    segments: ISegment[]
 }
 
 export interface IOptionsSummary {
@@ -68,6 +70,11 @@ export interface ICharacteristic{
     id: number;
     descripcion: string;
     title:string;
+}
+
+export interface ProductsPaginated {
+    page: number;
+    products: IProduct[]
 }
 
 export type IProductsList = IPaginatedList<IProduct> & IFilterableList<IProduct, IFilter>;

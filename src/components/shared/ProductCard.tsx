@@ -1,5 +1,5 @@
 // react
-import { Fragment, memo } from 'react';
+import {Fragment, memo, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -13,11 +13,11 @@ import Quickview16Svg from '../../svg/quickview-16.svg';
 import Rating from './Rating';
 import url from '../../services/url';
 import Wishlist16Svg from '../../svg/wishlist-16.svg';
-import { IProduct } from '../../interfaces/product';
-import { useCompareAddItem } from '../../store/compare/compareHooks';
-import { useQuickviewOpen } from '../../store/quickview/quickviewHooks';
-import { useWishlistAddItem } from '../../store/wishlist/wishlistHooks';
-import { useCartAddItem } from '../../store/cart/cartHooks';
+import {IProduct} from '../../interfaces/product';
+import {useCompareAddItem} from '../../store/compare/compareHooks';
+import {useQuickviewOpen} from '../../store/quickview/quickviewHooks';
+import {useWishlistAddItem} from '../../store/wishlist/wishlistHooks';
+import {useCartAddItem} from '../../store/cart/cartHooks';
 import BaseRepository from "../../api/repository/baseRepository";
 
 export type ProductCardLayout = 'grid-sm' | 'grid-nl' | 'grid-lg' | 'list' | 'horizontal';
@@ -29,7 +29,7 @@ export interface ProductCardProps {
 
 function ProductCard(props: ProductCardProps) {
     const baseUrl = new BaseRepository();
-    const { product, layout } = props;
+    const {product, layout} = props;
     const containerClasses = classNames('product-card', {
         'product-card--layout--grid product-card--size--sm': layout === 'grid-sm',
         'product-card--layout--grid product-card--size--nl': layout === 'grid-nl',
@@ -41,6 +41,7 @@ function ProductCard(props: ProductCardProps) {
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
     const quickviewOpen = useQuickviewOpen();
+    const [showDetail, setShowDetail] = useState(false)
 
     const badges = [];
     let image;
@@ -59,23 +60,42 @@ function ProductCard(props: ProductCardProps) {
 
     if (product.images && product.images.length > 0) {
         image = (
-            <div className="product-card__image product-image">
-                <AppLink href={`shop/products/${product.slug}` } className="product-image__body">
-                    <img className="product-image__img" src={`${baseUrl.getBaseUrl()}${product.images[0].url}`} alt="" />
-                </AppLink>
+            <div className="product-card__image product-image" onMouseEnter={() => setShowDetail(true)}
+                 onMouseLeave={() => setShowDetail(false)}>
+
+                {
+                    showDetail ?
+                        <AppLink href={`/shop/products/${product.slug}`} className="product-image__body bg-blue-600 text-white">
+                            <ul className={'product-image__img text-sm '}>
+                                {
+                                    product.caracteristicas.map((especification) => (
+                                        <li key={especification.id}>
+                                            - {especification.descripcion}
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </AppLink>
+                        :
+                        <AppLink href={`/shop/products/${product.slug}`} className="product-image__body">
+                            <img className="product-image__img" src={`${baseUrl.getBaseUrl()}${product.images[0].url}`}
+                                 alt=""/>
+                        </AppLink>
+                }
             </div>
         );
     }
 
 
-        price = (
-            <div className="product-card__prices">
-                <CurrencyFormat value={product.price} />
-            </div>
-        );
+price = (
+    <div className="product-card__prices">
+        <CurrencyFormat value={product.sale_price}/>
+    </div>
+);
 
 
-    if (product.caracteristicas) {
+if (product.caracteristicas)
+    {
         features = (
             <ul className="product-card__features-list">
                 {product.caracteristicas.filter((x) => x.id).map((attribute, index) => (
@@ -85,72 +105,55 @@ function ProductCard(props: ProductCardProps) {
         );
     }
 
-    return (
-        <div className={containerClasses}>
-            <AsyncAction
-                action={() => quickviewOpen(product.code)}
-                render={({ run, loading }) => (
-                    <button
-                        type="button"
-                        onClick={run}
-                        className={classNames('product-card__quickview', {
-                            'product-card__quickview--preload': loading,
-                        })}
-                    >
-                        <Quickview16Svg />
-                    </button>
-                )}
-            />
-            {badges.length > 0 && (
-                <div className="product-card__badges-list">{badges}</div>
-            )}
-            {image}
-            <div className="product-card__info">
-                <div className="product-card__name">
-                    <AppLink href={`/shop/products/${product.slug}`}>{product.title}</AppLink>
-                </div>
-                <div className="product-card__rating">
-                    <Rating value={ product.resumenOpiniones ? product.resumenOpiniones.promedio:0} />
-                    <div className=" product-card__rating-legend">{`${product.reviews.length} Reviews`}</div>
-                </div>
-                {features}
+return (
+    <div className={containerClasses} onMouseLeave={() => setShowDetail(false)}>
+
+        {badges.length > 0 && showDetail === false? (
+            <div className="product-card__badges-list">{badges}</div>
+        ):null}
+        {image}
+        <div className="product-card__info">
+            <div className="product-card__name">
+                <AppLink href={`/shop/products/${product.slug}`}>{product.title}</AppLink>
             </div>
-            <div className="product-card__actions">
-                <div className="product-card__availability">
-                    Disponibilidad:
-                    <span className="text-success">In Stock</span>
-                </div>
-                {price}
-                <div className="product-card__buttons">
-                    <AsyncAction
-                        action={() => cartAddItem(product)}
-                        render={({ run, loading }) => (
-                            <Fragment>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-primary product-card__addtocart', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    Add To Cart
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    Agregar al Carrito
-                                </button>
-                            </Fragment>
-                        )}
-                    />
-                </div>
+            {features}
+        </div>
+        <div className="product-card__actions">
+            <div className="product-card__availability">
+                Disponibilidad:
+                <span className="text-success">En Stock</span>
+            </div>
+            {price}
+            <div className="product-card__buttons">
+                <AsyncAction
+                    action={() => cartAddItem(product)}
+                    render={({run, loading}) => (
+                        <Fragment>
+                            <button
+                                type="button"
+                                onClick={run}
+                                className={classNames('btn btn-primary product-card__addtocart', {
+                                    'btn-loading': loading,
+                                })}
+                            >
+                                Agregar al Carrito
+                            </button>
+                            <button
+                                type="button"
+                                onClick={run}
+                                className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
+                                    'btn-loading': loading,
+                                })}
+                            >
+                                Agregar al Carrito
+                            </button>
+                        </Fragment>
+                    )}
+                />
             </div>
         </div>
-    );
+    </div>
+);
 }
 
 export default memo(ProductCard);

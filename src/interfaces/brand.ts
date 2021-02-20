@@ -18,8 +18,14 @@ export interface IBrand {
     url_video: string;
     advantage_image: ImageBanner;
     certificate_images: ImageBanner;
+    use_level: IUseLevel[];
+
 }
 export interface IAdvantage{
     id: number;
     advantage: string;
+}
+export interface IUseLevel{
+    id: number;
+    use_level:number;
 }

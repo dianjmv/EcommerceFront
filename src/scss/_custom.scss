@@ -43,3 +43,21 @@
 .contact-form{
     background-color: $blue-south;
 }
+
+.pdf_report{
+    width: 800px;
+    height: 900px;
+}
+.ws_icon{
+    position: fixed;
+    top: 50%;
+    @media (max-width: 1200px) {
+        left: 86%;
+    }
+
+    left: 96%;
+}
+.product-card__detail__showed{
+    height: 12rem;
+    width: 12rem;
+}

@@ -1,10 +1,10 @@
 import {IProduct} from "../../../interfaces/product";
 import {GetServerSideProps} from "next";
-import {getProductBySlug, getProductsApi} from "../../../api/products";
+
 import SitePageNotFound from "../../../components/site/SitePageNotFound";
 
 import {IBrand} from "../../../interfaces/brand";
-import {getBrandBySlug} from "../../../api/brands";
+
 import {useAddProducts, useProductsAvailable} from "../../../store/product/productHooks";
 import React, {Fragment, useEffect, useMemo, useState} from "react";
 
@@ -17,6 +17,11 @@ import ContactForm from "../../../components/contact/ContactForm";
 // @ts-ignore
 import ResponsiveEmbed from "react-responsive-embed";
 import BaseRepository from "../../../api/repository/baseRepository";
+import BrandsRepository from "../../../api/brandsRepository";
+import ProductsRepository from "../../../api/productsRepository";
+import {useRouter} from "next/router";
+import {useCompanyInfo} from "../../../store/company/companyHooks";
+import {useResetFilters} from "../../../store/filter/filterHooks";
 
 export interface PageProps {
     products: IProduct[] | null;
@@ -27,10 +32,11 @@ export interface PageProps {
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
     let products: IProduct[] | null = [];
     let brand: IBrand | null = null
+    const brandsRepository = new BrandsRepository()
 
     if (typeof context.params?.slug === 'string') {
         const {slug} = context.params;
-        await getBrandBySlug(slug).then(({data}) => {
+        await brandsRepository.getBrandBySlug(slug).then(({data}) => {
             products = data[0].products;
             brand = data[0]
         });
@@ -45,15 +51,58 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
 };
 
 function Page({products, brand}: PageProps) {
+
     if (products === null || brand == null) {
         return <SitePageNotFound/>;
     }
+    const router = useRouter();
+    const companyInfo = useCompanyInfo();
     const productsState = useAddProducts();
+    const resetFilters = useResetFilters();
     const [allProductsList, setProductsList] = useState<IProduct[]>([])
     const [brandProducts, setBrandProducts] = useState<IProduct[]>([])
-    const ids: number[] = products.map(product => product.id)
+    let ids: number[] = products.map(product => product.id)
+    const productsRepository = new ProductsRepository()
+    const [actualBrand, setActualBrand] = useState<IBrand>()
+    // @ts-ignore
+    const {slug}:string = router.query
+    const brandsRepository = new BrandsRepository()
+
+    useEffect(()=>{
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+        resetFilters()
+        brandsRepository.getBrandBySlug(slug).then(({data}) => {
+            ids = data[0].products.map(product => product.id);
+            setActualBrand(data[0])
+        })
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+        setBrandProducts(allProductsList.filter((product) => (ids.includes(product.id)
+        )))
+        productsState(brandProducts)
+    }, [brand])
+    useEffect(()=>{
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+        console.log('1', allProductsList)
+        resetFilters()
+        brandsRepository.getBrandBySlug(slug).then(({data}) => {
+            ids = data[0].products.map(product => product.id);
+            setActualBrand(data[0])
+        })
+        console.log('2  ', allProductsList)
+
+
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+        setBrandProducts(allProductsList.filter((product) => (ids.includes(product.id)
+        )))
+        console.log('paospdoad', allProductsList)
+        console.log('ids', ids)
+        console.log('brand products', brandProducts)
+        productsState(brandProducts)
+    }, [])
+
     useEffect(() => {
-        getProductsApi().then(({data}) => (setProductsList(data)))
+        productsRepository.getAllProducts().then(({data}) => (setProductsList(data)))
+
     }, [])
 
     useEffect(() => {
@@ -69,7 +118,7 @@ function Page({products, brand}: PageProps) {
     return (
         <>
             <Head>
-                <title>{brand.name}</title>
+                <title>{companyInfo !== undefined ? companyInfo.company_name : null} | {actualBrand? actualBrand.name:brand.name}</title>
             </Head>
 
             {useMemo(() => <BlockSlideShow banners={brand?.banners}/>, [])}

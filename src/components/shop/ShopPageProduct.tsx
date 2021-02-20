@@ -22,16 +22,19 @@ import WidgetProducts from '../widgets/WidgetProducts';
 
 // data stubs
 import theme from '../../data/theme';
-import {getAllCategories} from "../../api/categories";
+
 import WidgetSearchCategory from "../widgets/WidgetSearchCategory";
 import WidgetSearchBrand from "../widgets/WidgetSearchBrand";
 import {IBrand} from "../../interfaces/brand";
-import {getAllBrands} from "../../api/brands";
+
 import WidgetSearchSegment from "../widgets/WidgetSearchSegment";
 import {ISegment} from "../../interfaces/segment";
-import {getAllSegments} from "../../api/segments";
+
 import {useCompanyInfo} from "../../store/company/companyHooks";
 import ContactForm from "../contact/ContactForm";
+import CategoryRepository from "../../api/categoryRepository";
+import BrandsRepository from "../../api/brandsRepository";
+import SegmentRepository from "../../api/segmentRepository";
 
 export type ShopPageProductLayout = 'standard' | 'sidebar' | 'columnar';
 
@@ -56,22 +59,24 @@ function ShopPageProduct(props: ShopPageProductProps) {
     const [brands, setBrands]= useState <IBrand[]> ([]);
     const [segments, setSegments] = useState <ISegment[]>([]);
     const compnayInfo = useCompanyInfo();
+    const categoriesRepository = new CategoryRepository()
+    const brandsRepository = new BrandsRepository()
+    const segmentsRepository = new SegmentRepository()
 
     // Load related products.
     useEffect(() => {
         let canceled = false;
 
-        getAllBrands().then(({data})=>{
+        brandsRepository.getAllBrands().then(({data})=>{
             setBrands(data)
         })
 
-        getAllCategories().then(({data}) => {
+        categoriesRepository.getAllCategories().then(({data}) => {
             if (canceled) {
                 return;
             }
             setCategories(data)
         });
-
         return () => {
             canceled = true;
         };
@@ -84,15 +89,15 @@ function ShopPageProduct(props: ShopPageProductProps) {
         if (layout !== 'sidebar') {
             setCategories([]);
         } else {
-            getAllSegments().then(({data})=>{
+            segmentsRepository.getAllSegments().then(({data})=>{
                 setSegments(data)
             })
 
-            getAllBrands().then(({data})=>{
+            brandsRepository.getAllBrands().then(({data})=>{
                 setBrands(data)
             })
 
-            getAllCategories().then(({data}) => {
+            categoriesRepository.getAllCategories().then(({data}) => {
                 if (canceled) {
                     return;
                 }
@@ -158,7 +163,7 @@ function ShopPageProduct(props: ShopPageProductProps) {
 
                         {relatedProducts.length > 0 && (
                             <BlockProductsCarousel
-                                title="Related Products"
+                                title="Productos Relacionados"
                                 layout="grid-4-sm"
                                 products={relatedProducts}
                                 withSidebar

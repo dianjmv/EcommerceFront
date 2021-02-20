@@ -1,10 +1,14 @@
 // third-party
 import classNames from 'classnames';
 
+// @ts-ignore
+import LinesEllipsis from 'react-lines-ellipsis'
+
 // application
 import AppLink from './AppLink';
 import url from '../../services/url';
 import { IPost } from '../../interfaces/post';
+import { format } from 'date-fns';
 
 export type PostCardLayout = 'grid-nl' | 'grid-lg' | 'list-nl' | 'list-sm';
 
@@ -25,35 +29,37 @@ function PostCard(props: PostCardProps) {
             'post-card--size--sm': layout === 'list-sm',
         },
     );
-    const categories = post.categories.map((category, index) => (
-        <AppLink key={index} href={url.blogCategory()}>{category}</AppLink>
-    ));
+    const date = new Date(post.created_at)
+
+
+
 
     return (
         <div className={cardClasses}>
             <div className="post-card__image">
-                <AppLink href={url.blogPost()}>
-                    <img src={post.image} alt="" />
+                <AppLink href={`/blog/post/${post.slug}`}>
+                    <img src={`${process.env.NEXT_PUBLIC_BASE_URI}${post.thumbnails.url}`} alt="" />
                 </AppLink>
             </div>
             <div className="post-card__info">
-                <div className="post-card__category">
-                    {categories}
-                </div>
                 <div className="post-card__name">
-                    <AppLink href={url.blogPost()}>
+                    <AppLink href={`/blog/post/${post.slug}`}>
                         {post.title}
                     </AppLink>
                 </div>
-                <div className="post-card__date">{post.date}</div>
+                <div className="post-card__date">{format(date, 'MMMM-dd-yyyy').toString()}</div>
                 <div className="post-card__content">
-                    In one general sense, philosophy is associated with wisdom,
-                    intellectual culture and a search for knowledge.
-                    In that sense, all cultures...
+                    <LinesEllipsis
+                        text={post.description}
+                        maxLine='2'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                    />
                 </div>
                 <div className="post-card__read-more">
-                    <AppLink href="/" className="btn btn-secondary btn-sm">
-                        Read More
+                    <AppLink href={`/blog/post/${post.slug}`} className="btn btn-secondary btn-sm">
+                        Leer Más
                     </AppLink>
                 </div>
             </div>

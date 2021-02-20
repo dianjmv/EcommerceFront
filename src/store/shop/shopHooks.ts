@@ -18,7 +18,7 @@ export const useShopProductsList = () => useShopSelector((state) => state.produc
 
 export const useShopOptions = () => useShopSelector((state) => state.options);
 
-export const useShopFilters = () => useShopSelector((state) => state.productsList?.filters || []);
+
 
 export const useShopFilterValues = () => useShopSelector((state) => state.filters);
 
