@@ -76,7 +76,7 @@ class HeaderNavigationData {
         },
         {
             title: 'Contacto',
-            url: '/site/about-us',
+            url: '/contact',
         },
     ]
 
@@ -94,6 +94,7 @@ class HeaderNavigationData {
             this.dataHeaderNavigation.map(nav => {
                 if (nav.title === 'Segmentos') {
                     data.map(brand => (
+                        // @ts-ignore
                         nav.submenu?.menu.push(
                             {
                                 title: brand.name,
@@ -111,6 +112,7 @@ class HeaderNavigationData {
             this.dataHeaderNavigation.map(nav => {
                 if (nav.title === 'Productos') {
                     data.map(brand => (
+                        // @ts-ignore
                         nav.submenu?.menu.push(
                             {
                                 title: brand.title,
@@ -127,7 +129,9 @@ class HeaderNavigationData {
         await this.brandsRepository.getCompanyBrands().then(({data}) => {
             this.dataHeaderNavigation.map(nav => {
                 if (nav.title === 'Marcas') {
+
                     data.map(brand => (
+                        // @ts-ignore
                         nav.submenu?.menu.push(
                             {
                                 title: brand.name,

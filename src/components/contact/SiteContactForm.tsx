@@ -1,15 +1,14 @@
-import React, {useMemo} from "react";
-import BlockFeatures from "../blocks/BlockFeatures";
-import {Formik, useFormik} from 'formik'
-import * as Yup from 'yup';
+import Head from "next/head";
+import React from "react";
+import {useCompanyInfo} from "../../store/company/companyHooks";
+import {Formik} from "formik";
+import Form from "./ContactFormComponent";
+import * as Yup from "yup";
 import {sendContactPetition} from "../../api/contact";
 import {ShowSuccesAlert} from "../../alerts/ShowSuccessAlert";
-import Form from "./ContactFormComponent";
 
-
-
-const ContactForm = () => {
-    const image: string = '/images/'
+function SiteContactForm(){
+    const companyInfo = useCompanyInfo()
     const initialValues = () => ({
         email: '',
         name: '',
@@ -31,17 +30,19 @@ const ContactForm = () => {
         })
     }
     return (
-        <div className={'grid grid-cols-1 mt-10 contact-form '}>
-            {useMemo(() => <BlockFeatures/>, [])}
-            <div className={'grid md:grid-cols-12 grid-cols-1 border-gray-100 border-t-2'}>
-                <div className={'hidden md:grid  md:col-start-1 md:col-span-5 bg-blue-100 text-center items-center'}
-                     style={{backgroundImage: 'url("/images/form-contact-back.png")', backgroundSize: 'cover',
-                         backgroundRepeat  : 'no-repeat',
-                         backgroundPosition: 'center',}}>
-                    <p className={'text-5xl text-white py-auto'}>INFORMACIÓN Y <br/> <span
-                        className={'font-bold'}>COTIZACIONES</span></p>
+        <div>
+            <Head>
+                <title>{`${companyInfo.company_name} | Contactenos`}</title>
+            </Head>
+            <div className={'bg-blue-700 text-center py-6'}>
+                <h1 className={'text-white text-5xl font-bold'}>Contáctanos</h1>
+            </div>
+            <div className={'grid grid-cols-2 mt-10'}>
+                <div>
+
                 </div>
-                <div className={'md:col-start-6 md:col-span-6 col-start-1 md:px-64 px-8'}>
+                <div className={'md:px-32 bg-blue-700'}>
+                    <h2 className={'text-white text-2xl mt-4'}>Déjanos un comentario</h2>
                     <Formik initialValues={initialValues()} onSubmit={sendMessage}
 
                             validationSchema={validationForm}>
@@ -53,9 +54,10 @@ const ContactForm = () => {
 
                     </Formik>
                 </div>
+
             </div>
+
         </div>
     )
-
 }
-export default ContactForm;
+export default SiteContactForm
