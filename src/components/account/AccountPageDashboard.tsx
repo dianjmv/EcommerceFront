@@ -10,13 +10,13 @@ import url from '../../services/url';
 import dataAccountAddresses from '../../data/accountAddresses';
 import dataAccountOrders from '../../data/accountOrders';
 import theme from '../../data/theme';
-import {useCompanyInfo} from '../../store/company/companyHooks';
-import React, {useEffect, useState} from 'react';
-import {useUserLogged} from '../../store/auth/authHooks';
+import { useCompanyInfo } from '../../store/company/companyHooks';
+import React, { useEffect, useState } from 'react';
+import { useUserLogged } from '../../store/auth/authHooks';
 import OrdersRepository from '../../api/ordersRepository';
-import {IOrder, OrdersPaginate} from './AccountPageOrders';
-import {ITransactions} from '../../interfaces/transactions';
-import {format} from 'date-fns';
+import { IOrder, OrdersPaginate } from './AccountPageOrders';
+import { ITransactions } from '../../interfaces/transactions';
+import { format } from 'date-fns';
 
 export default function AccountPageDashboard() {
     const companyInfo = useCompanyInfo();
@@ -27,7 +27,7 @@ export default function AccountPageDashboard() {
     let elementsPerPage = 4;
 
     useEffect(() => {
-        orderRepository.getOrders().then(({data}) => transformToOrder(data));
+        orderRepository.getOrders().then(({ data }) => transformToOrder(data));
     }, []);
 
     function transformToOrder(transactions: ITransactions[]) {
@@ -76,7 +76,7 @@ export default function AccountPageDashboard() {
                 />
             );
         } else {
-            return <img src="/images/avatars/avatar-3.jpg" alt=""/>;
+            return <img src="/images/avatars/avatar-3.jpg" alt="" />;
         }
     };
     const orders = ordersPaginated.map(orderPaginated => {
@@ -84,12 +84,12 @@ export default function AccountPageDashboard() {
             index < 3 ? (
                 <tr key={order.id}>
                     <td>
-                        <AppLink href={url.accountOrder({id: 5})}>#{order.id}</AppLink>
+                        <AppLink href={url.accountOrder({ id: 5 })}>#{order.id}</AppLink>
                     </td>
                     <td>{format(new Date(order.created_at), 'YYY-mm-dd')}</td>
 
                     <td>
-                        <CurrencyFormat value={order.total_price}/> por {order.quantity} item(s)
+                        <CurrencyFormat value={order.total_price} /> por {order.quantity} item(s)
                     </td>
                 </tr>
             ) : null
@@ -146,16 +146,16 @@ export default function AccountPageDashboard() {
                 <div className="card-header">
                     <h5>Recent Orders</h5>
                 </div>
-                <div className="card-divider"/>
+                <div className="card-divider" />
                 <div className="card-table">
                     <div className="table-responsive-sm">
                         <table>
                             <thead>
-                            <tr>
-                                <th>Orden</th>
-                                <th>Fecha</th>
-                                <th>Total</th>
-                            </tr>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                </tr>
                             </thead>
                             <tbody>{orders}</tbody>
                         </table>
