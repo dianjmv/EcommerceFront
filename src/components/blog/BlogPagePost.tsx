@@ -45,7 +45,7 @@ export default function BlogPagePost(props: BlogPagePostProps) {
     useEffect(() => {
         postRepository.getAllPosts().then(({data}) => {
             setPosts(data);
-        })
+        }).catch(err=>console.log(err))
     }, [])
 
     function searchBlog(searchInput: ChangeEvent): void {
@@ -107,16 +107,16 @@ export default function BlogPagePost(props: BlogPagePostProps) {
                 <Head>
                     <title>{`${post?.title} — ${companyInfo.company_name}`}</title>
                 </Head>
-                <div className={'grid md:grid-cols-12 grid-cols-1 gap-x-6 gap-y-2 md:mx-24'}>
+                <div className={'grid md:grid-cols-12 grid-cols-1 md:gap-x-6 gap-y-2 md:mx-24'}>
                     <div className={'hidden md:grid md:col-start-1 md:col-span-2'}>
                         <div className={'grid grid-cols-1 md:py-20'}>
                             {sectionPostsRecently()}
                         </div>
                     </div>
 
-                    <div className="md:col-start-3 md:col-span-10">
+                    <div className="md:col-start-3 md:col-span-10 col-start-1">
                         <div className="row justify-content-center">
-                            <div className={'col-md-12 col-lg-10 col-xl-10'}>
+                            <div className={'col-md-12 col-lg-10 col-xl-10 pr-0'}>
                                 <BlogPost layout={layout} post={post}/>
                             </div>
                         </div>

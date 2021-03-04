@@ -18,12 +18,12 @@ import CategorySidebar from './CategorySidebar';
 import CategorySidebarItem from './CategorySidebarItem';
 import PageHeader from '../shared/PageHeader';
 import ProductsView, { ProductsViewGrid } from './ProductsView';
-import shopApi from '../../api/shop';
+
 import url from '../../services/url';
 import WidgetFilters from '../widgets/WidgetFilters';
 import WidgetProducts from '../widgets/WidgetProducts';
 import { buildQuery } from '../../store/shop/shopHelpers';
-import { getCategoryParents } from '../../services/helpers';
+
 import { IProduct } from '../../interfaces/product';
 import { useShop } from '../../store/shop/shopHooks';
 
@@ -130,7 +130,10 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     const sidebarComponent = useMemo(() => (
         <CategorySidebar open={sidebarOpen} closeFn={closeSidebarFn} offcanvas={offcanvas}>
             <CategorySidebarItem>
-                <WidgetFilters title="Filtros" offcanvas={offcanvas} />
+                <WidgetFilters title="Filtros" offcanvas={offcanvas}  forPage={{
+                    type:'segments',
+                    slug:segment[0].slug
+                }}/>
             </CategorySidebarItem>
         </CategorySidebar>
     ), [sidebarOpen, closeSidebarFn, offcanvas, latestProducts]);
@@ -142,7 +145,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
 
     const breadcrumb = [
         { title: 'Inicio', url: url.home() },
-        { title: 'Segmentos', url: url.catalog() },
+        { title: 'Segmentos', url: '/segments' },
         {title: segment[0].name}
     ];
     let pageTitle = '';
@@ -162,7 +165,10 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
             grid={productsViewGrid}
             offcanvas={offcanvas}
             openSidebarFn={openSidebarFn}
-
+            forpage={{
+                type:'segments',
+                slug:segment[0].slug
+            }}
         />
     );
 
@@ -195,7 +201,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
         );
     }
 
-    console.log(latestProducts)
+
     return (
         <Fragment>
             <Head>

@@ -12,7 +12,7 @@ function SitePageNotFound() {
     return (
         <div className="block">
             <Head>
-                <title>{`404 Page Not Found — ${theme.name}`}</title>
+                <title>{`SouthImport | 404 Página no encontrada`}</title>
             </Head>
 
             <div className="container">
@@ -22,25 +22,20 @@ function SitePageNotFound() {
                     </div>
 
                     <div className="not-found__content">
-                        <h1 className="not-found__title">Page Not Found</h1>
+                        <h1 className="not-found__title">Página no encontrada</h1>
 
                         <p className="not-found__text">
-                            We can&apos;t seem to find the page you&apos;re looking for.
+                            La página que estas buscando no existe o no tienes permiso para ingresar.
                             <br />
-                            Try to use the search.
+                            Prueba iniciando sesión
                         </p>
 
-                        <form className="not-found__search">
-                            <input type="text" className="not-found__search-input form-control" placeholder="Search Query..." />
-                            <button type="submit" className="not-found__search-button btn btn-primary">Search</button>
-                        </form>
-
                         <p className="not-found__text">
-                            Or go to the home page to start over.
+                            O vuelve a la pagina principal
                         </p>
 
                         <AppLink href={url.home()} className="btn btn-secondary btn-sm">
-                            Go To Home Page
+                            Volver a la página principal
                         </AppLink>
                     </div>
                 </div>

@@ -16,5 +16,9 @@ class CategoryRepository{
         const url = `${this.baseUrl.getBaseUrl()}/product-categories?slug=${slug}`;
         return axios.get<ICategory[]>(url);
     }
+    public getCategoriesMostSeller(){
+        const url = `${this.baseUrl.getBaseUrl()}/most-sellers/categories`
+        return axios.get<ICategory[]>(url);
+    }
 }
 export default CategoryRepository;

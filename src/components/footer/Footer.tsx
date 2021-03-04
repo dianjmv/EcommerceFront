@@ -14,19 +14,19 @@ const Footer: FunctionComponent = () => {
     const date   = new Date()
     const compnayInfo = useCompanyInfo()
     const informationLinks = [
-        { title: 'Acerca de nosotros', url: '' },
-        { title: 'Ubicanos', url: '' },
-        { title: 'Blog', url: '' },
-        { title: 'Contáctanos', url: '' },
+        { title: 'Acerca de nosotros', url: '/enterprise/about-us' },
+        { title: 'Ubicanos', url: '/enterprise' },
+        { title: 'Blog', url: '/blog' },
+        { title: 'Contáctanos', url: '/contact' },
     ];
 
     const accountLinks = [
-        { title: 'Preguntas Frecuentes', url: '' },
+        { title: 'Preguntas Frecuentes', url: '/enterprise/faqs' },
         { title: 'Mi Cuenta', url: '' },
         { title: 'Mis Pedidos', url: '' },
-        { title: 'Devoluciones y Grantías', url: '' },
-        { title: 'Términos y Condiciones', url: '' },
-        { title: 'Políticas de Privacidad', url: '' },
+        { title: 'Devoluciones y Grantías', url: '/enterprise/devolutions' },
+        { title: 'Términos y Condiciones', url: '/enterprise/terms-conditions' },
+        { title: 'Políticas de Privacidad', url: '/enterprise/privacy' },
     ];
 
     return (

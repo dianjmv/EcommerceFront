@@ -5,7 +5,7 @@ import React, {Fragment, useEffect, useMemo, useState} from 'react';
 import Head from 'next/head';
 
 // application
-import shopApi from '../../api/shop';
+
 import {IProduct} from '../../interfaces/product';
 import {ICompanyInfo} from '../../interfaces/company-info';
 import {useCompanyInformation, useDeferredData, useProductColumns, useProductTabs} from '../../services/hooks';
@@ -41,8 +41,8 @@ export interface HomePageOneProps {
     initData?: InitData;
 }
 
-function HomePage(props: HomePageOneProps) {
-    const {initData} = props;
+function HomePage(props: InitData) {
+    const {featuredProducts} = props;
     const [company, setCompany] = useState<ICompanyInfo>() ;
     const companyInfo = useCompanyInfo();
     const addProductsState = useAddProducts();
@@ -51,10 +51,10 @@ function HomePage(props: HomePageOneProps) {
     const [products, setProducts] = useState<IProduct[] | []>([]);
     const productsRepository= new ProductsRepository()
 
+
     useEffect(() => {
         productsRepository.getAllProducts().then(({data})=>(addProductsState(data)))
         setProducts(productsAvailables.products)
-
     }, [])
 
     useEffect(() => {
@@ -62,29 +62,20 @@ function HomePage(props: HomePageOneProps) {
 
     }, [companyInfo])
 
+
+
+
     const baseUrl = new BaseRepository();
 
 
     /**
      * Featured products.
      */
-    const featuredProducts = useProductTabs(
-        useMemo(() => [
-            {id: 1, name: 'All', categorySlug: undefined},
-            {id: 2, name: 'Power Tools', categorySlug: 'power-tools'},
-            {id: 3, name: 'Hand Tools', categorySlug: 'hand-tools'},
-            {id: 4, name: 'Plumbing', categorySlug: 'plumbing'},
-        ], []),
-        (tab) => shopApi.getPopularProducts({limit: 8, category: tab.categorySlug}),
-        initData?.featuredProducts,
-    );
+
 
     /**
      * Bestsellers.
      */
-    const bestsellers = useDeferredData(() => (
-        shopApi.getPopularProducts({limit: 7})
-    ), [], initData?.bestsellers);
 
 
 
@@ -97,19 +88,25 @@ function HomePage(props: HomePageOneProps) {
 
     // @ts-ignore
     return (
-        <Fragment>
+        <div>
             <Head>
                 <title>{companyInfo !== undefined ? companyInfo.company_name : null}</title>
             </Head>
+            <div className={'w-full'}>
+                <BlockSlideHome banners={companyInfo.banners}/>
+            </div>
 
-            { <BlockSlideHome banners={companyInfo.banners}/> }
+
 
 
             {productsAvailables.products !== []? useMemo(() => (
                 <BlockProducts
                     title="Productos Destacados"
                     layout="large-first"
-                    products={productsAvailables.products.filter(product => product.is_featured)}
+                    // @ts-ignore
+                    products={featuredProducts.filter((product, index) => {
+                        return (index < 8)
+                    })}
 
                 />
             ) , [productsAvailables.products]) :null}
@@ -129,7 +126,7 @@ function HomePage(props: HomePageOneProps) {
             </div>
             <SocialNetworks/>
             <ContactForm/>
-        </Fragment>
+        </div>
     );
 }
 

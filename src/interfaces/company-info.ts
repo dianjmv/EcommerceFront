@@ -28,4 +28,6 @@ export interface ICompanyInfo{
     terms_and_conditions_banner: ImageBanner
     devolution:string;
     devolution_banner:ImageBanner
+    whatsapp_number: string;
+    whatsapp_message: string;
 }

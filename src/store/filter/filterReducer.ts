@@ -19,7 +19,6 @@ function addFilter(state: IFilterProductType, filter: IFilterProduct) {
         })
         if (haveNew) filtersStates.push(filter)
     } else {
-
         filtersStates.push(filter)
     }
 

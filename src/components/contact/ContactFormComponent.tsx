@@ -2,7 +2,7 @@ import React from "react";
 
 const Form = ({formik}: any) => {
     return (
-        <form action="" className={'grid grid-cols-1  form-group my-10'} onSubmit={formik.handleSubmit}>
+        <form action="" className={'grid grid-cols-1  form-group my-10 px-2'} onSubmit={formik.handleSubmit}>
             <input type="text"
                    placeholder={'Nombre'}
                    id='name'
@@ -57,7 +57,7 @@ const Form = ({formik}: any) => {
                     <p className={'font-bold'}>{formik.errors.message}</p>
                 </div>
             ) : null}
-            <input type="submit" className={formik.errors? 'btn btn-black mx-32 my-2': 'btn btn-black md:mx-32 '} value={'Enviar'}/>
+            <input type="submit" className={formik.errors? 'btn btn-black mx-auto my-2': 'btn btn-black md:mx-auto '} value={'Enviar'}/>
         </form>
     )
 }

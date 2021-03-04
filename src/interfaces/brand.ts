@@ -11,7 +11,7 @@ export interface IBrand {
     created_at: string;
     updated_at: string;
     thumbnail_image: ImageBanner;
-    banner_images: ImageBanner[];
+    banner_image: ImageBanner;
     products: IProduct[];
     banners: IBanners[];
     advantages:IAdvantage[];

@@ -3,47 +3,24 @@ import {GetServerSideProps} from 'next';
 
 // application
 import HomePage, {InitData} from '../components/home/HomePage';
-import shopApi from '../api/shop';
+
 
 import {useAddBrandCompany} from "../store/brand/brandHooks";
 import {useCompanyAddInfo} from "../store/company/companyHooks";
-import {useAddProducts} from "../store/product/productHooks";
+import {useAddProducts, useProductsAvailable} from "../store/product/productHooks";
 import ProductsRepository from "../api/productsRepository";
 import CompanyRepository from "../api/companyInfo";
 import BrandsRepository from "../api/brandsRepository";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import {IProduct} from "../interfaces/product";
+import {useResetFilters} from "../store/filter/filterHooks";
+import {useStartLoading, useStopLoading} from "../store/loading/loadingHooks";
 
 export interface PageProps {
     initData?: InitData;
 }
 
-// noinspection JSUnusedGlobalSymbols
-export const getServerSideProps: GetServerSideProps<PageProps> = async () => (
 
-    {
-        props: {
-            initData: {
-                featuredProducts: await shopApi.getPopularProducts({limit: 8}),
-                bestsellers: await shopApi.getPopularProducts({limit: 7}),
-                latestProducts: await shopApi.getLatestProducts({limit: 8}),
-                companyInformation: null,
-                productColumns: [
-                    {
-                        title: 'Top Rated Products',
-                        products: await shopApi.getTopRatedProducts({limit: 3}),
-                    },
-                    {
-                        title: 'Special Offers',
-                        products: await shopApi.getDiscountedProducts({limit: 3}),
-                    },
-                    {
-                        title: 'Bestsellers',
-                        products: await shopApi.getPopularProducts({limit: 3}),
-                    },
-                ],
-            },
-        },
-    });
 
 function Page(props: PageProps) {
     const {initData} = props;
@@ -51,33 +28,43 @@ function Page(props: PageProps) {
     const brandsRepository = new BrandsRepository();
     const productsRepository = new ProductsRepository();
     const companyAddInfo = useCompanyAddInfo();
-    const productsAvailables = useAddProducts()
+    const addProductsState = useAddProducts();
     const companyRepository = new CompanyRepository()
+    const [products, setProducts] = useState<IProduct[] | []>([]);
+    const productsAvailables = useProductsAvailable()
+    const resetFilters = useResetFilters();
+    const startLoading = useStartLoading();
+    const stopLoading = useStopLoading()
+
+    const [featuredProducts , setFeaturedProducts] = useState<IProduct[]>([])
 
     useEffect(() => {
-        productsRepository.getAllProducts().then(({data}) => {
-            productsAvailables(data)
-        }).catch(err => {
-            return console.log(err)
-        })
-        brandsRepository.getCompanyBrands().then(({data}) => (addBrand(data))).catch((err) => console.error(err));
-    }, [])
-    useEffect(()=>{
+        resetFilters();
         companyRepository.getCompanyInfo().then(({data}) => {
             companyAddInfo(data[0]);
             if (initData) {
                 // @ts-ignore
                 initData.companyInformation = data[0]
             }
-
         }).catch((er) => {
             console.error(er);
         })
+        brandsRepository.getCompanyBrands().then(({data}) => (addBrand(data))).catch((err) => console.error(err));
+        productsRepository.getAllProducts().then(({data})=>(addProductsState(data))).catch(err=>console.error(err))
+        setProducts(productsAvailables.products)
+
     }, [])
 
+    useEffect(()=>{
+
+        resetFilters();
+        productsRepository.getAllProducts().then(({data})=>(addProductsState(data))).catch(err=>console.log(err)).finally(()=>(stopLoading()))
+        setFeaturedProducts(productsAvailables.products.filter(product =>product.is_featured))
+    },[products])
 
 
-    return <HomePage initData={initData}/>;
+
+    return (<HomePage featuredProducts={featuredProducts}/>);
 }
 
 export default Page;

@@ -28,4 +28,6 @@ export interface CompanyInfoState {
     terms_and_conditions_banner: any;
     devolution:any;
     devolution_banner:any
+    whatsapp_number: string;
+    whatsapp_message: string;
 }

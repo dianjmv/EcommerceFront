@@ -48,11 +48,11 @@ function ProductCard(props: ProductCardProps) {
     let price;
     let features;
 
-    if (product.is_sale) {
-        badges.push(<div key="sale" className="product-card__badge product-card__badge--sale">Sale</div>);
-    }
+    // if (product.is_sale) {
+    //     badges.push(<div key="sale" className="product-card__badge product-card__badge--sale">Venta</div>);
+    // }
     if (product.is_hot) {
-        badges.push(<div key="hot" className="product-card__badge product-card__badge--hot">Hot</div>);
+        badges.push(<div key="hot" className="product-card__badge product-card__badge--hot">Promoción</div>);
     }
     // if (product.badges.includes('new')) {
     //     badges.push(<div key="new" className="product-card__badge product-card__badge--new">New</div>);
@@ -66,15 +66,25 @@ function ProductCard(props: ProductCardProps) {
                 {
                     showDetail ?
                         <AppLink href={`/shop/products/${product.slug}`} className="product-image__body bg-blue-600 text-white">
-                            <ul className={'product-image__img text-sm '}>
-                                {
-                                    product.caracteristicas.map((especification) => (
-                                        <li key={especification.id}>
-                                            - {especification.descripcion}
-                                        </li>
-                                    ))
-                                }
-                            </ul>
+                            <div className={'product-image__img text-sm text-center grid grid-cols-1'}>
+                                <span className={'text-xl font-bold'}>{product.title}</span>
+                                <span>Modelo: {product.model}</span>
+                                <div>
+                                    <span>Datos Técnicos:</span>
+                                    <ul>
+                                        {
+                                            product.caracteristicas.map((especification) => (
+                                                <li key={especification.id}>
+                                                    <span className={'font-bold'}>{especification.title}</span>
+
+                                                    <br/>
+                                                    <span>{especification.descripcion}</span>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </AppLink>
                         :
                         <AppLink href={`/shop/products/${product.slug}`} className="product-image__body">
@@ -120,9 +130,16 @@ return (
         </div>
         <div className="product-card__actions">
             <div className="product-card__availability">
-                Disponibilidad:
-                <span className="text-success">En Stock</span>
+
             </div>
+            <div className={'mt-1 text-sm'}>
+
+                {
+                    !product.is_out_of_stock?<span className="text-success"> En Stock</span>:<span className="text-red-500"> No Disponible</span>
+                }
+
+            </div>
+
             {price}
             <div className="product-card__buttons">
                 <AsyncAction

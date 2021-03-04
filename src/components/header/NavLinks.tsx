@@ -1,5 +1,5 @@
 // react
-import {MouseEvent as ReactMouseEvent, useEffect, useState} from 'react';
+import {MouseEvent as ReactMouseEvent, useCallback, useEffect, useMemo, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -18,12 +18,13 @@ import {INav} from "../../interfaces/menus/nav";
 function NavLinks() {
     const direction = useDirection();
     const headerNav = new HeaderNavigationData();
-    const [dataHeaderNavigation, setDataHEaderNavigation] = useState<INav> ([])
+    const [dataHeaderNavigation, setDataHeaderNavigation] = useState<INav> ([])
 
-    useEffect(()=>{
-        headerNav.getDataHeaderNavigation().then((data)=>setDataHEaderNavigation(data))
-        console.log('Desde el componente ', dataHeaderNavigation)
-    },[])
+    useEffect(()=>getNavHeader(),[])
+
+    function getNavHeader(){
+        headerNav.getDataHeaderNavigation().then((data)=>setDataHeaderNavigation(data))
+    }
 
     if (dataHeaderNavigation.length>0){
         const handleMouseEnter = (event: ReactMouseEvent) => {
@@ -57,6 +58,7 @@ function NavLinks() {
                 }
             }
         };
+
 
         const linksList = dataHeaderNavigation.map((item, index) => {
             let arrow;

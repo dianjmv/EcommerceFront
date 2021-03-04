@@ -16,6 +16,8 @@ import companyInfoReducer, {COMPANY_INFO_NAMESPACE} from "../company/companyRedu
 import productReducer, {PRODUCT_NAME_SPACE} from "../product/productReducer";
 import brandsCompanyReducer, {BRANDS_COMPANY_NAMESPACE} from "../brand/brandReducer";
 import filterProductsReducer, {FILTER_PRODUCT_NAMESPACE} from "../filter/filterReducer";
+import authReducer, {AUTH_NAMESPACE} from "../auth/authReducer";
+import loadingReducer, {LOADING_NAMESPACE} from "../loading/loadingReducer";
 
 export default combineReducers({
     version: (state: number = version) => state,
@@ -31,4 +33,6 @@ export default combineReducers({
     [PRODUCT_NAME_SPACE]: productReducer,
     [BRANDS_COMPANY_NAMESPACE]:brandsCompanyReducer,
     [FILTER_PRODUCT_NAMESPACE]:filterProductsReducer,
+    [AUTH_NAMESPACE]: authReducer,
+    [LOADING_NAMESPACE]: loadingReducer,
 });

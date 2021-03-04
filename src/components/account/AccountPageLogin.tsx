@@ -1,5 +1,5 @@
 // react
-import { Fragment } from 'react';
+import React, {Fragment} from 'react';
 
 // third-party
 import Head from 'next/head';
@@ -11,12 +11,94 @@ import PageHeader from '../shared/PageHeader';
 
 // data stubs
 import theme from '../../data/theme';
+import AccountLoginForm from "./AccountLoginForm";
+import AccountRegisterForm from "./AccountRegisterForm";
+import * as Yup from "yup";
+import {sendContactPetition} from "../../api/contact";
+import {ShowSuccesAlert} from "../../alerts/ShowSuccessAlert";
+import Form from "../contact/ContactFormComponent";
+import {Formik} from "formik";
+import AuthRepository from "../../api/authRepository";
+import {toast} from "react-toastify";
+import {useAddUser, useUserLogged} from "../../store/auth/authHooks";
+import {useRouter} from "next/router";
 
 export default function AccountPageLogin() {
+    const authRepository = new AuthRepository();
+    const userLogged = useUserLogged();
+    const addUserForLogin = useAddUser()
+    const router = useRouter()
+
     const breadcrumb = [
-        { title: 'Home', url: '' },
-        { title: 'My Account', url: '' },
+        {title: 'Inicio', url: '/'},
+        {title: 'Mi Cuenta', url: ''},
     ];
+
+    const initialValuesLogin = () => ({
+        login_email: '',
+        login_password: ''
+    })
+
+    const initialValuesRegister = () => ({
+        first_name: '',
+        last_name: '',
+        email: '',
+        username: '',
+        password: '',
+        password_confirmation: ''
+    })
+
+    const validationFormLogin = Yup.object({
+        login_email: Yup.string().email('El email no tiene el formato correcto').required('El email es requerído'),
+        login_password: Yup.string()
+            .required('La contraseña es requerida')
+            .min(8, 'La contraseña debe tener mínimo 8 caracteres')
+    })
+
+    const validationFormRegister = Yup.object({
+        first_name: Yup.string()
+            .required('El nombre es requerído'),
+        last_name: Yup.string()
+            .required('El apellido es requerido'),
+        email: Yup.string()
+            .email('El email no tiene el formato correcto')
+            .required('El email es requerído'),
+        username: Yup.string()
+            .required('El username es requerido'),
+        password: Yup.string()
+            .required('La contraseña es requerida')
+            .min(8, 'La contraseña debe tener mínimo 8 caracteres'),
+        password_confirmation: Yup.string()
+            .required('La validacion de contraseña es requerida')
+            .min(8, 'La contraseña debe tener mínimo 8 caracteres')
+            .oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden')
+    })
+
+
+    const login = (values: any, {setSubmitting, setErrors, setStatus, resetForm}: any) => {
+        authRepository.login({email: values.login_email, password: values.login_password})
+            .then(({data}) => {
+                addUserForLogin(data)
+                router.push('/')
+
+            })
+            .catch(({response}) => (toast.error(response.data.message[0].messages[0].message)))
+        resetForm({})
+    }
+
+    const registerUser = (values: any, {setSubmitting, setErrors, setStatus, resetForm}: any) => {
+        authRepository.register({
+            first_name:values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password,
+            username: values.username
+        }).then(({data})=> {
+            addUserForLogin(data)
+            router.push('/')
+        }).catch(({response}) => (toast.error(response.data.message[0].messages[0].message)))
+    }
+
 
     return (
         <Fragment>
@@ -24,7 +106,7 @@ export default function AccountPageLogin() {
                 <title>{`Login — ${theme.name}`}</title>
             </Head>
 
-            <PageHeader header="My Account" breadcrumb={breadcrumb} />
+            <PageHeader header="Mi Cuenta" breadcrumb={breadcrumb}/>
 
             <div className="block">
                 <div className="container">
@@ -32,90 +114,33 @@ export default function AccountPageLogin() {
                         <div className="col-md-6 d-flex">
                             <div className="card flex-grow-1 mb-md-0">
                                 <div className="card-body">
-                                    <h3 className="card-title">Login</h3>
-                                    <form>
-                                        <div className="form-group">
-                                            <label htmlFor="login-email">Email address</label>
-                                            <input
-                                                id="login-email"
-                                                type="email"
-                                                className="form-control"
-                                                placeholder="Enter email"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="login-password">Password</label>
-                                            <input
-                                                id="login-password"
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                            />
-                                            <small className="form-text text-muted">
-                                                <AppLink href="/">Forgotten Password</AppLink>
-                                            </small>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="form-check">
-                                                <span className="form-check-input input-check">
-                                                    <span className="input-check__body">
-                                                        <input
-                                                            id="login-remember"
-                                                            type="checkbox"
-                                                            className="input-check__input"
-                                                        />
-                                                        <span className="input-check__box" />
-                                                        <Check9x7Svg className="input-check__icon" />
-                                                    </span>
-                                                </span>
-                                                <label className="form-check-label" htmlFor="login-remember">
-                                                    Remember Me
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
-                                            Login
-                                        </button>
-                                    </form>
+                                    <h3 className="card-title">Iniciar Sesión</h3>
+                                    <Formik initialValues={initialValuesLogin()} onSubmit={login}
+
+                                            validationSchema={validationFormLogin}>
+                                        {
+                                            props => {
+                                                return (<AccountLoginForm formik={props}/>)
+                                            }
+                                        }
+                                    </Formik>
+
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6 d-flex mt-4 mt-md-0">
                             <div className="card flex-grow-1 mb-0">
                                 <div className="card-body">
-                                    <h3 className="card-title">Register</h3>
-                                    <form>
-                                        <div className="form-group">
-                                            <label htmlFor="register-email">Email address</label>
-                                            <input
-                                                id="register-email"
-                                                type="email"
-                                                className="form-control"
-                                                placeholder="Enter email"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="register-password">Password</label>
-                                            <input
-                                                id="register-password"
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="register-confirm">Repeat Password</label>
-                                            <input
-                                                id="register-confirm"
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Password"
-                                            />
-                                        </div>
-                                        <button type="submit" className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
-                                            Register
-                                        </button>
-                                    </form>
+                                    <h3 className="card-title">Registrarse</h3>
+                                    <Formik initialValues={initialValuesRegister()} onSubmit={registerUser}
+                                            validationSchema={validationFormRegister}>
+                                        {
+                                            props => {
+                                                return (<AccountRegisterForm formik={props}/>)
+                                            }
+                                        }
+                                    </Formik>
+
                                 </div>
                             </div>
                         </div>

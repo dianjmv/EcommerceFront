@@ -16,7 +16,7 @@ function BlockFeatures(props: BlockFeaturesProps) {
     return (
         <div className={`block block-features block-features--layout--${layout} mb-0`}>
             <div className="block-features__list border-none mb-0">
-                <div className="block-features__item">
+                <div className="block-features__item md:ml-20">
                     <div className="block-features__icon">
                         <FiFreeDelivery48Svg/>
                     </div>

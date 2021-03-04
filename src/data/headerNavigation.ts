@@ -31,16 +31,7 @@ class HeaderNavigationData {
         },
         {
             title: 'Empresa',
-            submenu: {
-                type: 'menu',
-                menu: [
-                    {title: 'Acerca de nosotros', url:'/enterprise/about-us'},
-                    {title: 'Preguntas Frecuentes', url:'/enterprise/faqs'},
-                    {title: 'Devoluciones y Garantias', url:'/enterprise/devolutions'},
-                    {title: 'Terminos y Condiciones', url:'/enterprise/terms-conditions'},
-                    {title: 'Politicas de privacidad', url:'/enterprise/privacy'},
-                ]
-            }
+            url:'/enterprise'
         },
         {
             title: 'Marcas',
@@ -84,7 +75,6 @@ class HeaderNavigationData {
         await this.setBrandsMenuUrl()
         await this.setProductsMenuUrl()
         await this.setSegmentsMenUrl()
-        console.log('Desde la clase ', this.dataHeaderNavigation)
         return this.dataHeaderNavigation
 
     }

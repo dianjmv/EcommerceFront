@@ -7,3 +7,5 @@ export function addCompanyBrands(brands:IBrand[]):AddBrandsActionType{
         brands: brands
     }
 }
+
+

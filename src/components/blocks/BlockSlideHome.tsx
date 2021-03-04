@@ -3,13 +3,15 @@ import {useEffect, useRef, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
+// @ts-ignore
+import MDReactComponent from 'markdown-react-js';
 
 // application
 import AppLink from '../shared/AppLink';
 import departmentsService from '../../services/departmentsService';
 import StroykaSlick from '../shared/StroykaSlick';
-import { useDirection } from '../../store/locale/localeHooks';
-import { useMedia } from '../../services/hooks';
+import {useDirection} from '../../store/locale/localeHooks';
+import {useMedia} from '../../services/hooks';
 import {getCompanyBanners} from "../../api/companyInfo";
 import {IBanners} from "../../interfaces/banners";
 import {useCompanyInfo} from "../../store/company/companyHooks";
@@ -80,12 +82,12 @@ const _slides = [
 ];
 
 function BlockSlideHome(props: BlockSlideShowProps) {
-    const { withDepartments = false, banners=[] } = props;
+    const {withDepartments = false, banners = []} = props;
     const direction = useDirection();
     const departmentsAreaRef = useRef<HTMLDivElement | null>(null);
     const isDesktop = useMedia('(min-width: 992px)');
     const companyInfo = useCompanyInfo();
-    const [slides, setSlides] = useState <IBanners[] | []>([])
+    const [slides, setSlides] = useState<IBanners[] | []>([])
 
     useEffect(() => () => {
         departmentsService.area = null;
@@ -95,10 +97,9 @@ function BlockSlideHome(props: BlockSlideShowProps) {
         departmentsService.area = departmentsAreaRef.current;
     }, [isDesktop, departmentsAreaRef]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setSlides(companyInfo.banners)
     }, [])
-
 
 
     const setDepartmentsAreaRef = (ref: HTMLDivElement | null) => {
@@ -117,53 +118,57 @@ function BlockSlideHome(props: BlockSlideShowProps) {
         },
     );
 
-    const layoutClasses = classNames(
-        'col-12',
-        {
-            'col-lg-12': !withDepartments,
-            'col-lg-9': withDepartments,
-        },
-    );
+
 
     // @ts-ignore
     const slidesList = companyInfo.banners.map((slide) => {
-            return (
-                <div key={slide.id} className="block-slideshow__slide">
-                    <div
-                        className="block-slideshow__slide-image block-slideshow__slide-image--desktop"
-                        style={{
-                            backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${slide.image_full.url})`,
-                        }}
-                    />
-                    <div
-                        className="block-slideshow__slide-image block-slideshow__slide-image--mobile"
-                        style={{
-                            backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${slide.image_mobile.url})`,
-                        }}
-                    />
-                    <div className={`block-slideshow__slide-content md:mt-0 mt-64 w-90 position-${slide.link_purchase.orientation}`}>
-                        <div className="block-slideshow__slide-button ">
-                            <AppLink href={slide.link_purchase.link} className={`btn btn-lg btn-${slide.link_purchase.button_color}`}>{slide.link_purchase.text_link}</AppLink>
+        return (
+            <div key={slide.id} className="block-slideshow__slide">
+                <div
+                    className="block-slideshow__slide-image block-slideshow__slide-image--desktop"
+                    style={{
+                        backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${slide.image_full.url})`,
+                    }}
+                />
+                <div
+                    className="block-slideshow__slide-image block-slideshow__slide-image--mobile"
+                    style={{
+                        backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${slide.image_mobile.url})`,
+                    }}
+                />
+                <div className={`block-slideshow__slide-content w-full`}>
+                    {slide.banner_description ?
+                        <div
+                            className={`block-slideshow__slide-text w-90 text-${slide.banner_description.text_color==='white'?'white':slide.banner_description.text_color+'-500'} position-${slide.banner_description.orientation}`}
+                        >
+                            <MDReactComponent text={slide.banner_description.description} />
                         </div>
+                        : null}
+
+                    <div
+                        className={`block-slideshow__slide-button md:mt-0 mt-48 w-90 position-${slide.link_purchase.orientation}`}>
+                        <AppLink href={slide.link_purchase.link}
+                                 className={`btn btn-lg btn-${slide.link_purchase.button_color}`}>{slide.link_purchase.text_link}</AppLink>
                     </div>
                 </div>
-            );
+            </div>
+        );
 
     });
-    if (companyInfo.banners.length>0){
+    if (companyInfo.banners.length > 0) {
         return (
             <div className="block-slideshow block block-slideshow--layout--full">
-                <div className="w-100">
-                    <div className="row">
-                        <div className={layoutClasses}>
+
+
+                        <div className={'w-full'}>
                             <div className="block-slideshow__body">
                                 <StroykaSlick {...slickSettings}>
                                     {slidesList}
                                 </StroykaSlick>
                             </div>
                         </div>
-                    </div>
-                </div>
+
+
             </div>
         );
     }

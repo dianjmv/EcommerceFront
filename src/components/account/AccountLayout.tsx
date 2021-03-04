@@ -1,5 +1,5 @@
 // react
-import { ReactNode, Fragment } from 'react';
+import React, { ReactNode, Fragment } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import AppLink from '../shared/AppLink';
 import PageHeader from '../shared/PageHeader';
 import url from '../../services/url';
+import {useUserLogged} from "../../store/auth/authHooks";
+import SitePageNotFound from "../site/SitePageNotFound";
 
 export interface AccountLayoutProps {
     children?: ReactNode;
@@ -17,21 +19,22 @@ export interface AccountLayoutProps {
 function AccountLayout(props: AccountLayoutProps) {
     const { children } = props;
     const router = useRouter();
+    const userLogged= useUserLogged()
 
     const breadcrumb = [
-        { title: 'Home', url: url.home() },
-        { title: 'My Account', url: url.accountDashboard() },
+        { title: 'Inicio', url: url.home() },
+        { title: 'Mi Cuenta', url: url.accountDashboard() },
     ];
 
     const items = [
-        { title: 'Dashboard', link: url.accountDashboard() },
-        { title: 'Edit Profile', link: url.accountProfile() },
-        { title: 'Order History', link: url.accountOrders() },
-        { title: 'Order Details', link: url.accountOrder({ id: 5 }) },
-        { title: 'Addresses', link: url.accountAddresses() },
-        { title: 'Edit Address', link: url.accountAddress({ id: 5 }) },
-        { title: 'Password', link: url.accountPassword() },
-        { title: 'Logout', link: url.accountSignIn() },
+        { title: 'Panel Principal', link: url.accountDashboard() },
+        { title: 'Editar Perfil', link: url.accountProfile() },
+        { title: 'Historial de Ordenes', link: url.accountOrders() },
+        // { title: 'Order Details', link: url.accountOrder({ id: 5 }) },
+        // { title: 'Addresses', link: url.accountAddresses() },
+        // { title: 'Edit Address', link: url.accountAddress({ id: 5 }) },
+        { title: 'Cambio de Contraseña', link: url.accountPassword() },
+        { title: 'Cerrar Sesión', link: url.accountSignIn() },
     ].map((item, index) => {
         const isActive = router.pathname === item.link.href;
         const classes = classNames('account-nav__item', {
@@ -44,17 +47,18 @@ function AccountLayout(props: AccountLayoutProps) {
             </li>
         );
     });
+    if (userLogged.userLogged?.user){
 
     return (
         <Fragment>
-            <PageHeader header="My Account" breadcrumb={breadcrumb} />
+            <PageHeader header="Mi Cuenta" breadcrumb={breadcrumb} />
 
             <div className="block">
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-lg-3 d-flex">
                             <div className="account-nav flex-grow-1">
-                                <h4 className="account-nav__title">Navigation</h4>
+                                <h4 className="account-nav__title">Navegación</h4>
                                 <ul>{items}</ul>
                             </div>
                         </div>
@@ -65,7 +69,10 @@ function AccountLayout(props: AccountLayoutProps) {
                 </div>
             </div>
         </Fragment>
-    );
+    );}
+    else {
+        return <SitePageNotFound/>
+    }
 }
 
 export default AccountLayout;

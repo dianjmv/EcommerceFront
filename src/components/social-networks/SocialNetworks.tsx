@@ -27,6 +27,10 @@ const SocialNetworks = () => {
                             width={'350px'}
                             height={'500px'}
                         />
+                        <Iframe url={'https://youtube.com/embed/videoseries?list=PLvAQRm0AjsSrKWm3ef91CY93yMpMCfcOP'}
+                                width={'350px'}
+                                height={'500px'}
+                        />
 
                         {/*{*/}
                         {/*    companyInfo.social_networks.map((social) => {*/}

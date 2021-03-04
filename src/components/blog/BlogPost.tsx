@@ -9,11 +9,11 @@ import BlogCommentsList from './BlogCommentsList';
 
 // data stubs
 import dataBlogPostComments from '../../data/blogPostComments';
-import dataBlogPosts from '../../data/blogPosts';
 import {IPost} from "../../interfaces/post";
 import ProductCard from "../shared/ProductCard";
 import PostCard, {PostCardLayout} from "../shared/PostCard";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import PostRepository from "../../api/postRepository";
 
 export type BlogPostLayout = 'classic' | 'full';
 
@@ -24,6 +24,20 @@ export interface BlogPostProps {
 
 function BlogPost(props: BlogPostProps) {
     const {layout = 'classic', post} = props;
+    const [tags, setTags] = useState<string[]>([]);
+    const [releatedPosts, setReleatedPost] = useState<IPost[]>([])
+    const postRepository = new PostRepository();
+    useEffect(() => {
+        const tagsTemp = []
+        for (let tag of post.blog_tags) {
+            tagsTemp.push(tag.slug)
+        }
+        setTags(tagsTemp)
+    }, [])
+    useEffect(()=>{
+        postRepository.getPostsByTags(tags).then(({data}) => setReleatedPost(data))
+    },[tags])
+
 
     const postClasses = classNames('post__content typography', {
         'typography--expanded': layout === 'full',
@@ -52,7 +66,6 @@ function BlogPost(props: BlogPostProps) {
             <div className={`post__header post-header post-header--layout--${layout}`}>
                 <h1 className="post-header__title text-4xl">{post.title}</h1>
             </div>
-
 
 
             <div className={postClasses}>
@@ -100,22 +113,32 @@ function BlogPost(props: BlogPostProps) {
                 }
             </div>
             <div className={'grid grid-cols-1'}>
-                <h3 className={'text-4xl border-gray-300 border-b-4'}>Post Relacionados</h3>
-                <div className={'md:grid md:grid-cols-4 grid-cols-1'}>
-                    {post.related_posts.map((post) => {
-                            const layoutMap: { [layout: string]: PostCardLayout } = {
-                                classic: 'grid-lg',
-                                grid: 'grid-nl',
-                                list: 'list-nl',
-                            }
-                            return (
-                                <div key={post.id} className="posts-list__item">
-                                    <PostCard post={post} layout={layoutMap[layout]}/>
-                                </div>
-                            )
-                        }
-                    )}
-                </div>
+                {
+                    releatedPosts.length > 0 ?
+                        <>
+                            <h3 className={'text-4xl border-gray-300 border-b-4'}>Post Relacionados</h3>
+                            <div className={'md:grid md:grid-cols-4 grid-cols-1'}>
+                                {releatedPosts.map((postReleated, index) => {
+
+                                        const layoutMap: { [layout: string]: PostCardLayout } = {
+                                            classic: 'grid-lg',
+                                            grid: 'grid-nl',
+                                            list: 'list-nl',
+                                        }
+                                        if (post.id !== postReleated.id && index < 5){
+                                            return (
+                                                <div key={postReleated.id} className="posts-list__item">
+                                                    <PostCard post={postReleated} layout={layoutMap[layout]}/>
+                                                </div>
+                                            )
+                                        }
+                                    }
+                                )}
+                            </div>
+                        </>
+                        : null
+                }
+
             </div>
 
         </div>

@@ -283,30 +283,44 @@ function ProductGallery(props: ProductGalleryProps) {
         getIndexDependOnDirRef.current = getIndexDependOnDir;
     }, [getIndexDependOnDir]);
 
-
     const featured = images.map((image, index) => (
         <div key={index} className="product-image product-image--location--gallery">
             <div className={'md:grid hidden'}>
+
+                {/*<ReactImageZoom*/}
+                {/*    img={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}*/}
+
+                {/*/>*/}
+
+
+
                 <ReactImageMagnify {...{
                     className:'bg-gray-300 z-50',
-                    enlargedImageContainerClassName: 'bg-gray-300 z-50 ml-32 border-2 border-gray-400',
+                    enlargedImageContainerClassName: 'z-50 ml-32 px-auto ',
                     enlargedImagePortalId:'zoom-img-id',
                     enlargedImageContainerStyle:{
                         position:'fixed',
                         left:'980px',
                         top:'170px',
-                        width: '800px'
+                        width: '100%'
                     },
-                    enlargedImageClassName:'bg-gray-300 z-50 ',
+                    enlargedImageClassName:'bg-gray-300 w-full',
+                    enlargedImageStyle:{
+                      width:'313px',
+                      height: '594px'
+
+                    },
                     smallImage: {
                         alt: 'Wristwatch by Ted Baker London',
                         isFluidWidth: true,
+                        sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px',
                         src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
                     },
                     largeImage: {
                         src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
-                        width: 1200,
-                        height: 1800
+                        width: 1800,
+                        height: 1800,
+
                     }
                 }} />
             </div>

@@ -1,5 +1,5 @@
 // application
-import FilterCategory from './FilterCategory';
+
 import FilterCheck from './FilterCheck';
 import FilterColor from './FilterColor';
 import FilterRadio from './FilterRadio';
@@ -22,10 +22,7 @@ function Filter(props: FilterProps) {
     const { data, value, onChangeValue } = props;
 
     switch (data.type) {
-    case 'category':
-        return (
-            <FilterCategory data={data} />
-        );
+
     case 'range':
         return (
             <FilterRange

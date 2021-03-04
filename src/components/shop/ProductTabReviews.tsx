@@ -3,24 +3,10 @@ import Pagination from '../shared/Pagination';
 import Rating from '../shared/Rating';
 
 // data stubs
-import dataShopProductReviews from '../../data/shopProductReviews';
+
 
 function ProductTabReviews() {
-    const reviewsList = dataShopProductReviews.map((review, index) => (
-        <li key={index} className="reviews-list__item">
-            <div className="review">
-                <div className="review__avatar"><img src={review.avatar} alt="" /></div>
-                <div className=" review__content">
-                    <div className=" review__author">{review.author}</div>
-                    <div className=" review__rating">
-                        <Rating value={review.rating} />
-                    </div>
-                    <div className=" review__text">{review.text}</div>
-                    <div className=" review__date">{review.date}</div>
-                </div>
-            </div>
-        </li>
-    ));
+
 
     return (
         <div className="reviews-view">
@@ -29,7 +15,6 @@ function ProductTabReviews() {
 
                 <div className="reviews-list">
                     <ol className="reviews-list__content">
-                        {reviewsList}
                     </ol>
                     <div className="reviews-list__pagination">
                         <Pagination current={1} siblings={2} total={10} />

@@ -23,31 +23,21 @@ function WidgetProducts(props: WidgetProductsProps) {
                 <div className="widget-products__image">
                     <div className="product-image">
                         <AppLink href={url.product(product)} className="product-image__body">
-                            <img className="product-image__img" src={product.images[0]} alt="" />
+                            <img className="product-image__img" src={product.images[0].url} alt="" />
                         </AppLink>
                     </div>
                 </div>
             );
         }
 
-        if (product.compareAtPrice) {
-            price = (
-                <Fragment>
-                    <span className="widget-products__new-price"><CurrencyFormat value={product.price} /></span>
-                    {' '}
-                    <span className="widget-products__old-price"><CurrencyFormat value={product.compareAtPrice} /></span>
-                </Fragment>
-            );
-        } else {
-            price = <CurrencyFormat value={product.price} />;
-        }
+
 
         return (
             <div key={product.id} className="widget-products__item">
                 {image}
                 <div className="widget-products__info">
                     <div className="widget-products__name">
-                        <AppLink href={url.product(product)}>{product.name}</AppLink>
+                        <AppLink href={url.product(product)}>{product.title}</AppLink>
                     </div>
                     <div className="widget-products__prices">
                         {price}

@@ -11,6 +11,8 @@ import companyInfoReducer from "../company/companyReducer";
 import productReducer from "../product/productReducer";
 import brandsCompanyReducer from "../brand/brandReducer";
 import filterProductsReducer from "../filter/filterReducer";
+import authReducer from "../auth/authReducer";
+import loadingReducer from "../loading/loadingReducer";
 
 export interface RootState {
     version: number;
@@ -25,5 +27,7 @@ export interface RootState {
     companyInfo: AppReducerStateType<typeof companyInfoReducer>;
     productsAvailable: AppReducerStateType<typeof productReducer>;
     brandsCompany: AppReducerStateType<typeof brandsCompanyReducer>;
-    filterProduct: AppReducerStateType<typeof filterProductsReducer>
+    filterProduct: AppReducerStateType<typeof filterProductsReducer>;
+    auth: AppReducerStateType<typeof authReducer>;
+    loading: AppReducerStateType<typeof loadingReducer>;
 }

@@ -38,7 +38,7 @@ function ShopPageWishlist() {
                 image = (
                     <div className="product-image">
                         <AppLink href={url.product(item)} className="product-image__body">
-                            <img className="product-image__img" src={item.images[0]} alt="" />
+                            <img className="product-image__img" src={item.images[0].url} alt="" />
                         </AppLink>
                     </div>
                 );
@@ -67,10 +67,10 @@ function ShopPageWishlist() {
                     </td>
                     <td className="wishlist__column wishlist__column--product">
                         <AppLink href={url.product(item)} className="wishlist__product-name">
-                            {item.name}
+                            {item.title}
                         </AppLink>
                         <div className="wishlist__product-rating">
-                            <Rating value={item.rating} />
+                            <Rating value={item.review} />
                             <div className="wishlist__product-rating-legend">{`${item.reviews} Reviews`}</div>
                         </div>
                     </td>

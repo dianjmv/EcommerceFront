@@ -23,7 +23,7 @@ import {useAddProducts, useProductsAvailable} from "../../store/product/productH
 import {IProduct, ProductsPaginated} from "../../interfaces/product";
 import {IPost} from "../../interfaces/post";
 import ProductsRepository from "../../api/productsRepository";
-import WidgetFilters from "../widgets/WidgetFilters";
+import WidgetFilters, {IForPage} from "../widgets/WidgetFilters";
 import {useFilterProduct, useResetFilters} from "../../store/filter/filterHooks";
 import {PriceType} from "../../interfaces/filter";
 
@@ -38,6 +38,8 @@ interface ProductsViewProps {
     grid?: ProductsViewGrid;
     offcanvas?: ProductsViewOffcanvas;
     openSidebarFn?: () => void;
+    forpage?:IForPage
+    shortPage? : boolean
 }
 
 interface ViewMode {
@@ -59,7 +61,7 @@ function ProductsView(props: ProductsViewProps) {
     const [layout, setLayout] = useState(propsLayout);
     const [productsPaginated, setProductsPaginated] = useState<ProductsPaginated[]>([])
     const [page, setPage] = useState(1);
-    let elementsPerPage = 9
+    let elementsPerPage = 12
 
     const isLoading = useShopProductsListIsLoading();
 
@@ -115,7 +117,6 @@ function ProductsView(props: ProductsViewProps) {
             for (const filter of filtersActivated.filters) {
                 if (filter.type === 'categories' || filter.type === 'brands' || filter.type === 'segments') {
                     productsFiltered = products.filter(produc => {
-                        console.log((produc.sale_price >= min && produc.sale_price <= max))
                             return (
                                 (produc.product_categories.filter(category => category.slug === filter.slug).length > 0 ||
                                     produc.brands.filter(brand => brand.slug === filter.slug).length > 0 ||
@@ -224,7 +225,7 @@ function ProductsView(props: ProductsViewProps) {
             <div className="products-view__content">
                 <div className={'grid grid-cols-12 gap-x-8'}>
                     <div className={'hidden md:grid md:col-start-1 md:col-span-3'}>
-                        <WidgetFilters/>
+                        <WidgetFilters forPage={props.forpage? props.forpage:null}/>
                     </div>
                     <div className={'md:col-start-4 md:col-span-8 col-start-1 col-span-11'}>
                         <div className="products-view__options">
@@ -258,7 +259,6 @@ function ProductsView(props: ProductsViewProps) {
                                             className="form-control form-control-sm"
                                             value={options.limit}
                                             onChange={handleLimitChange}>
-                                            <option value="9">9</option>
                                             <option value="12">12</option>
                                             <option value="18">18</option>
                                             <option value="24">24</option>
@@ -296,15 +296,18 @@ function ProductsView(props: ProductsViewProps) {
                                 {productsListItems}
                             </div>
                         </div>
+                        {
+                            props.shortPage ? null: <div className="products-view__pagination">
+                                <Pagination
+                                    current={page}
+                                    siblings={2}
+                                    total={productsPaginated.length}
+                                    onPageChange={setPage}
+                                />
+                            </div>
+                        }
 
-                        <div className="products-view__pagination">
-                            <Pagination
-                                current={page}
-                                siblings={2}
-                                total={productsPaginated.length}
-                                onPageChange={setPage}
-                            />
-                        </div>
+
                     </div>
 
                 </div>
@@ -313,16 +316,24 @@ function ProductsView(props: ProductsViewProps) {
         );
     } else {
         content = (
-            <div className="products-view__empty">
-                <div className="products-view__empty-title">No existen elemntos</div>
-                <div className="products-view__empty-subtitle">Intenta reiniciar los filtros</div>
-                <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
-                    onClick={shopResetFilters}
-                >
-                    Reiniciar los filtros
-                </button>
+            <div className="products-view__content">
+                <div className={'grid grid-cols-12 gap-x-8'}>
+                    <div className={'hidden md:grid md:col-start-1 md:col-span-3'}>
+                        <WidgetFilters forPage={props.forpage? props.forpage:null}/>
+                    </div>
+                    <div className="products-view__empty md:col-start-4 md:col-span-8 col-start-1 col-span-11">
+                        <div className="view-options__filters-button">
+                            <button type="button" className="filters-button" onClick={openSidebarFn}>
+                                <Filters16Svg className="filters-button__icon"/>
+                                <span className="filters-button__title">Filtros</span>
+                                {!!filtersCount &&
+                                <span className="filters-button__counter">{filtersCount}</span>}
+                            </button>
+                        </div>
+                        <div className="products-view__empty-title">No existen elementos</div>
+                        <div className="products-view__empty-subtitle text-center">Intenta cambiando tus parámetros de busqueda </div>
+                    </div>
+                </div>
             </div>
         );
     }

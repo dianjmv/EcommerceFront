@@ -12,6 +12,8 @@ import { useDirection } from '../../store/locale/localeHooks';
 import { useMedia } from '../../services/hooks';
 import {getCompanyBanners} from "../../api/companyInfo";
 import {IBanners} from "../../interfaces/banners";
+// @ts-ignore
+import MDReactComponent from 'markdown-react-js';
 
 export interface BlockSlideShowProps {
     withDepartments?: boolean;
@@ -96,7 +98,7 @@ function BlockSlideShow(props: BlockSlideShowProps) {
 
     useEffect(()=>{
         setSlides(banners)
-    }, [])
+    }, [banners])
 
 
 
@@ -140,8 +142,15 @@ function BlockSlideShow(props: BlockSlideShowProps) {
                             backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${slide.image_mobile.url})`,
                         }}
                     />
-                    <div className={`block-slideshow__slide-content md:mt-0 mt-64 w-90 position-${slide.link_purchase.orientation}`}>
-                        <div className="block-slideshow__slide-button ">
+                    <div className={`block-slideshow__slide-content w-full`}>
+                        {slide.banner_description ?
+                            <div
+                                className={`block-slideshow__slide-text w-90 text-${slide.banner_description.text_color==='white'?'white':slide.banner_description.text_color+'-500'} position-${slide.banner_description.orientation}`}
+                            >
+                                <MDReactComponent text={slide.banner_description.description} />
+                            </div>
+                            : null}
+                        <div className={`block-slideshow__slide-button md:mt-0 mt-64 w-90 position-${slide.link_purchase.orientation}`}>
                             <AppLink href={slide.link_purchase.link} className={`btn btn-lg btn-${slide.link_purchase.button_color}`}>{slide.link_purchase.text_link}</AppLink>
                         </div>
                     </div>

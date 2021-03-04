@@ -13,7 +13,7 @@ export interface IBaseCategory {
     created_at: string;
     updated_at: string;
     thumbnail_image: ImageBanner;
-    banner_images: ImageBanner[];
+    banner: ImageBanner;
     icon: ImageBanner;
     products: IProduct[];
 }

@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { AppDispatch } from '../types';
 import { GetServerSidePropsContext } from '../store';
 import { IFilterValues, IListOptions } from '../../interfaces/list';
-import { shopInitThunk } from './shopActions';
+
 
 export function parseQueryOptions(query: string) {
     const queryObject = queryString.parse(query);
@@ -74,6 +74,5 @@ export default async function getShopPageData(context: GetServerSidePropsContext
         const filters = parseQueryFilters(query);
         const dispatch = context.store.dispatch as AppDispatch;
 
-        await dispatch(shopInitThunk(categorySlug, options, filters));
     }
 }

@@ -30,13 +30,13 @@ function Suggestions(props: SuggestionsProps) {
             {product.images && product.images.length > 0 && (
                 <div className="suggestions__item-image product-image">
                     <div className="product-image__body">
-                        <img className="product-image__img" src={product.images[0]} alt="" />
+                        <img className="product-image__img" src={product.images[0].url} alt="" />
                     </div>
                 </div>
             )}
             <div className="suggestions__item-info">
                 <AppLink href={url.product(product)} className="suggestions__item-name">
-                    {product.name}
+                    {product.title}
                 </AppLink>
                 <div className="suggestions__item-meta">SKU: 83690/32</div>
             </div>

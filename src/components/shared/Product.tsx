@@ -1,5 +1,5 @@
 // react
-import {Fragment, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -11,15 +11,18 @@ import Compare16Svg from '../../svg/compare-16.svg';
 import CurrencyFormat from './CurrencyFormat';
 import InputNumber from './InputNumber';
 import ProductGallery from './ProductGallery';
-import Rating from './Rating';
+
 import Wishlist16Svg from '../../svg/wishlist-16.svg';
 import {IProduct} from '../../interfaces/product';
 import {useCompareAddItem} from '../../store/compare/compareHooks';
 import {useWishlistAddItem} from '../../store/wishlist/wishlistHooks';
 import {useCartAddItem} from '../../store/cart/cartHooks';
-import {SideBySideMagnifier} from "react-image-magnifiers";
+
 // @ts-ignore
 import ReactImageMagnify from 'react-image-magnify'
+import {RiFacebookCircleLine, RiWhatsappFill} from "react-icons/ri";
+import {useRouter} from "next/router";
+import {AiFillTwitterCircle} from "react-icons/ai";
 export type ProductLayout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
 
 export interface ProductProps {
@@ -27,12 +30,22 @@ export interface ProductProps {
     layout: ProductLayout;
 }
 
+
+
 function Product(props: ProductProps) {
+    const router = useRouter();
     const {product, layout} = props;
     const [quantity, setQuantity] = useState<number | string>(1);
     const cartAddItem = useCartAddItem();
     const wishlistAddItem = useWishlistAddItem();
     const compareAddItem = useCompareAddItem();
+    const [message, setMessage] = useState<string> ('')
+
+    useEffect(()=>{
+        const url = 'https://wa.me/593984215277'
+        const messageTemp = `?text=Hola%20quisiera%20obtener%20más%20información%20acerca%20el%20siguiente%20producto:%20${product.title}`
+        setMessage(`${url}${messageTemp}`)
+    },[])
 
     const addToCart = () => {
         if (typeof quantity === 'string') {
@@ -44,11 +57,11 @@ function Product(props: ProductProps) {
 
     let prices;
 
-
     return (
         <div className={`product product--layout--${layout}`}>
             <div className="product__content">
                 <ProductGallery layout={layout} images={product.images}/>
+
                 <div className="product__info" id={'zoom-img-id'}>
                     <div className="product__wishlist-compare">
                         <AsyncAction
@@ -131,14 +144,22 @@ function Product(props: ProductProps) {
                     <div className="product__share-links share-links flex">
                         <p className={'text-black font-bold mr-2'}>Compartir: </p>
                         <ul className="share-links__list">
-                            <li className="share-links__item share-links__item--type--like">
-                                <AppLink href="/">Like</AppLink>
+                            <li className="share-links__item">
+                                <AppLink href={`http://www.facebook.com/sharer.php?u=${process.env.NEXT_PUBLIC_APP_URL}${router.asPath}`}>
+                                    <span className={'text-2xl text-blue-600'}>
+                                        <RiFacebookCircleLine/>
+                                    </span>
+                                </AppLink>
                             </li>
-                            <li className="share-links__item share-links__item--type--tweet">
-                                <AppLink href="/">Tweet</AppLink>
+                            <li className="share-links__item ">
+                                <AppLink href="https://twitter.com/share">
+                                    <span className={'text-2xl text-blue-300'}><AiFillTwitterCircle/></span>
+                                </AppLink>
                             </li>
-                            <li className="share-links__item share-links__item--type--pin">
-                                <AppLink href="/">Pin It</AppLink>
+                            <li className="share-links__item ">
+                                <AppLink href={message}>
+                                    <span className={'text-2xl text-green-500'}><RiWhatsappFill/></span>
+                                </AppLink>
                             </li>
                         </ul>
                     </div>

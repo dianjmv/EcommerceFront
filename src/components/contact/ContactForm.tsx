@@ -33,15 +33,15 @@ const ContactForm = () => {
     return (
         <div className={'grid grid-cols-1 mt-10 contact-form '}>
             {useMemo(() => <BlockFeatures/>, [])}
-            <div className={'grid md:grid-cols-12 grid-cols-1 border-gray-100 border-t-2'}>
-                <div className={'hidden md:grid  md:col-start-1 md:col-span-5 bg-blue-100 text-center items-center'}
-                     style={{backgroundImage: 'url("/images/form-contact-back.png")', backgroundSize: 'cover',
+            <div className={'grid md:grid-cols-2 grid-cols-1 border-gray-100 border-t-2'}>
+                <div className={'bg-blue-100 text-center items-center flex justify-center'}
+                     style={{backgroundImage: 'url("/images/form_contact.png")', backgroundSize: 'cover',
                          backgroundRepeat  : 'no-repeat',
                          backgroundPosition: 'center',}}>
                     <p className={'text-5xl text-white py-auto'}>INFORMACIÓN Y <br/> <span
                         className={'font-bold'}>COTIZACIONES</span></p>
                 </div>
-                <div className={'md:col-start-6 md:col-span-6 col-start-1 md:px-64 px-8'}>
+                <div className={'md:px-28 px-8'}>
                     <Formik initialValues={initialValues()} onSubmit={sendMessage}
 
                             validationSchema={validationForm}>

@@ -6,6 +6,11 @@ import Form from "./ContactFormComponent";
 import * as Yup from "yup";
 import {sendContactPetition} from "../../api/contact";
 import {ShowSuccesAlert} from "../../alerts/ShowSuccessAlert";
+import MapContainer from "../shared/MapContainer";
+import SocialNetworks from "../social-networks/SocialNetworks";
+
+
+const mapUrl =`https://maps.googleapis.com/maps/api/js?v=3.exp$key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
 
 function SiteContactForm(){
     const companyInfo = useCompanyInfo()
@@ -34,15 +39,15 @@ function SiteContactForm(){
             <Head>
                 <title>{`${companyInfo.company_name} | Contactenos`}</title>
             </Head>
-            <div className={'bg-blue-700 text-center py-6'}>
+            <div className={'bg-blue-700 text-center py-6 '}>
                 <h1 className={'text-white text-5xl font-bold'}>Contáctanos</h1>
             </div>
-            <div className={'grid grid-cols-2 mt-10'}>
-                <div>
-
+            <div className={'grid md:grid-cols-2 grid-cols-1 mt-10'}>
+                <div className={'md:h-full h-96'}>
+                    <MapContainer />
                 </div>
-                <div className={'md:px-32 bg-blue-700'}>
-                    <h2 className={'text-white text-2xl mt-4'}>Déjanos un comentario</h2>
+                <div className={'md:px-28 bg-blue-700'}>
+                    <h2 className={'text-white text-2xl mt-4 px-2'}>Déjanos un comentario</h2>
                     <Formik initialValues={initialValues()} onSubmit={sendMessage}
 
                             validationSchema={validationForm}>
@@ -56,6 +61,7 @@ function SiteContactForm(){
                 </div>
 
             </div>
+            <SocialNetworks/>
 
         </div>
     )

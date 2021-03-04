@@ -1,5 +1,5 @@
 // react
-import {
+import React, {
     Fragment,
     ChangeEvent,
     useEffect,
@@ -57,7 +57,7 @@ function ShopPageCheckout() {
 
     const cartItems = cart.items.map((item) => (
         <tr key={item.id}>
-            <td>{`${item.product.name} × ${item.quantity}`}</td>
+            <td>{`${item.product.title} × ${item.quantity}`}</td>
             <td><CurrencyFormat value={item.total} /></td>
         </tr>
     ));
@@ -66,7 +66,7 @@ function ShopPageCheckout() {
         <table className="checkout__totals">
             <thead className="checkout__totals-header">
                 <tr>
-                    <th>Product</th>
+                    <th>Producto</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -135,66 +135,69 @@ function ShopPageCheckout() {
     return (
         <Fragment>
             <Head>
-                <title>{`Checkout — ${theme.name}`}</title>
+                <title>{`Checkout — SouthImport`}</title>
             </Head>
+            <div className={'bg-blue-700 text-center py-6 '}>
+                <h1 className={'text-white text-5xl font-bold'}>Finalizar Compra</h1>
+            </div>
 
-            <PageHeader header="Checkout" breadcrumb={breadcrumb} />
 
-            <div className="checkout block">
+            <div className="checkout block mt-4">
                 <div className="container">
                     <div className="row">
-                        <div className="col-12 mb-3">
-                            <div className="alert alert-primary alert-lg">
-                                Returning customer?
-                                {' '}
-                                <AppLink href={url.accountSignIn()}>
-                                    Click here to login
-                                </AppLink>
-                            </div>
-                        </div>
 
                         <div className="col-12 col-lg-6 col-xl-7">
                             <div className="card mb-lg-0">
                                 <div className="card-body">
-                                    <h3 className="card-title">Billing details</h3>
+                                    <h3 className="card-title font-bold text-2xl ">Detalles de Facturación</h3>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="checkout-first-name">First Name</label>
+                                            <label htmlFor="checkout-first-name">Nombre</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
                                                 id="checkout-first-name"
-                                                placeholder="First Name"
+
                                             />
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label htmlFor="checkout-last-name">Last Name</label>
+                                            <label htmlFor="checkout-last-name">Apellido</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
                                                 id="checkout-last-name"
-                                                placeholder="Last Name"
+
                                             />
                                         </div>
                                     </div>
+                                    <div className={'form-row'}>
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="checkout-company-name">
+                                                Tipo de identificación
 
-                                    <div className="form-group">
-                                        <label htmlFor="checkout-company-name">
-                                            Company Name
-                                            {' '}
-                                            <span className="text-muted">(Optional)</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="checkout-company-name"
-                                            placeholder="Company Name"
-                                        />
+                                            </label>
+                                            <select id="checkout-country" className="form-control">
+                                                <option>Cédula</option>
+                                                <option>RUC</option>
+                                                <option>Pasaporte</option>
+                                            </select>
+                                        </div>
+                                        <div className={'col-lg-6'}>
+                                            <label htmlFor="checkout-company-name">
+                                                Identificación
+
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="checkout-company-name"
+                                            />
+                                        </div>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="checkout-country">Country</label>
+                                        <label htmlFor="checkout-country">Región/Provincia</label>
                                         <select id="checkout-country" className="form-control">
-                                            <option>Select a country...</option>
+                                            <option>Selecciona una Provincia...</option>
                                             <option>United States</option>
                                             <option>Russia</option>
                                             <option>Italy</option>
@@ -205,51 +208,45 @@ function ShopPageCheckout() {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="checkout-street-address">Street Address</label>
+                                        <label htmlFor="checkout-country">Localidad/Ciudad</label>
+                                        <select id="checkout-country" className="form-control">
+                                            <option>Selecciona una ciudad...</option>
+                                            <option>United States</option>
+                                            <option>Russia</option>
+                                            <option>Italy</option>
+                                            <option>France</option>
+                                            <option>Ukraine</option>
+                                            <option>Germany</option>
+                                            <option>Australia</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="checkout-street-address">Dirección de la calle</label>
                                         <input
                                             type="text"
                                             className="form-control"
                                             id="checkout-street-address"
-                                            placeholder="Street Address"
+                                            placeholder="Calle Principal"
+                                        />
+                                        <input
+                                            type="text"
+                                            className="form-control mt-2"
+                                            id="checkout-street-address"
+                                            placeholder="Calle Secundaria"
                                         />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="checkout-address">
-                                            Apartment, suite, unit etc.
-                                            {' '}
-                                            <span className="text-muted">(Optional)</span>
+                                            Código Postal
                                         </label>
                                         <input type="text" className="form-control" id="checkout-address" />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="checkout-city">Town / City</label>
-                                        <input type="text" className="form-control" id="checkout-city" />
+                                        <label htmlFor="checkout-address">
+                                            Teléfono
+                                        </label>
+                                        <input type="text" className="form-control" id="checkout-address" />
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="checkout-state">State / County</label>
-                                        <input type="text" className="form-control" id="checkout-state" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="checkout-postcode">Postcode / ZIP</label>
-                                        <input type="text" className="form-control" id="checkout-postcode" />
-                                    </div>
-
-                                    <div className="form-row">
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="checkout-email">Email address</label>
-                                            <input
-                                                type="email"
-                                                className="form-control"
-                                                id="checkout-email"
-                                                placeholder="Email address"
-                                            />
-                                        </div>
-                                        <div className="form-group col-md-6">
-                                            <label htmlFor="checkout-phone">Phone</label>
-                                            <input type="text" className="form-control" id="checkout-phone" placeholder="Phone" />
-                                        </div>
-                                    </div>
-
                                     <div className="form-group">
                                         <div className="form-check">
                                             <span className="form-check-input input-check">
@@ -260,15 +257,10 @@ function ShopPageCheckout() {
                                                 </span>
                                             </span>
                                             <label className="form-check-label" htmlFor="checkout-create-account">
-                                                Create an account?
+                                                Crear una cuenta?
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="card-divider" />
-                                <div className="card-body">
-                                    <h3 className="card-title">Shipping Details</h3>
-
                                     <div className="form-group">
                                         <div className="form-check">
                                             <span className="form-check-input input-check">
@@ -279,27 +271,27 @@ function ShopPageCheckout() {
                                                 </span>
                                             </span>
                                             <label className="form-check-label" htmlFor="checkout-different-address">
-                                                Ship to a different address?
+                                                ¿Enviar a una dirección diferente?
                                             </label>
                                         </div>
                                     </div>
-
                                     <div className="form-group">
                                         <label htmlFor="checkout-comment">
-                                            Order notes
+                                            Notas del pedido
                                             {' '}
-                                            <span className="text-muted">(Optional)</span>
+                                            <span className="text-muted">(opcional)</span>
                                         </label>
                                         <textarea id="checkout-comment" className="form-control" rows={4} />
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
                         <div className="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
                             <div className="card mb-0">
                                 <div className="card-body">
-                                    <h3 className="card-title">Your Order</h3>
+                                    <h3 className="card-title font-bold text-2xl">Tu Orden</h3>
 
                                     {cartTable}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {GetServerSideProps} from "next";
 import {IProduct} from "../../../interfaces/product";
-import shopApi from "../../../api/shop";
+
 import {PageProps} from "../products/[slug]";
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     if (typeof context.params?.slug === 'string') {
         const { slug } = context.params;
 
-        product = await shopApi.getProductBySlug(slug);
+
     }
 
     return {

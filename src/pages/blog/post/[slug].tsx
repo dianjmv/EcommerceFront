@@ -1,8 +1,7 @@
 import BlogPagePost from '../../../components/blog/BlogPagePost';
-import {IProduct} from "../../../interfaces/product";
-import {IBrand} from "../../../interfaces/brand";
+
 import {GetServerSideProps} from "next";
-import {getBrandBySlug} from "../../../api/brands";
+
 import {IPost} from "../../../interfaces/post";
 import PostRepository from "../../../api/postRepository";
 import SitePageNotFound from "../../../components/site/SitePageNotFound";

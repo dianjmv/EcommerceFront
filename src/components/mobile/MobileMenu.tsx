@@ -1,5 +1,5 @@
 // react
-import { memo } from 'react';
+import {memo, useEffect, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -13,38 +13,37 @@ import { useMobileMenu, useMobileMenuClose } from '../../store/mobile-menu/mobil
 
 // data stubs
 import dataMobileMenu from '../../data/mobileMenu';
-import dataShopCurrencies from '../../data/shopCurrencies';
-import { IMobileMenuLink } from '../../interfaces/menus/mobile-menu';
+
+import {IMobileMenu, IMobileMenuLink} from '../../interfaces/menus/mobile-menu';
+import MobileMenuData from "../../data/mobileMenu";
 
 function MobileMenu() {
     const mobileMenu = useMobileMenu();
     const mobileMenuClose = useMobileMenuClose();
     const localeChange = useLocaleChange();
     const currencyChange = useCurrencyChange();
+    const mobileMenuData = new MobileMenuData()
 
     const classes = classNames('mobilemenu', {
         'mobilemenu--open': mobileMenu.open,
     });
+    const [mobileData, setMobileData] = useState<IMobileMenu>([])
+
+    useEffect(()=>{
+        mobileMenuData.getMobileMenu().then(menu => setMobileData(menu))
+    }, [])
 
     const handleItemClick = (item: IMobileMenuLink) => {
-        if (item.data) {
-            if (item.data.type === 'language') {
-                localeChange(item.data.locale);
-                mobileMenuClose();
-            }
-            if (item.data.type === 'currency') {
-                const currency = dataShopCurrencies.find((x) => x.code === item.data.code);
 
-                if (currency) {
-                    currencyChange(currency);
-                    mobileMenuClose();
-                }
-            }
-        }
         if (item.type === 'link') {
             mobileMenuClose();
         }
     };
+
+    if (mobileData.length>0){
+
+    }
+
 
     return (
         <div className={classes}>
@@ -59,7 +58,10 @@ function MobileMenu() {
                     </button>
                 </div>
                 <div className="mobilemenu__content">
-                    <MobileLinks links={dataMobileMenu} onItemClick={handleItemClick} />
+                    {
+                        mobileData.length>0?<MobileLinks links={mobileData} onItemClick={handleItemClick} />:null
+                    }
+
                 </div>
             </div>
         </div>

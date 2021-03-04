@@ -13,5 +13,13 @@ class PostRepository{
         const url = `${this.baseUrl.getBaseUrl()}/posts?slug=${slug}`;
         return axios.get<IPost[]>(url);
     }
+
+    public getPostsByTags(tags:string[]){
+        const url = `${this.baseUrl.getBaseUrl()}/posts/blog-tags`;
+        const tagsFilter = {
+            "tags": tags
+        }
+        return axios.post<IPost[]>(url,tagsFilter)
+    }
 }
 export default PostRepository;

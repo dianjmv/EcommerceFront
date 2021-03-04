@@ -54,11 +54,11 @@ const url = {
     }),
 
     accountSignUp: (): ILinkProps => ({
-        href: '/account/login',
+        href: '/account/loading',
     }),
 
     accountSignOut: (): ILinkProps => ({
-        href: '/account/login',
+        href: '/account/loading',
     }),
 
     accountDashboard: (): ILinkProps => ({

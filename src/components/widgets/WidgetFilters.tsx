@@ -1,5 +1,5 @@
 // react
-import {ChangeEvent, ReactNode, useCallback, useEffect, useState} from 'react';
+import {ChangeEvent, ReactNode, useCallback, useEffect, useMemo, useState} from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -28,16 +28,25 @@ import ProductsRepository from "../../api/productsRepository";
 import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
 import {IProduct} from "../../interfaces/product";
 import {filter} from "domutils";
+import {useRouter} from "next/router";
+
+export interface IForPage {
+    type: string
+    slug: string
+}
 
 type WidgetFiltersProps = {
     title?: ReactNode;
     offcanvas?: 'always' | 'mobile';
+    forPage?: IForPage | null
 };
+
 
 interface IFilterWidget {
     type: string;
     element: any[];
     name: string;
+
 }
 
 
@@ -64,6 +73,9 @@ function WidgetFilters(props: WidgetFiltersProps) {
     const filtersAdded = useFilterProduct();
     const [activeCheckedFilter, setActiveCheckedFilter] = useState<IFilterProduct[]>([]);
     const productsState = useProductsAvailable();
+    const router = useRouter()
+    const [shopBase, setShopBase] = useState<string|null>(null)
+    const [typeUrl, setTypeUrl] = useState<string|null> (null)
 
 
     const shopSetFilterValue = useShopSetFilterValueThunk();
@@ -71,14 +83,11 @@ function WidgetFilters(props: WidgetFiltersProps) {
 
     const filtersActivated = useFilterProduct()
 
-    const handleValueChange = useCallback(({filter, value}: FilterChangeValueEvent) => {
-        shopSetFilterValue(
-            filter.slug,
-            isDefaultFilterValue(filter, value) ? null : serializeFilterValue(filter, value),
-        ).then();
-    }, [shopSetFilterValue]);
 
     useEffect(() => {
+        const routeSplited =router.route.split('/')
+        setShopBase(routeSplited[1])
+        setTypeUrl(routeSplited[2])
         categoryRepository.getAllCategories().then(({data}) => setCategories(data))
         brandsRepository.getAllBrands().then(({data}) => setBrands(data))
         segmentsRepository.getAllSegments().then(({data}) => setSegments(data))
@@ -88,7 +97,7 @@ function WidgetFilters(props: WidgetFiltersProps) {
             value: {min: minValue, max: maxValue}
         })
     }, [])
-    useEffect(() => {
+    useMemo(() => {
         const elementToFilter = []
         elementToFilter.push({
             type: 'categories',
@@ -110,20 +119,9 @@ function WidgetFilters(props: WidgetFiltersProps) {
             element: [],
             name: 'Precio'
         })
-
         setFilters(elementToFilter)
     }, [categories, segments, brands])
 
-
-    function activeFilter(type: string, slug: string, event: ChangeEvent) {
-
-        addFilterState({
-            type,
-            slug,
-            // @ts-ignore
-            value: event.target.checked
-        })
-    }
 
     useEffect(() => {
         let haveFilters = false
@@ -140,52 +138,43 @@ function WidgetFilters(props: WidgetFiltersProps) {
 
     }, [
         filtersActivated.filters,
+        // @ts-ignore
         filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.min,
+        // @ts-ignore
         filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.max
     ])
+    const activeFilter = async (type: string, slug: string, event: ChangeEvent) => {
+        if (type !== 'price') {
+            await addFilterState({
+                type,
+                slug,
+                // @ts-ignore
+                value: event.target.checked
+            })
+        }
+    }
 
 
     function handleChangePrice(event: any) {
         setMinValue(event.min)
         setMaxValue(event.max)
+    }
+
+    function handleChangePriceComplete() {
         addFilterState({
             type: 'price',
             slug: 'price',
-            value: {min: event.min, max: event.max}
+            value: {min: minValue, max: maxValue}
         })
     }
 
 
     function filterProducts(products: IProduct[]) {
-        let productsFiltered: IProduct[] = products
-
-        // @ts-ignore
-        const {min, max}: PriceType = filtersActivated.filters.filter(fillter => fillter.type === 'price')[0].value
         if (filtersActivated.filters.length > 0) {
-            for (const filter of filtersActivated.filters) {
-                if (filter.type === 'categories' || filter.type === 'brands' || filter.type === 'segments') {
-                    productsFiltered = products.filter(produc => {
-                        console.log((produc.sale_price >= min && produc.sale_price <= max))
-                            return (
-                                (
-                                    (produc.product_categories.filter(category => category.slug === filter.slug).length > 0 ||
-                                    produc.brands.filter(brand => brand.slug === filter.slug).length > 0 ||
-                                    produc.segments.filter(segment => segment.slug === filter.slug).length > 0)
-                                    &&
-                                    (produc.sale_price >= min && produc.sale_price <= max)
-                                )
-                            )
-                        }
-                    )
-                }
-            }
-            addProducts(productsFiltered)
+            productsRepository.getProductsFiltered(filtersActivated.filters).then(({data}) => addProducts(data))
         }
     }
 
-
-    useEffect(() => {
-    }, [activeCheckedFilter])
 
     const priceFilter = (
         <div className="filter-price">
@@ -194,11 +183,18 @@ function WidgetFilters(props: WidgetFiltersProps) {
                     minValue={0}
                     maxValue={999}
                     value={{
-                        min: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ? filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.min : minValue,
-                        max: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ? filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.max : maxValue
+                        min: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ?
+                            // @ts-ignore
+                            filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.min :
+                            minValue,
+                        max: filtersAdded.filters.filter(filter => filter.type === 'price').length > 0 ?
+                            // @ts-ignore
+                            filtersAdded.filters.filter(filter => filter.type === 'price')[0].value.max :
+                            maxValue
                     }}
                     step={1}
                     onChange={handleChangePrice}
+                    onChangeComplete={handleChangePriceComplete}
                 />
             </div>
             <div className="filter-price__title">
@@ -228,18 +224,19 @@ function WidgetFilters(props: WidgetFiltersProps) {
                                         key={elemt.slug}
                                         className={'filter-list__item'}
                                     >
-                <span className="filter-list__input input-radio">
-                    <span className="input-radio__body">
-                        <input
-                            className="input-radio__input"
-                            type="checkbox"
-                            checked={filtersAdded.filters.filter(productFilter => productFilter.type === filter.type && productFilter.slug === elemt.slug).length > 0}
-                            name={elemt.slug}
-                            onChange={(e) => activeFilter(filter.type, elemt.slug, e)}
-                        />
-                        <span className="input-radio__circle"/>
-                    </span>
-                </span>
+                                        <span className="filter-list__input input-radio">
+                                            <span className="input-radio__body">
+                                                <input
+                                                    className="input-radio__input"
+                                                    type="checkbox"
+                                                    checked={filtersAdded.filters.filter(productFilter => productFilter.type === filter.type && productFilter.slug === elemt.slug).length > 0}
+                                                    name={elemt.slug}
+                                                    disabled={ shopBase==='shop' && typeUrl!== undefined && typeUrl === filter.type }
+                                                    onChange={(e) => activeFilter(filter.type, elemt.slug, e)}
+                                                />
+                                                <span className="input-radio__circle"/>
+                                            </span>
+                                        </span>
                                         <span className="filter-list__title">{elemt.name}</span>
                                     </label>
                                 ))
@@ -271,13 +268,7 @@ function WidgetFilters(props: WidgetFiltersProps) {
             </div>
 
             <div className="widget-filters__actions d-flex mb-n2">
-                <button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                    onClick={shopResetFilters}
-                >
-                    Reiniciar
-                </button>
+
             </div>
         </div>
     );

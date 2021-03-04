@@ -2,6 +2,15 @@ import {IBanners} from "./banners";
 import {IProduct} from "./product";
 import {ImageBanner} from "./imageBanner";
 
+export interface ITag{
+    id: number;
+    tittle: string;
+    slug: string;
+    created_at: string;
+    updated_at: string;
+}
+
+
 export interface IPost {
     id: number;
     title: string;
@@ -16,5 +25,5 @@ export interface IPost {
     presentation: ImageBanner;
     blog_categories: string[]
     products: IProduct[]
-    related_posts: IPost[]
+    blog_tags: ITag[]
 }

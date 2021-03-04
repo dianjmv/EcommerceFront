@@ -50,13 +50,13 @@ function Segments() {
                 <title>{companyInfo !== undefined ? `${companyInfo.company_name} | Segmentos` : null}</title>
             </Head>
             <div className={'grid grid-cols-1 container mt-16'}>
-                <div className={'grid grid-cols-3 text-center'}>
+                <div className={'hidden md:grid grid-cols-1 md:grid-cols-3 text-center'}>
                     <span className={'border-gray-200 border-2'}>Segmento</span>
                     <span className={'border-gray-200 border-2'}>Marcas y niveles de uso</span>
                     <span className={'border-gray-200 border-2'}>Aplicaciones</span>
                 </div>
                 {segments.map((segment,index) => (
-                    <div className={`grid grid-cols-3 bg-gray-200 ${index>=1? 'my-1': ''}`}>
+                    <div className={`grid md:grid-cols-3 grid-cols-1 bg-gray-200 ${index>=1? 'my-1': ''}`}>
                         <div className={'text-white flex flex-wrap text-center content-center '} style={{
                             backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${segment.thumbnail.url})`,
                             backgroundSize: 'cover',
@@ -66,7 +66,7 @@ function Segments() {
                             <div className={'grid grid-cols-1 mx-auto'}>
                                 <h4 className={'text-2xl'}>Segmento </h4>
                                 <p className={'font-bold text-3xl'}>{segment.name}</p>
-                                <AppLink href={`/shop/segments/${segment.slug} `} className={'mt-2 btn btn-white'}>
+                                <AppLink href={`/shop/segments/${segment.slug} `} className={'my-2 btn btn-white'}>
                                     Ver Productos
                                 </AppLink>
                             </div>

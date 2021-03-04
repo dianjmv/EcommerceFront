@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 // application
 import Cross20Svg from '../../svg/cross-20.svg';
 import Search20Svg from '../../svg/search-20.svg';
-import shopApi, { GetSuggestionsOptions } from '../../api/shop';
+
 import Suggestions from './Suggestions';
 import { ICategory } from '../../interfaces/category';
 import { IProduct } from '../../interfaces/product';
@@ -29,24 +29,9 @@ function useCategories() {
     useEffect(() => {
         let canceled = false;
 
-        const treeToList = (categories: ICategory[], depth = 0): CategoryWithDepth[] => (
-            categories.reduce(
-                (result: CategoryWithDepth[], category) => [
-                    ...result,
-                    { depth, ...category },
-                    ...treeToList(category.children || [], depth + 1),
-                ],
-                [],
-            )
-        );
 
-        shopApi.getCategories({ depth: 1 }).then((categories: ICategory[]) => {
-            if (canceled) {
-                return;
-            }
 
-            setCategories(treeToList(categories));
-        });
+
 
         return () => {
             canceled = true;
@@ -131,21 +116,9 @@ function Search(props: SearchProps) {
             setHasSuggestions(false);
         } else {
             timer = setTimeout(() => {
-                const options: GetSuggestionsOptions = { limit: 5 };
 
-                if (category !== '[all]') {
-                    options.category = category;
-                }
 
-                shopApi.getSuggestions(query, options).then((products) => {
-                    if (canceled) {
-                        return;
-                    }
 
-                    setSuggestedProducts(products);
-                    setHasSuggestions(products.length > 0);
-                    setSuggestionsOpen(true);
-                });
             }, 100);
         }
 

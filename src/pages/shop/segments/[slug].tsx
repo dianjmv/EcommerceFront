@@ -57,7 +57,7 @@ function Page({products, segment}: PageProps) {
             slug:segment[0].slug,
             value:true
         })
-    }, [])
+    }, [segment])
 
     useEffect(() => {
         setSegmentProducts(allProductsList.filter((product) => (ids.includes(product.id)

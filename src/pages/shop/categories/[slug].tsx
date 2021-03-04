@@ -10,6 +10,7 @@ import ShopPageCategory from "../../../components/shop/ShopPageCategory";
 import CategoryRepository from "../../../api/categoryRepository";
 import {useAddFilterProduct, useResetFilters} from "../../../store/filter/filterHooks";
 import {ICategory} from "../../../interfaces/category";
+import ShopPageCategories from "../../../components/shop/ShopPageCategories";
 
 
 export interface PageProps {
@@ -67,7 +68,7 @@ function Page({products, category}: PageProps) {
     }, [categoryProducts])
 
 
-    return <ShopPageCategory columns={4} viewMode="grid" />;
+    return <ShopPageCategories columns={4} viewMode="grid" category={category} />;
 }
 
 export default Page;

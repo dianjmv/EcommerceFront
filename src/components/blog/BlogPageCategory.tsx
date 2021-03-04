@@ -11,7 +11,7 @@ import Pagination from '../shared/Pagination';
 import PostCard, {PostCardLayout} from '../shared/PostCard';
 
 // data stubs
-import dataBlogPosts from '../../data/blogPosts';
+
 import theme from '../../data/theme';
 import {useCompanyInfo} from "../../store/company/companyHooks";
 import ContactForm from "../contact/ContactForm";

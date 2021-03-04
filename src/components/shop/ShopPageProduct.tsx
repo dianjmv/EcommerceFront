@@ -35,6 +35,7 @@ import ContactForm from "../contact/ContactForm";
 import CategoryRepository from "../../api/categoryRepository";
 import BrandsRepository from "../../api/brandsRepository";
 import SegmentRepository from "../../api/segmentRepository";
+import ProductsRepository from "../../api/productsRepository";
 
 export type ShopPageProductLayout = 'standard' | 'sidebar' | 'columnar';
 
@@ -62,25 +63,36 @@ function ShopPageProduct(props: ShopPageProductProps) {
     const categoriesRepository = new CategoryRepository()
     const brandsRepository = new BrandsRepository()
     const segmentsRepository = new SegmentRepository()
+    const productsRepository = new ProductsRepository()
+
 
     // Load related products.
     useEffect(() => {
         let canceled = false;
-
-        brandsRepository.getAllBrands().then(({data})=>{
-            setBrands(data)
-        })
-
-        categoriesRepository.getAllCategories().then(({data}) => {
-            if (canceled) {
-                return;
+        productsRepository.getProductsMostSeller().then(({data})=>{
+            const products:IProduct[] = [];
+            for (let sell of data){
+                for (let infoSell of sell.products){
+                    let exist = false;
+                    for (let productFiltered of products){
+                        if (productFiltered.id === infoSell.product.id && infoSell.product.id !== product.id){
+                            exist = true
+                            break
+                        }
+                    }
+                    if (!exist){
+                        products.push(infoSell.product)
+                    }
+                }
             }
-            setCategories(data)
-        });
+
+            setRelatedProducts(products)
+
+        })
         return () => {
             canceled = true;
         };
-    }, [product.slug, setRelatedProducts]);
+    }, [product.slug]);
 
     // Load categories.
     useEffect(() => {

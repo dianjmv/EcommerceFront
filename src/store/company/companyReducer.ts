@@ -31,7 +31,15 @@ const initialState: CompanyInfoState = {
     banners: [],
     catalog: [],
     catalog_cover: [],
-    blog_page_banner: ''
+    blog_page_banner: '',
+    about_us_banner: '',
+    faqs_banner: '',
+    privacy_politics_banner: '',
+    terms_and_conditions_banner: '',
+    devolution:'',
+    devolution_banner:'',
+    whatsapp_message:'',
+    whatsapp_number:'',
 }
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 

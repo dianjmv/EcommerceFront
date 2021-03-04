@@ -1,4 +1,4 @@
-import shopApi from '../../api/shop';
+
 import {IFilterValues, IListOptions} from '../../interfaces/list';
 import {IProduct, IProductsList} from '../../interfaces/product';
 import {IShopCategory} from '../../interfaces/category';
@@ -82,32 +82,7 @@ export function shopSetFilterValue(filter: string, value: string | null): ShopSe
     };
 }
 
-export function shopFetchCategoryThunk(categorySlug: string | null): ShopThunkAction<Promise<void>> {
-    return async (dispatch) => {
-        let canceled = false;
 
-        cancelPreviousCategoryRequest();
-        cancelPreviousCategoryRequest = () => {
-            canceled = true;
-        };
-
-        let request: Promise<IShopCategory | null>;
-
-        if (categorySlug) {
-            request = shopApi.getCategoryBySlug(categorySlug);
-        } else {
-            request = Promise.resolve(null);
-        }
-
-        const category = await request;
-
-        if (canceled) {
-            return;
-        }
-
-        dispatch(shopFetchCategorySuccess(category));
-    };
-}
 
 export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
     return async (dispatch, getState) => {
@@ -160,17 +135,4 @@ export function shopResetFiltersThunk(): ShopThunkAction<Promise<void>> {
     };
 }
 
-export function shopInitThunk(
-    categorySlug: string | null,
-    options: IListOptions = {},
-    filters: IFilterValues = {},
-): ShopThunkAction<Promise<void>> {
-    return async (dispatch) => {
-        dispatch(shopInit(categorySlug, options, filters));
 
-        await Promise.all([
-            dispatch(shopFetchCategoryThunk(categorySlug)),
-            dispatch(shopFetchProductsListThunk()),
-        ]);
-    };
-}

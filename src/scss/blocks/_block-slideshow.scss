@@ -112,6 +112,14 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     opacity: 0;
     transform: translateY(15px);
     transition: all .8s .5s;
+    h1{
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+    h2{
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
 }
 .block-slideshow__slide-button {
     margin-top: 40px;
@@ -134,7 +142,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     @media (min-width: breakpoint(md-start)) {
         .block-slideshow__body,
         .block-slideshow__slide {
-            height: 500px;
+            height: 590px;
         }
 
         .block-slideshow__slide-content {
@@ -217,7 +225,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     }
     .block-slideshow__slide-image--mobile {
         background-position: top center;
-        display: block;
+        display: grid;
     }
     .block-slideshow__slide-content {
         top: 30px;

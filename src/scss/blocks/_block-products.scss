@@ -32,8 +32,8 @@ $local-product-margin: 5px;
 .block-products__list {
     @media (min-width: 1300px) {
         display: grid;
-        grid-template-columns: repeat(5, 285px);
-        grid-column-gap: 15px;
+        grid-template-columns: repeat(4, 320px);
+        grid-column-gap: 25px;
 
     }
     display: flex;
