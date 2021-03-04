@@ -8,8 +8,8 @@ import IndicatorAccount from './IndicatorAccount';
 import IndicatorSearch from './IndicatorSearch';
 import LogoSmallSvg from '../../svg/logo-small.svg';
 import NavLinks from './NavLinks';
-import {useWishlist} from '../../store/wishlist/wishlistHooks';
-import {useCompanyInfo} from "../../store/company/companyHooks";
+import { useWishlist } from '../../store/wishlist/wishlistHooks';
+import { useCompanyInfo } from '../../store/company/companyHooks';
 
 export type NavPanelLayout = 'default' | 'compact';
 
@@ -18,26 +18,26 @@ export interface NavPanelProps {
 }
 
 function NavPanel(props: NavPanelProps) {
-    const {layout = 'default'} = props;
-    const {items: {length: wishlistCount}} = useWishlist();
-
-
+    const { layout = 'default' } = props;
+    const {
+        items: { length: wishlistCount },
+    } = useWishlist();
 
     let logo = null;
     let departments = null;
     let searchIndicator;
 
-
     if (layout === 'compact') {
         logo = (
             <div className="nav-panel__logo">
-                <AppLink href="/"><LogoSmallSvg/></AppLink>
+                <AppLink href="/">
+                    <LogoSmallSvg />
+                </AppLink>
             </div>
         );
 
-        searchIndicator = <IndicatorSearch/>;
+        searchIndicator = <IndicatorSearch />;
     }
-
 
     return (
         <div className="nav-panel">
@@ -46,17 +46,17 @@ function NavPanel(props: NavPanelProps) {
                     {logo}
 
                     <div className="nav-panel__nav-links nav-links">
-                        <NavLinks/>
+                        <NavLinks />
                     </div>
 
                     <div className="nav-panel__indicators">
                         {searchIndicator}
 
-                        <Indicator url="/shop/wishlist" value={wishlistCount} icon={<Heart20Svg/>}/>
+                        <Indicator url="/shop/wishlist" value={wishlistCount} icon={<Heart20Svg />} />
 
-                        <CartIndicator/>
+                        <CartIndicator />
 
-                        <IndicatorAccount/>
+                        <IndicatorAccount />
                     </div>
                 </div>
             </div>

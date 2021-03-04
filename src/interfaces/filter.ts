@@ -1,4 +1,4 @@
-import {ICategory, IShopCategory} from './category';
+import { ICategory, IShopCategory } from './category';
 
 export interface IBaseFilter {
     type: string;
@@ -47,21 +47,15 @@ export interface IColorFilter extends IBaseFilter {
     items: IColorFilterItem[];
 }
 
-export type IFilter =
-    ICategoryFilter |
-    IRangeFilter |
-    ICheckFilter |
-    IRadioFilter |
-    IColorFilter;
-
+export type IFilter = ICategoryFilter | IRangeFilter | ICheckFilter | IRadioFilter | IColorFilter;
 
 export type PriceType = {
-    min:number;
-    max: number
-}
+    min: number;
+    max: number;
+};
 
-export interface IFilterProduct{
+export interface IFilterProduct {
     type: string;
     value: boolean | PriceType;
-    slug:string;
+    slug: string;
 }

@@ -39,11 +39,7 @@ function MobileLinks(props: MobileLinksProps) {
 
                     subLinks = (
                         <div className="mobile-links__item-sub-links" ref={setContentRef}>
-                            <MobileLinks
-                                links={link.children}
-                                level={level + 1}
-                                onItemClick={onItemClick}
-                            />
+                            <MobileLinks links={link.children} level={level + 1} onItemClick={onItemClick} />
                         </div>
                     );
                 }
@@ -60,11 +56,7 @@ function MobileLinks(props: MobileLinksProps) {
                     );
                 } else {
                     linkOrButton = (
-                        <button
-                            type="button"
-                            className="mobile-links__item-link"
-                            onClick={() => handleItemClick(link)}
-                        >
+                        <button type="button" className="mobile-links__item-link" onClick={() => handleItemClick(link)}>
                             {link.title}
                         </button>
                     );
@@ -89,11 +81,7 @@ function MobileLinks(props: MobileLinksProps) {
         return <li key={index}>{item}</li>;
     });
 
-    return (
-        <ul className={`mobile-links mobile-links--level--${level}`}>
-            {linksList}
-        </ul>
-    );
+    return <ul className={`mobile-links mobile-links--level--${level}`}>{linksList}</ul>;
 }
 
 export default MobileLinks;

@@ -1,5 +1,5 @@
 // react
-import {Fragment, useEffect, useState} from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // third-party
 import Head from 'next/head';
@@ -10,24 +10,22 @@ import url from '../../services/url';
 
 // data stubs
 import theme from '../../data/theme';
-import {useRouter} from "next/router";
-import OrdersRepository from "../../api/ordersRepository";
-import {ITransactions} from "../../interfaces/transactions";
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
-import SitePageNotFound from "../site/SitePageNotFound";
+import { useRouter } from 'next/router';
+import OrdersRepository from '../../api/ordersRepository';
+import { ITransactions } from '../../interfaces/transactions';
+import { format, formatDistance, formatRelative, subDays } from 'date-fns';
+import SitePageNotFound from '../site/SitePageNotFound';
 
 export default function AccountPageOrderDetails() {
-    const router = useRouter()
-    const orderRepository = new OrdersRepository()
-    const [order, setOrder] = useState<ITransactions>()
-    useEffect(()=>{
-        orderRepository.getOrdersById(parseInt(router.query.orderId as string)).then(({data})=>(setOrder(data)))
+    const router = useRouter();
+    const orderRepository = new OrdersRepository();
+    const [order, setOrder] = useState<ITransactions>();
+    useEffect(() => {
+        orderRepository.getOrdersById(parseInt(router.query.orderId as string)).then(({ data }) => setOrder(data));
+    }, [router.query]);
 
-    },[router.query])
-
-    if (order){
+    if (order) {
         return (
-
             <Fragment>
                 <Head>
                     <title>{`SouthImport | Detalle de la Orden`}</title>
@@ -42,10 +40,10 @@ export default function AccountPageOrderDetails() {
                         </div>
                         <h5 className="order-header__title">Orden #{order?.id}</h5>
                         <div className="order-header__subtitle">
-                            Fue colocado en
-                            {' '}
-                            <mark className="order-header__date">{format(new Date(order?.created_at), 'YYY-mm-dd')}</mark>
-                            {' '}
+                            Fue colocado en{' '}
+                            <mark className="order-header__date">
+                                {format(new Date(order?.created_at), 'YYY-mm-dd')}
+                            </mark>{' '}
                             .
                         </div>
                     </div>
@@ -54,18 +52,22 @@ export default function AccountPageOrderDetails() {
                         <div className="table-responsive-sm">
                             <table>
                                 <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Total</th>
-                                </tr>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Total</th>
+                                    </tr>
                                 </thead>
                                 <tbody className="card-table__body card-table__body--merge-rows">
-                                {
-                                    order.products.map((productOrder => (<tr>
-                                        <td>{productOrder.product.title} × {productOrder.quantity}</td>
-                                        <td>${(productOrder.quantity* productOrder.product.sale_price).toFixed(2)}</td>
-                                    </tr>)))
-                                }
+                                    {order.products.map(productOrder => (
+                                        <tr>
+                                            <td>
+                                                {productOrder.product.title} × {productOrder.quantity}
+                                            </td>
+                                            <td>
+                                                ${(productOrder.quantity * productOrder.product.sale_price).toFixed(2)}
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                                 {/*<tbody className="card-table__body card-table__body--merge-rows">*/}
                                 {/*<tr>*/}
@@ -82,10 +84,10 @@ export default function AccountPageOrderDetails() {
                                 {/*</tr>*/}
                                 {/*</tbody>*/}
                                 <tfoot>
-                                <tr>
-                                    <th>Total</th>
-                                    <td>${order.total_price}</td>
-                                </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>${order.total_price}</td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -142,9 +144,7 @@ export default function AccountPageOrderDetails() {
                 {/*</div>*/}
             </Fragment>
         );
-    }else {
-        return (<SitePageNotFound/>)
+    } else {
+        return <SitePageNotFound />;
     }
-
-
 }

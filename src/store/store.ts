@@ -9,8 +9,6 @@ import version from './version';
 import { FirstArgType } from './types';
 import { RootState } from './root/rootTypes';
 
-
-
 export const save = (state: any) => {
     try {
         localStorage.setItem('state', JSON.stringify(state));
@@ -21,7 +19,6 @@ export const save = (state: any) => {
 };
 
 export const load = () => {
-
     if (!process.browser) {
         return undefined;
     }
@@ -47,13 +44,9 @@ export const load = () => {
 };
 
 // create a makeStore function
-const makeStore: MakeStore<RootState> = () => (
-    createStore(rootReducer, composeWithDevTools(
-        applyMiddleware(thunk),
-    ))
-);
+const makeStore: MakeStore<RootState> = () => createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 // export an assembled wrapper
 export const wrapper = createWrapper<RootState>(makeStore);
 
-export type GetServerSidePropsContext = FirstArgType<FirstArgType<typeof wrapper.getServerSideProps>>
+export type GetServerSidePropsContext = FirstArgType<FirstArgType<typeof wrapper.getServerSideProps>>;

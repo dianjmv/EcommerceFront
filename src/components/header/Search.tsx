@@ -1,13 +1,5 @@
 // react
-import {
-    ChangeEvent,
-    KeyboardEvent,
-    RefObject,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import { ChangeEvent, KeyboardEvent, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -21,17 +13,13 @@ import Suggestions from './Suggestions';
 import { ICategory } from '../../interfaces/category';
 import { IProduct } from '../../interfaces/product';
 
-type CategoryWithDepth = ICategory & {depth: number};
+type CategoryWithDepth = ICategory & { depth: number };
 
 function useCategories() {
     const [categories, setCategories] = useState<CategoryWithDepth[]>([]);
 
     useEffect(() => {
         let canceled = false;
-
-
-
-
 
         return () => {
             canceled = true;
@@ -49,12 +37,7 @@ export interface SearchProps {
 }
 
 function Search(props: SearchProps) {
-    const {
-        context,
-        className,
-        inputRef,
-        onClose,
-    } = props;
+    const { context, className, inputRef, onClose } = props;
     const [cancelFn, setCancelFn] = useState(() => () => {});
     const [suggestionsOpen, setSuggestionsOpen] = useState(false);
     const [hasSuggestions, setHasSuggestions] = useState(false);
@@ -115,11 +98,7 @@ function Search(props: SearchProps) {
         if (query === '') {
             setHasSuggestions(false);
         } else {
-            timer = setTimeout(() => {
-
-
-
-            }, 100);
+            timer = setTimeout(() => {}, 100);
         }
 
         setCancelFn(() => newCancelFn);
@@ -151,13 +130,16 @@ function Search(props: SearchProps) {
         'search--has-suggestions': hasSuggestions,
     });
 
-    const closeButton = context !== 'mobile-header' ? '' : (
-        <button className="search__button search__button--type--close" type="button" onClick={close}>
-            <Cross20Svg />
-        </button>
-    );
+    const closeButton =
+        context !== 'mobile-header' ? (
+            ''
+        ) : (
+            <button className="search__button search__button--type--close" type="button" onClick={close}>
+                <Cross20Svg />
+            </button>
+        );
 
-    const categoryOptions = categories.map((category) => (
+    const categoryOptions = categories.map(category => (
         <option key={category.slug} value={category.slug}>
             {'\u00A0'.repeat(4 * category.depth)}
             {category.name}

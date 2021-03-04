@@ -4,7 +4,7 @@ import ShopPageCategory from '../../components/shop/ShopPageCategory';
 import { wrapper } from '../../store/store';
 
 // noinspection JSUnusedGlobalSymbols
-export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
     await getShopPageData(context, 'power-tools');
 });
 

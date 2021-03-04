@@ -2,7 +2,7 @@
 import classNames from 'classnames';
 
 // @ts-ignore
-import LinesEllipsis from 'react-lines-ellipsis'
+import LinesEllipsis from 'react-lines-ellipsis';
 
 // application
 import AppLink from './AppLink';
@@ -19,20 +19,14 @@ export interface PostCardProps {
 
 function PostCard(props: PostCardProps) {
     const { post, layout } = props;
-    const cardClasses = classNames(
-        'post-card',
-        {
-            'post-card--layout--grid': layout && ['grid-nl', 'grid-lg'].includes(layout),
-            'post-card--layout--list': layout && ['list-nl', 'list-sm'].includes(layout),
-            'post-card--size--nl': layout && ['grid-nl', 'list-nl'].includes(layout),
-            'post-card--size--lg': layout === 'grid-lg',
-            'post-card--size--sm': layout === 'list-sm',
-        },
-    );
-    const date = new Date(post.created_at)
-
-
-
+    const cardClasses = classNames('post-card', {
+        'post-card--layout--grid': layout && ['grid-nl', 'grid-lg'].includes(layout),
+        'post-card--layout--list': layout && ['list-nl', 'list-sm'].includes(layout),
+        'post-card--size--nl': layout && ['grid-nl', 'list-nl'].includes(layout),
+        'post-card--size--lg': layout === 'grid-lg',
+        'post-card--size--sm': layout === 'list-sm',
+    });
+    const date = new Date(post.created_at);
 
     return (
         <div className={cardClasses}>
@@ -43,19 +37,11 @@ function PostCard(props: PostCardProps) {
             </div>
             <div className="post-card__info">
                 <div className="post-card__name">
-                    <AppLink href={`/blog/post/${post.slug}`}>
-                        {post.title}
-                    </AppLink>
+                    <AppLink href={`/blog/post/${post.slug}`}>{post.title}</AppLink>
                 </div>
                 <div className="post-card__date">{format(date, 'MMMM-dd-yyyy').toString()}</div>
                 <div className="post-card__content">
-                    <LinesEllipsis
-                        text={post.description}
-                        maxLine='2'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                    />
+                    <LinesEllipsis text={post.description} maxLine="2" ellipsis="..." trimRight basedOn="letters" />
                 </div>
                 <div className="post-card__read-more">
                     <AppLink href={`/blog/post/${post.slug}`} className="btn btn-secondary btn-sm">

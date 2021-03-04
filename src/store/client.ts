@@ -36,7 +36,7 @@ export function withClientState<
     reducer: T extends AppReducer<ReturnType<T> & { stateFrom: any }, any>
         ? AppReducer<ReturnType<T> & { stateFrom: never }, any>
         : T,
-    namespace: string,
+    namespace: string
 ): AppReducer<R> {
     return (state: S, action: Action | ApplyClientStateAction<{ [ns: string]: any }>): R => {
         const childState = reducer(state, action);

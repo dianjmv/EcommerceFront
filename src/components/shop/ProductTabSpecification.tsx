@@ -23,9 +23,9 @@ function ProductTabSpecification() {
             <h3 className="spec__header">Specification</h3>
             {sections}
             <div className="spec__disclaimer">
-                Information on technical characteristics, the delivery set, the country of
-                manufacture and the appearance of the goods is for reference only and is based on
-                the latest information available at the time of publication.
+                Information on technical characteristics, the delivery set, the country of manufacture and the
+                appearance of the goods is for reference only and is based on the latest information available at the
+                time of publication.
             </div>
         </div>
     );

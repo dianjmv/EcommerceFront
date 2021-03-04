@@ -12,7 +12,7 @@ import { IColorFilter, IColorFilterValue } from '../../interfaces/filter';
 export interface FilterCheckProps {
     data: IColorFilter;
     value: IColorFilterValue;
-    onChangeValue?: (event: { filter: IColorFilter, value: IColorFilterValue }) => void;
+    onChangeValue?: (event: { filter: IColorFilter; value: IColorFilterValue }) => void;
 }
 
 function FilterColor(props: FilterCheckProps) {
@@ -30,11 +30,11 @@ function FilterColor(props: FilterCheckProps) {
             updateValue([...value, event.target.value]);
         }
         if (!event.target.checked && value.includes(event.target.value)) {
-            updateValue(value.filter((x) => x !== event.target.value));
+            updateValue(value.filter(x => x !== event.target.value));
         }
     };
 
-    const itemsList = data.items.map((item) => (
+    const itemsList = data.items.map(item => (
         <div key={item.slug} className="filter-color__item">
             <span
                 className={classNames('filter-color__check input-check-color', {
@@ -62,9 +62,7 @@ function FilterColor(props: FilterCheckProps) {
 
     return (
         <div className="filter-color">
-            <div className="filter-color__list">
-                {itemsList}
-            </div>
+            <div className="filter-color__list">{itemsList}</div>
         </div>
     );
 }

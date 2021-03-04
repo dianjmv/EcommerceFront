@@ -27,7 +27,7 @@ export function hexToRgb(hex: string): RGB {
             throw Error('Invalid color');
         }
 
-        rgb = mr.map((x) => x + x);
+        rgb = mr.map(x => x + x);
     } else {
         const mr = color.match(/.{2}/g);
 
@@ -38,19 +38,21 @@ export function hexToRgb(hex: string): RGB {
         rgb = mr;
     }
 
-    return rgb.map((x) => parseInt(x, 16)) as RGB;
+    return rgb.map(x => parseInt(x, 16)) as RGB;
 }
 
 export function luminance(color: string) {
     let rgb = hexToRgb(color);
 
-    rgb = rgb.map((x) => x / 255).map((x) => {
-        if (x <= 0.03928) {
-            return x / 12.92;
-        }
+    rgb = rgb
+        .map(x => x / 255)
+        .map(x => {
+            if (x <= 0.03928) {
+                return x / 12.92;
+            }
 
-        return ((x + 0.055) / 1.055) ** 2.4;
-    }) as RGB;
+            return ((x + 0.055) / 1.055) ** 2.4;
+        }) as RGB;
 
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 }

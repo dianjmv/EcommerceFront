@@ -9,8 +9,9 @@ const dataBlogPostComments: ICommentsList = {
             author: 'Jessica Moore',
             postTitle: 'Integer efficitur efficitur velit non pulvinar pellentesque dictum viverra',
             date: 'November 30, 2018',
-            text: 'Aliquam ullamcorper elementum sagittis. Etiam lacus lacus, mollis in mattis in, vehicula eu nulla. '
-                + 'Nulla nec tellus pellentesque.',
+            text:
+                'Aliquam ullamcorper elementum sagittis. Etiam lacus lacus, mollis in mattis in, vehicula eu nulla. ' +
+                'Nulla nec tellus pellentesque.',
             children: [
                 {
                     id: 2,
@@ -18,8 +19,9 @@ const dataBlogPostComments: ICommentsList = {
                     author: 'Adam Taylor',
                     postTitle: 'Integer efficitur efficitur velit non pulvinar pellentesque dictum viverra',
                     date: 'December 4, 2018',
-                    text: 'Ut vitae finibus nisl, suscipit porttitor urna. Integer efficitur efficitur velit non pulvinar. '
-                        + 'Aliquam blandit volutpat arcu vel tristique. Integer commodo ligula id augue tincidunt faucibus.',
+                    text:
+                        'Ut vitae finibus nisl, suscipit porttitor urna. Integer efficitur efficitur velit non pulvinar. ' +
+                        'Aliquam blandit volutpat arcu vel tristique. Integer commodo ligula id augue tincidunt faucibus.',
                 },
                 {
                     id: 3,
@@ -27,8 +29,9 @@ const dataBlogPostComments: ICommentsList = {
                     author: 'Helena Garcia',
                     postTitle: 'Integer efficitur efficitur velit non pulvinar pellentesque dictum viverra',
                     date: 'December 12, 2018',
-                    text: 'Suspendisse dignissim luctus metus vitae aliquam. Vestibulum sem odio, ullamcorper a imperdiet a, '
-                        + 'tincidunt sed lacus. Sed magna felis, consequat a erat ut, rutrum finibus odio.',
+                    text:
+                        'Suspendisse dignissim luctus metus vitae aliquam. Vestibulum sem odio, ullamcorper a imperdiet a, ' +
+                        'tincidunt sed lacus. Sed magna felis, consequat a erat ut, rutrum finibus odio.',
                 },
             ],
         },

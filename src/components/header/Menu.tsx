@@ -19,20 +19,23 @@ export interface MenuProps<T extends IMenuItem> {
 }
 
 function Menu<T extends IMenuItem>(props: MenuProps<T>) {
-    const {
-        layout = 'classic',
-        withIcons = false,
-        items = [],
-        onClick = () => {},
-    } = props;
+    const { layout = 'classic', withIcons = false, items = [], onClick = () => {} } = props;
 
     const renderLink = (item: T, content: ReactNode) => {
         let link;
 
         if (item.url) {
-            link = <AppLink href={item.url} onClick={() => onClick && onClick(item)}>{content}</AppLink>;
+            link = (
+                <AppLink href={item.url} onClick={() => onClick && onClick(item)}>
+                    {content}
+                </AppLink>
+            );
         } else {
-            link = <button type="button" onClick={() => onClick && onClick(item)}>{content}</button>;
+            link = (
+                <button type="button" onClick={() => onClick && onClick(item)}>
+                    {content}
+                </button>
+            );
         }
 
         return link;
@@ -65,13 +68,14 @@ function Menu<T extends IMenuItem>(props: MenuProps<T>) {
 
         return (
             <li key={index}>
-                {renderLink(item, (
+                {renderLink(
+                    item,
                     <Fragment>
                         {icon}
                         {item.title}
                         {arrow}
                     </Fragment>
-                ))}
+                )}
                 {submenu}
             </li>
         );
@@ -81,11 +85,7 @@ function Menu<T extends IMenuItem>(props: MenuProps<T>) {
         'menu--with-icons': withIcons,
     });
 
-    return (
-        <ul className={classes}>
-            {itemsList}
-        </ul>
-    );
+    return <ul className={classes}>{itemsList}</ul>;
 }
 
 export default Menu;

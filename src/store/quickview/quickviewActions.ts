@@ -25,13 +25,12 @@ export function quickviewClose(): QuickviewCloseAction {
 }
 
 export function quickviewOpen(productSlug: string): QuickviewThunkAction<Promise<void>> {
-    return (dispatch) => {
+    return dispatch => {
         cancelPreviousRequest();
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             let canceled = false;
             // sending request to server, timeout is used as a stub
-
 
             cancelPreviousRequest = () => {
                 canceled = true;

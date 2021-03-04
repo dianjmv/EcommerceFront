@@ -1,6 +1,6 @@
-import {IBanners} from "./banners";
+import { IBanners } from './banners';
 
-export interface SocialNetwork{
+export interface SocialNetwork {
     id: number;
     tittle: string;
     link: string;
@@ -8,5 +8,5 @@ export interface SocialNetwork{
     icon_class: string;
     created_at: string;
     updated_at: string;
-    image: IBanners
+    image: IBanners;
 }

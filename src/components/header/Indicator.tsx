@@ -1,10 +1,5 @@
 // react
-import {
-    ReactNode,
-    MouseEvent as ReactMouseEvent,
-    createRef,
-    Component,
-} from 'react';
+import { ReactNode, MouseEvent as ReactMouseEvent, createRef, Component } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -84,7 +79,7 @@ class Indicator extends Component<IndicatorProps, IndicatorState> {
     };
 
     toggle() {
-        this.setState((state) => ({
+        this.setState(state => ({
             open: !state.open,
         }));
     }
@@ -130,11 +125,7 @@ class Indicator extends Component<IndicatorProps, IndicatorState> {
         }
 
         if (dropdown) {
-            dropdownElement = (
-                <div className="indicator__dropdown">
-                    {dropdown}
-                </div>
-            );
+            dropdownElement = <div className="indicator__dropdown">{dropdown}</div>;
         }
 
         const classes = classNames(`indicator indicator--trigger--click ${className}`, {

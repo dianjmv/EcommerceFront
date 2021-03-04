@@ -16,7 +16,7 @@ export interface WidgetCategoriesProps {
 
 function WidgetCategories(props: WidgetCategoriesProps) {
     const { categories = [], location = 'blog' } = props;
-    const categoriesList = categories.map((category) => {
+    const categoriesList = categories.map(category => {
         const renderCategory: RenderCategoryFn = ({ toggle, setItemRef, setContentRef }) => {
             let expander;
             let childrenItems;
@@ -39,10 +39,8 @@ function WidgetCategories(props: WidgetCategoriesProps) {
     return (
         <div className={`widget-categories widget-categories--location--${location} widget border-none`}>
             <h4 className="widget__title font-bold">Categorías</h4>
-            <hr/>
-            <ul className="widget-categories__list">
-                {categoriesList}
-            </ul>
+            <hr />
+            <ul className="widget-categories__list">{categoriesList}</ul>
         </div>
     );
 }

@@ -20,18 +20,8 @@ export interface InputNumberProps {
 }
 
 function InputNumber(props: InputNumberProps) {
-    const {
-        size,
-        className,
-        onChange,
-        ...otherProps
-    } = props;
-    const {
-        value = '',
-        step = 1,
-        min = null,
-        max = null,
-    } = props;
+    const { size, className, onChange, ...otherProps } = props;
+    const { value = '', step = 1, min = null, max = null } = props;
 
     const change = (direction: -1 | 1, prevValue: string | number = value) => {
         // noinspection SuspiciousTypeOfGuard
@@ -89,7 +79,7 @@ function InputNumber(props: InputNumberProps) {
             } else {
                 const value = parseFloat(event.target.value);
 
-                onChange(Number.isNaN(value) ? (min || 0) : value);
+                onChange(Number.isNaN(value) ? min || 0 : value);
             }
         }
     };
@@ -102,12 +92,7 @@ function InputNumber(props: InputNumberProps) {
 
     return (
         <div className={classes}>
-            <input
-                className={formControlClasses}
-                type="number"
-                onChange={handleChange}
-                {...otherProps}
-            />
+            <input className={formControlClasses} type="number" onChange={handleChange} {...otherProps} />
 
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div className="input-number__add" onMouseDown={handleAddMouseDown} />

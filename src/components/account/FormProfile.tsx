@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
+import { FaSpinner } from 'react-icons/fa';
 
-function FormProfile({formik}: any) {
+function FormProfile({ formik, loading }: any) {
     return (
         <form className="col-12 col-lg-7 col-xl-6" onSubmit={formik.handleSubmit}>
             <div className="form-group">
@@ -10,10 +11,15 @@ function FormProfile({formik}: any) {
                     type="text"
                     placeholder="Ingresa tu nombre"
                     name={'first_name'}
-                    className={formik.touched.first_name && formik.errors.first_name ? 'form-control is-invalid' : 'form-control '}
+                    className={
+                        formik.touched.first_name && formik.errors.first_name
+                            ? 'form-control is-invalid'
+                            : 'form-control '
+                    }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.first_name}
+                    disabled={loading}
                 />
             </div>
             {formik.touched.first_name && formik.errors.first_name ? (
@@ -28,10 +34,15 @@ function FormProfile({formik}: any) {
                     type="text"
                     placeholder="Ingresa tu apellido"
                     name={'last_name'}
-                    className={formik.touched.last_name && formik.errors.last_name ? 'form-control is-invalid' : 'form-control '}
+                    className={
+                        formik.touched.last_name && formik.errors.last_name
+                            ? 'form-control is-invalid'
+                            : 'form-control '
+                    }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.last_name}
+                    disabled={loading}
                 />
             </div>
             {formik.touched.last_name && formik.errors.last_name ? (
@@ -46,10 +57,13 @@ function FormProfile({formik}: any) {
                     type="email"
                     placeholder="Ingresa tu email"
                     name={'email'}
-                    className={formik.touched.email && formik.errors.email ? 'form-control is-invalid' : 'form-control '}
+                    className={
+                        formik.touched.email && formik.errors.email ? 'form-control is-invalid' : 'form-control '
+                    }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
+                    disabled={loading}
                 />
             </div>
             {formik.touched.email && formik.errors.email ? (
@@ -64,10 +78,13 @@ function FormProfile({formik}: any) {
                     type="text"
                     placeholder="Ingresa username"
                     name={'username'}
-                    className={formik.touched.username && formik.errors.username ? 'form-control is-invalid' : 'form-control '}
+                    className={
+                        formik.touched.username && formik.errors.username ? 'form-control is-invalid' : 'form-control '
+                    }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
+                    disabled={loading}
                 />
             </div>
             {formik.touched.username && formik.errors.username ? (
@@ -82,10 +99,15 @@ function FormProfile({formik}: any) {
                     type="number"
                     placeholder="Ingresa tu número de teléfono"
                     name={'phone_number'}
-                    className={formik.touched.phone_number && formik.errors.phone_number ? 'form-control is-invalid' : 'form-control '}
+                    className={
+                        formik.touched.phone_number && formik.errors.phone_number
+                            ? 'form-control is-invalid'
+                            : 'form-control '
+                    }
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.phone_number}
+                    disabled={loading}
                 />
             </div>
             {formik.touched.phone_number && formik.errors.phone_number ? (
@@ -95,11 +117,13 @@ function FormProfile({formik}: any) {
             ) : null}
 
             <div className="form-group mt-5 mb-0">
-                <button type="button" className="btn btn-primary">Guardar</button>
+                <button type="submit" className="btn btn-primary flex">
+                    {loading ? <FaSpinner className={'spinner mt-1 mr-2'} /> : null}
+                    Guardar
+                </button>
             </div>
         </form>
-    )
-
+    );
 }
 
 export default FormProfile;

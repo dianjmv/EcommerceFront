@@ -1,4 +1,4 @@
-export interface ICatalog{
+export interface ICatalog {
     id: number;
     name: string;
     alternativeText: string;

@@ -1,14 +1,5 @@
 // react
-import {
-    Fragment,
-    Ref,
-    ReactNode,
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { Fragment, Ref, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export interface CollapseRenderFnData<T extends HTMLElement, P extends HTMLElement> {
     toggle: () => void;
@@ -16,8 +7,9 @@ export interface CollapseRenderFnData<T extends HTMLElement, P extends HTMLEleme
     setContentRef: Ref<P>;
 }
 
-export type CollapseRenderFn<T extends HTMLElement, P extends HTMLElement>
-    = (data: CollapseRenderFnData<T, P>) => ReactNode;
+export type CollapseRenderFn<T extends HTMLElement, P extends HTMLElement> = (
+    data: CollapseRenderFnData<T, P>
+) => ReactNode;
 
 export interface CollapseProps<T extends HTMLElement, P extends HTMLElement> {
     toggleClass: string;
@@ -31,45 +23,51 @@ function Collapse<T extends HTMLElement, P extends HTMLElement>(props: CollapseP
     const itemRef = useRef<T>(null);
     const contentRef = useRef<P>(null);
 
-    const expand = useCallback((immediate = false) => {
-        if (!itemRef.current || !contentRef.current) {
-            return;
-        }
+    const expand = useCallback(
+        (immediate = false) => {
+            if (!itemRef.current || !contentRef.current) {
+                return;
+            }
 
-        if (immediate) {
-            itemRef.current.classList.add(toggleClass);
-            contentRef.current.style.height = '';
-        } else {
-            const startHeight = contentRef.current.getBoundingClientRect().height;
+            if (immediate) {
+                itemRef.current.classList.add(toggleClass);
+                contentRef.current.style.height = '';
+            } else {
+                const startHeight = contentRef.current.getBoundingClientRect().height;
 
-            itemRef.current.classList.add(toggleClass);
+                itemRef.current.classList.add(toggleClass);
 
-            const endHeight = contentRef.current.getBoundingClientRect().height;
+                const endHeight = contentRef.current.getBoundingClientRect().height;
 
-            contentRef.current.style.height = `${startHeight}px`;
-            contentRef.current.getBoundingClientRect(); // force reflow
-            contentRef.current.style.height = `${endHeight}px`;
-        }
-    }, [toggleClass, itemRef, contentRef]);
+                contentRef.current.style.height = `${startHeight}px`;
+                contentRef.current.getBoundingClientRect(); // force reflow
+                contentRef.current.style.height = `${endHeight}px`;
+            }
+        },
+        [toggleClass, itemRef, contentRef]
+    );
 
-    const collapse = useCallback((immediate = false) => {
-        if (!itemRef.current || !contentRef.current) {
-            return;
-        }
+    const collapse = useCallback(
+        (immediate = false) => {
+            if (!itemRef.current || !contentRef.current) {
+                return;
+            }
 
-        if (immediate) {
-            itemRef.current.classList.remove(toggleClass);
-            contentRef.current.style.height = '';
-        } else {
-            const startHeight = contentRef.current.getBoundingClientRect().height;
+            if (immediate) {
+                itemRef.current.classList.remove(toggleClass);
+                contentRef.current.style.height = '';
+            } else {
+                const startHeight = contentRef.current.getBoundingClientRect().height;
 
-            contentRef.current.style.height = `${startHeight}px`;
-            itemRef.current.classList.remove(toggleClass);
+                contentRef.current.style.height = `${startHeight}px`;
+                itemRef.current.classList.remove(toggleClass);
 
-            contentRef.current.getBoundingClientRect(); // force reflow
-            contentRef.current.style.height = '';
-        }
-    }, [toggleClass, itemRef, contentRef]);
+                contentRef.current.getBoundingClientRect(); // force reflow
+                contentRef.current.style.height = '';
+            }
+        },
+        [toggleClass, itemRef, contentRef]
+    );
 
     const handleToggle = useCallback(() => {
         if (!itemRef.current || !contentRef.current) {
@@ -120,11 +118,15 @@ function Collapse<T extends HTMLElement, P extends HTMLElement>(props: CollapseP
     if (render) {
         return (
             <Fragment>
-                {useMemo(() => render({
-                    toggle: handleToggle,
-                    setItemRef: itemRef,
-                    setContentRef: contentRef,
-                }), [render, handleToggle, itemRef, contentRef])}
+                {useMemo(
+                    () =>
+                        render({
+                            toggle: handleToggle,
+                            setItemRef: itemRef,
+                            setContentRef: contentRef,
+                        }),
+                    [render, handleToggle, itemRef, contentRef]
+                )}
             </Fragment>
         );
     }

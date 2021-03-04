@@ -31,11 +31,17 @@ function PageHeader(props: PageHeaderProps) {
             let link;
 
             if (lastIndex === index) {
-                link = <li key={index} className="breadcrumb-item active" aria-current="page">{item.title}</li>;
+                link = (
+                    <li key={index} className="breadcrumb-item active" aria-current="page">
+                        {item.title}
+                    </li>
+                );
             } else {
                 link = (
                     <li key={index} className="breadcrumb-item">
-                        <AppLink href={item.url} {...item.props}>{item.title}</AppLink>
+                        <AppLink href={item.url} {...item.props}>
+                            {item.title}
+                        </AppLink>
                         <ArrowRoundedRight6x9Svg className="breadcrumb-arrow" />
                     </li>
                 );
@@ -47,9 +53,7 @@ function PageHeader(props: PageHeaderProps) {
         breadcrumbElement = (
             <div className="page-header__breadcrumb">
                 <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        {breadcrumbElement}
-                    </ol>
+                    <ol className="breadcrumb">{breadcrumbElement}</ol>
                 </nav>
             </div>
         );

@@ -37,11 +37,7 @@ function MegamenuLinks(props: MegamenuLinksProps) {
         );
     });
 
-    return (
-        <ul className={`megamenu__links megamenu__links--level--${depth}`}>
-            {linksList}
-        </ul>
-    );
+    return <ul className={`megamenu__links megamenu__links--level--${depth}`}>{linksList}</ul>;
 }
 
 export default MegamenuLinks;

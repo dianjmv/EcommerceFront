@@ -1,4 +1,4 @@
-import {AppReducerStateType} from '../types';
+import { AppReducerStateType } from '../types';
 import cartReducer from '../cart/cartReducer';
 import compareReducer from '../compare/compareReducer';
 import currencyReducer from '../currency/currencyReducer';
@@ -7,12 +7,12 @@ import mobileMenuReducer from '../mobile-menu/mobileMenuReducer';
 import quickviewReducer from '../quickview/quickviewReducer';
 import wishlistReducer from '../wishlist/wishlistReducer';
 import shopReducer from '../shop/shopReducer';
-import companyInfoReducer from "../company/companyReducer";
-import productReducer from "../product/productReducer";
-import brandsCompanyReducer from "../brand/brandReducer";
-import filterProductsReducer from "../filter/filterReducer";
-import authReducer from "../auth/authReducer";
-import loadingReducer from "../loading/loadingReducer";
+import companyInfoReducer from '../company/companyReducer';
+import productReducer from '../product/productReducer';
+import brandsCompanyReducer from '../brand/brandReducer';
+import filterProductsReducer from '../filter/filterReducer';
+import authReducer from '../auth/authReducer';
+import loadingReducer from '../loading/loadingReducer';
 
 export interface RootState {
     version: number;

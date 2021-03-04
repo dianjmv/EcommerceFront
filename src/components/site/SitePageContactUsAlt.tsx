@@ -63,13 +63,11 @@ function SitePageContactUsAlt() {
                                             </p>
 
                                             <p>
-
                                                 <strong>Comment</strong>
                                                 <br />
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                elit. Curabitur suscipit suscipit mi, non tempor
-                                                nulla finibus eget. Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+                                                suscipit suscipit mi, non tempor nulla finibus eget. Lorem ipsum dolor
+                                                sit amet, consectetur adipiscing elit.
                                             </p>
                                         </div>
                                     </div>
@@ -81,7 +79,12 @@ function SitePageContactUsAlt() {
                                             <div className="form-row">
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="form-name">Your Name</label>
-                                                    <input type="text" id="form-name" className="form-control" placeholder="Your Name" />
+                                                    <input
+                                                        type="text"
+                                                        id="form-name"
+                                                        className="form-control"
+                                                        placeholder="Your Name"
+                                                    />
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="form-email">Email</label>
@@ -95,13 +98,20 @@ function SitePageContactUsAlt() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="form-subject">Subject</label>
-                                                <input type="text" id="form-subject" className="form-control" placeholder="Subject" />
+                                                <input
+                                                    type="text"
+                                                    id="form-subject"
+                                                    className="form-control"
+                                                    placeholder="Subject"
+                                                />
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="form-message">Message</label>
                                                 <textarea id="form-message" className="form-control" rows={4} />
                                             </div>
-                                            <button type="submit" className="btn btn-primary">Send Message</button>
+                                            <button type="submit" className="btn btn-primary">
+                                                Send Message
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

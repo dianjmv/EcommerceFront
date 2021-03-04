@@ -1,18 +1,15 @@
-import {CompanyInfoState} from "./companyTypes";
-import {COMPARE_ADD_ITEM, COMPARE_REMOVE_ITEM, CompareAction} from "../compare/compareActionTypes";
-import {COMPANY_ADD_INFO, COMPANY_GET_INFO, CompanyAddInfoAction} from "./companyActionsType";
-import {ICompanyInfo} from "../../interfaces/company-info";
-import {withClientState} from "../client";
-import {any} from "prop-types";
-
-
+import { CompanyInfoState } from './companyTypes';
+import { COMPARE_ADD_ITEM, COMPARE_REMOVE_ITEM, CompareAction } from '../compare/compareActionTypes';
+import { COMPANY_ADD_INFO, COMPANY_GET_INFO, CompanyAddInfoAction } from './companyActionsType';
+import { ICompanyInfo } from '../../interfaces/company-info';
+import { withClientState } from '../client';
+import { any } from 'prop-types';
 
 function addInfo(state: CompanyInfoState, infoCompany: ICompanyInfo): CompanyInfoState {
-    return ({
+    return {
         ...infoCompany,
-    })
+    };
 }
-
 
 const initialState: CompanyInfoState = {
     id: 0,
@@ -36,15 +33,14 @@ const initialState: CompanyInfoState = {
     faqs_banner: '',
     privacy_politics_banner: '',
     terms_and_conditions_banner: '',
-    devolution:'',
-    devolution_banner:'',
-    whatsapp_message:'',
-    whatsapp_number:'',
-}
+    devolution: '',
+    devolution_banner: '',
+    whatsapp_message: '',
+    whatsapp_number: '',
+};
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 
 function companyInfoBaseReducer(state = initialState, action: CompanyAddInfoAction) {
-
     switch (action.type) {
         case COMPANY_ADD_INFO:
             return addInfo(state, action.companyInfo);
@@ -52,7 +48,6 @@ function companyInfoBaseReducer(state = initialState, action: CompanyAddInfoActi
             return state;
     }
 }
-
 
 const companyInfoReducer = withClientState(companyInfoBaseReducer, COMPANY_INFO_NAMESPACE);
 

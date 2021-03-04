@@ -5,7 +5,6 @@ import { AppDispatch } from '../types';
 import { GetServerSidePropsContext } from '../store';
 import { IFilterValues, IListOptions } from '../../interfaces/list';
 
-
 export function parseQueryOptions(query: string) {
     const queryObject = queryString.parse(query);
     const optionValues: IListOptions = {};
@@ -27,7 +26,7 @@ export function parseQueryFilters(query: string) {
     const queryObject = queryString.parse(query);
     const filterValues: IFilterValues = {};
 
-    Object.keys(queryObject).forEach((param) => {
+    Object.keys(queryObject).forEach(param => {
         const value = queryObject[param];
         const mr = param.match(/^filter_([-_A-Za-z0-9]+)$/);
 
@@ -58,9 +57,11 @@ export function buildQuery(options: IListOptions, filters: IFilterValues) {
         params.sort = options.sort;
     }
 
-    Object.keys(filters).filter((x) => x !== 'category' && !!filters[x]).forEach((filterSlug) => {
-        params[`filter_${filterSlug}`] = filters[filterSlug];
-    });
+    Object.keys(filters)
+        .filter(x => x !== 'category' && !!filters[x])
+        .forEach(filterSlug => {
+            params[`filter_${filterSlug}`] = filters[filterSlug];
+        });
 
     return queryString.stringify(params, { encode: false });
 }
@@ -73,6 +74,5 @@ export default async function getShopPageData(context: GetServerSidePropsContext
         const options = parseQueryOptions(query);
         const filters = parseQueryFilters(query);
         const dispatch = context.store.dispatch as AppDispatch;
-
     }
 }

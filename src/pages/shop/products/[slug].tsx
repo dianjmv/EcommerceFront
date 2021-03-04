@@ -5,9 +5,7 @@ import { GetServerSideProps } from 'next';
 import ShopPageProduct from '../../../components/shop/ShopPageProduct';
 import SitePageNotFound from '../../../components/site/SitePageNotFound';
 import { IProduct } from '../../../interfaces/product';
-import ProductsRepository from "../../../api/productsRepository";
-
-
+import ProductsRepository from '../../../api/productsRepository';
 
 export interface PageProps {
     product: IProduct | null;
@@ -18,12 +16,12 @@ export interface PageProps {
 }
 
 // noinspection JSUnusedGlobalSymbols
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
     let product: IProduct | null = null;
-    const productsRepository = new ProductsRepository()
+    const productsRepository = new ProductsRepository();
     if (typeof context.params?.slug === 'string') {
         const { slug } = context.params;
-        await productsRepository.getProductBySlug(slug).then(({data})=>(product = data[0]));
+        await productsRepository.getProductBySlug(slug).then(({ data }) => (product = data[0]));
     }
     return {
         props: {
@@ -37,9 +35,7 @@ function Page({ product }: PageProps) {
         return <SitePageNotFound />;
     }
 
-
     return <ShopPageProduct product={product} layout="sidebar" />;
 }
 
 export default Page;
-

@@ -23,6 +23,6 @@ const dataShopCurrencies: ICurrency[] = [
     },
 ];
 
-export const dataShopDefaultCurrency: ICurrency = dataShopCurrencies.find((x) => x.code === 'USD')!;
+export const dataShopDefaultCurrency: ICurrency = dataShopCurrencies.find(x => x.code === 'USD')!;
 
 export default dataShopCurrencies;

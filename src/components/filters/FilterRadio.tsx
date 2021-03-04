@@ -8,7 +8,7 @@ import { IRadioFilter, IRadioFilterValue } from '../../interfaces/filter';
 export interface FilterCheckProps {
     data: IRadioFilter;
     value: IRadioFilterValue;
-    onChangeValue?: (event: { filter: IRadioFilter, value: IRadioFilterValue }) => void;
+    onChangeValue?: (event: { filter: IRadioFilter; value: IRadioFilterValue }) => void;
 }
 
 function FilterRadio(props: FilterCheckProps) {
@@ -26,7 +26,7 @@ function FilterRadio(props: FilterCheckProps) {
         }
     };
 
-    const itemsList = data.items.map((item) => {
+    const itemsList = data.items.map(item => {
         let count;
 
         if (item.count) {
@@ -38,10 +38,7 @@ function FilterRadio(props: FilterCheckProps) {
         });
 
         return (
-            <label
-                key={item.slug}
-                className={itemClasses}
-            >
+            <label key={item.slug} className={itemClasses}>
                 <span className="filter-list__input input-radio">
                     <span className="input-radio__body">
                         <input
@@ -64,9 +61,7 @@ function FilterRadio(props: FilterCheckProps) {
 
     return (
         <div className="filter-list">
-            <div className="filter-list__list">
-                {itemsList}
-            </div>
+            <div className="filter-list__list">{itemsList}</div>
         </div>
     );
 }

@@ -1,8 +1,7 @@
-
-import {IFilterValues, IListOptions} from '../../interfaces/list';
-import {IProduct, IProductsList} from '../../interfaces/product';
-import {IShopCategory} from '../../interfaces/category';
-import {SHOP_NAMESPACE} from './shopTypes';
+import { IFilterValues, IListOptions } from '../../interfaces/list';
+import { IProduct, IProductsList } from '../../interfaces/product';
+import { IShopCategory } from '../../interfaces/category';
+import { SHOP_NAMESPACE } from './shopTypes';
 import {
     SHOP_FETCH_CATEGORY_SUCCESS,
     SHOP_FETCH_PRODUCTS_LIST_START,
@@ -20,17 +19,15 @@ import {
     ShopSetOptionValueAction,
     ShopThunkAction,
 } from './shopActionTypes';
-import ProductsRepository from "../../api/productsRepository";
+import ProductsRepository from '../../api/productsRepository';
 
-let cancelPreviousCategoryRequest = () => {
-};
-let cancelPreviousProductsListRequest = () => {
-};
+let cancelPreviousCategoryRequest = () => {};
+let cancelPreviousProductsListRequest = () => {};
 
 export function shopInit(
     categorySlug: string | null,
     options: IListOptions = {},
-    filters: IFilterValues = {},
+    filters: IFilterValues = {}
 ): ShopInitAction {
     return {
         type: SHOP_INIT,
@@ -82,12 +79,10 @@ export function shopSetFilterValue(filter: string, value: string | null): ShopSe
     };
 }
 
-
-
 export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
     return async (dispatch, getState) => {
         let canceled = false;
-        const productsRepository = new ProductsRepository()
+        const productsRepository = new ProductsRepository();
 
         cancelPreviousProductsListRequest();
         cancelPreviousProductsListRequest = () => {
@@ -98,41 +93,37 @@ export function shopFetchProductsListThunk(): ShopThunkAction<Promise<void>> {
 
         const shopState = getState()[SHOP_NAMESPACE];
 
-        let {filters} = shopState;
+        let { filters } = shopState;
 
         if (shopState.categorySlug !== null) {
-            filters = {...filters, category: shopState.categorySlug};
+            filters = { ...filters, category: shopState.categorySlug };
         }
 
-        await productsRepository.getAllProducts().then(({data}) => (dispatch(shopFetchProductsListSuccess(data))));
+        await productsRepository.getAllProducts().then(({ data }) => dispatch(shopFetchProductsListSuccess(data)));
 
         if (canceled) {
             return;
         }
-
-
     };
 }
 
 export function shopSetOptionValueThunk(option: string, value: string): ShopThunkAction<Promise<void>> {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(shopSetOptionValue(option, value));
         await dispatch(shopFetchProductsListThunk());
     };
 }
 
 export function shopSetFilterValueThunk(filter: string, value: string | null): ShopThunkAction<Promise<void>> {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(shopSetFilterValue(filter, value));
         await dispatch(shopFetchProductsListThunk());
     };
 }
 
 export function shopResetFiltersThunk(): ShopThunkAction<Promise<void>> {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(shopResetFilters());
         await dispatch(shopFetchProductsListThunk());
     };
 }
-
-

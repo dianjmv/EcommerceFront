@@ -9,8 +9,8 @@ import { useRouter } from 'next/router';
 import AppLink from '../shared/AppLink';
 import PageHeader from '../shared/PageHeader';
 import url from '../../services/url';
-import {useUserLogged} from "../../store/auth/authHooks";
-import SitePageNotFound from "../site/SitePageNotFound";
+import { useUserLogged } from '../../store/auth/authHooks';
+import SitePageNotFound from '../site/SitePageNotFound';
 
 export interface AccountLayoutProps {
     children?: ReactNode;
@@ -19,7 +19,7 @@ export interface AccountLayoutProps {
 function AccountLayout(props: AccountLayoutProps) {
     const { children } = props;
     const router = useRouter();
-    const userLogged= useUserLogged()
+    const userLogged = useUserLogged();
 
     const breadcrumb = [
         { title: 'Inicio', url: url.home() },
@@ -47,31 +47,28 @@ function AccountLayout(props: AccountLayoutProps) {
             </li>
         );
     });
-    if (userLogged.userLogged?.user){
+    if (userLogged.userLogged?.user) {
+        return (
+            <Fragment>
+                <PageHeader header="Mi Cuenta" breadcrumb={breadcrumb} />
 
-    return (
-        <Fragment>
-            <PageHeader header="Mi Cuenta" breadcrumb={breadcrumb} />
-
-            <div className="block">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-lg-3 d-flex">
-                            <div className="account-nav flex-grow-1">
-                                <h4 className="account-nav__title">Navegación</h4>
-                                <ul>{items}</ul>
+                <div className="block">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 col-lg-3 d-flex">
+                                <div className="account-nav flex-grow-1">
+                                    <h4 className="account-nav__title">Navegación</h4>
+                                    <ul>{items}</ul>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-12 col-lg-9 mt-4 mt-lg-0">
-                            {children}
+                            <div className="col-12 col-lg-9 mt-4 mt-lg-0">{children}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Fragment>
-    );}
-    else {
-        return <SitePageNotFound/>
+            </Fragment>
+        );
+    } else {
+        return <SitePageNotFound />;
     }
 }
 

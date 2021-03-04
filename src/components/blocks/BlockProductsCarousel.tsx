@@ -198,7 +198,7 @@ function BlockProductsCarousel<T extends BlockHeaderGroup>(props: BlockProductsC
     };
 
     const columns = getProductsColumns(products, rows).map((column, index) => {
-        const products = column.map((product) => (
+        const products = column.map(product => (
             <div key={product.id} className="block-products-carousel__cell">
                 <ProductCard product={product} />
             </div>
@@ -234,10 +234,7 @@ function BlockProductsCarousel<T extends BlockHeaderGroup>(props: BlockProductsC
                 <div className="block-products-carousel__slider">
                     <div className="block-products-carousel__preloader" />
 
-                    <StroykaSlick
-                        ref={slickRef}
-                        {...slickSettings[layout]}
-                    >
+                    <StroykaSlick ref={slickRef} {...slickSettings[layout]}>
                         {columns}
                     </StroykaSlick>
                 </div>

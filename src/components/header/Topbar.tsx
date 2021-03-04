@@ -27,7 +27,9 @@ export default function Topbar() {
 
     const linksList = links.map((item, index) => (
         <div key={index} className="topbar__item topbar__item--link">
-            <AppLink href={item.url} className="topbar-link">{item.title}</AppLink>
+            <AppLink href={item.url} className="topbar-link">
+                {item.title}
+            </AppLink>
         </div>
     ));
 

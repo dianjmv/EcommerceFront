@@ -1,16 +1,14 @@
-import React from "react";
-import {GetServerSideProps} from "next";
-import {IProduct} from "../../../interfaces/product";
+import React from 'react';
+import { GetServerSideProps } from 'next';
+import { IProduct } from '../../../interfaces/product';
 
-import {PageProps} from "../products/[slug]";
+import { PageProps } from '../products/[slug]';
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async context => {
     let product: IProduct | null = null;
 
     if (typeof context.params?.slug === 'string') {
         const { slug } = context.params;
-
-
     }
 
     return {
@@ -20,8 +18,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     };
 };
 
-
-const ProductDetail=()=>{
-    return(<h1>Producto</h1>)
-}
+const ProductDetail = () => {
+    return <h1>Producto</h1>;
+};
 export default ProductDetail;

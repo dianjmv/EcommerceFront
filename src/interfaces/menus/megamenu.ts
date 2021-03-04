@@ -11,9 +11,11 @@ export interface IMegamenuColumn {
 
 export interface IMegamenu {
     size: IMegamenuSize;
-    image?: string | {
-        ltr: string;
-        rtl: string;
-    };
+    image?:
+        | string
+        | {
+              ltr: string;
+              rtl: string;
+          };
     columns: IMegamenuColumn[];
 }

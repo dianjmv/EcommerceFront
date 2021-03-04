@@ -1,10 +1,10 @@
-import {SocialNetwork} from "./social-network";
-import {IBanners} from "./banners";
-import {ICatalog} from "./catalog";
-import {Image} from "./image";
-import {ImageBanner} from "./imageBanner";
+import { SocialNetwork } from './social-network';
+import { IBanners } from './banners';
+import { ICatalog } from './catalog';
+import { Image } from './image';
+import { ImageBanner } from './imageBanner';
 
-export interface ICompanyInfo{
+export interface ICompanyInfo {
     id: number;
     company_name: string;
     politics: string;
@@ -22,12 +22,12 @@ export interface ICompanyInfo{
     catalog_cover: Image;
     banners: IBanners[];
     blog_page_banner: IBanners;
-    about_us_banner: ImageBanner
-    faqs_banner: ImageBanner
-    privacy_politics_banner: ImageBanner
-    terms_and_conditions_banner: ImageBanner
-    devolution:string;
-    devolution_banner:ImageBanner
+    about_us_banner: ImageBanner;
+    faqs_banner: ImageBanner;
+    privacy_politics_banner: ImageBanner;
+    terms_and_conditions_banner: ImageBanner;
+    devolution: string;
+    devolution_banner: ImageBanner;
     whatsapp_number: string;
     whatsapp_message: string;
 }

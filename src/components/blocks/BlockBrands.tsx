@@ -4,7 +4,6 @@ import StroykaSlick from '../shared/StroykaSlick';
 
 // data stubs
 
-
 const slickSettings = {
     dots: false,
     arrows: false,
@@ -45,15 +44,11 @@ const slickSettings = {
 };
 
 export default function BlockBrands() {
-
-
     return (
         <div className="block block-brands">
             <div className="container">
                 <div className="block-brands__slider">
-                    <StroykaSlick {...slickSettings}>
-
-                    </StroykaSlick>
+                    <StroykaSlick {...slickSettings}></StroykaSlick>
                 </div>
             </div>
         </div>

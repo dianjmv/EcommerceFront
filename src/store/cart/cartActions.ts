@@ -15,11 +15,7 @@ import {
     CartUpdateQuantitiesAction,
 } from './cartActionTypes';
 
-export function cartAddItemSuccess(
-    product: IProduct,
-    options: CartItemOption[] = [],
-    quantity = 1,
-): CartAddItemAction {
+export function cartAddItemSuccess(product: IProduct, options: CartItemOption[] = [], quantity = 1): CartAddItemAction {
     toast.success(`El producto "${product.title}" se agregó al carrito!`);
 
     return {
@@ -47,39 +43,36 @@ export function cartUpdateQuantitiesSuccess(quantities: CartItemQuantity[]): Car
 export function cartAddItem(
     product: IProduct,
     options: CartItemOption[] = [],
-    quantity = 1,
+    quantity = 1
 ): CartThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(cartAddItemSuccess(product, options, quantity));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }
 
 export function cartRemoveItem(itemId: number): CartThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(cartRemoveItemSuccess(itemId));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }
 
 export function cartUpdateQuantities(quantities: CartItemQuantity[]): CartThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(cartUpdateQuantitiesSuccess(quantities));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }

@@ -29,7 +29,7 @@ function ToTop() {
             const newState = window.pageYOffset >= showFrom;
 
             if (state !== newState) {
-                setShow(state = newState);
+                setShow((state = newState));
             }
         };
 

@@ -16,12 +16,7 @@ export interface CategorySidebarProps extends PropsWithChildren<{}> {
 }
 
 function CategorySidebar(props: CategorySidebarProps) {
-    const {
-        children,
-        open,
-        closeFn,
-        offcanvas = 'mobile',
-    } = props;
+    const { children, open, closeFn, offcanvas = 'mobile' } = props;
 
     const classes = classNames('block block-sidebar', {
         'block-sidebar--open': open,

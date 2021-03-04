@@ -1,11 +1,5 @@
 // react
-import {
-    MouseEvent,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -18,16 +12,18 @@ import AppLink from './AppLink';
 import StroykaSlick, { SlickProps } from './StroykaSlick';
 import ZoomIn24Svg from '../../svg/zoom-in-24.svg';
 import { useDirection } from '../../store/locale/localeHooks';
-import {ImageBanner} from "../../interfaces/imageBanner";
+import { ImageBanner } from '../../interfaces/imageBanner';
 // @ts-ignore
 import ReactImageZoom from 'react-image-zoom';
-import {Magnifier,
+import {
+    Magnifier,
     GlassMagnifier,
     SideBySideMagnifier,
     PictureInPictureMagnifier,
     MOUSE_ACTIVATION,
-    TOUCH_ACTIVATION} from 'react-image-magnifiers'
-import ReactImageMagnify from "react-image-magnify";
+    TOUCH_ACTIVATION,
+} from 'react-image-magnifiers';
+import ReactImageMagnify from 'react-image-magnify';
 const slickSettingsFeatured = {
     dots: false,
     arrows: false,
@@ -98,7 +94,7 @@ const slickSettingsThumbnails = {
 
 type CreateGalleryFn = (
     images: PhotoSwipe.Item[],
-    options: PhotoSwipe.Options,
+    options: PhotoSwipe.Options
 ) => PhotoSwipe<PhotoSwipeUIDefault.Options>;
 
 export type ProductGalleryLayout = 'standard' | 'sidebar' | 'columnar' | 'quickview';
@@ -119,14 +115,17 @@ function ProductGallery(props: ProductGalleryProps) {
     const getIndexDependOnDirRef = useRef<((index: number) => number) | null>(null);
     const unmountedRef = useRef(false);
 
-    const getIndexDependOnDir = useCallback((index: number) => {
-        // we need to invert index id direction === 'rtl' due to react-slick bug
-        if (direction === 'rtl') {
-            return images.length - 1 - index;
-        }
+    const getIndexDependOnDir = useCallback(
+        (index: number) => {
+            // we need to invert index id direction === 'rtl' due to react-slick bug
+            if (direction === 'rtl') {
+                return images.length - 1 - index;
+            }
 
-        return index;
-    }, [direction, images]);
+            return index;
+        },
+        [direction, images]
+    );
 
     const openPhotoswipe = (index: number) => {
         if (!createGalleryRef.current) {
@@ -155,7 +154,7 @@ function ProductGallery(props: ProductGalleryProps) {
 
         // noinspection JSUnusedGlobalSymbols
         const options: PhotoSwipe.Options = {
-            getThumbBoundsFn: (index) => {
+            getThumbBoundsFn: index => {
                 // IMPORTANT: Inside this function, we can use variables and functions only through ref.
                 if (!getIndexDependOnDirRef.current) {
                     return { x: 0, y: 0, w: 0 };
@@ -186,7 +185,7 @@ function ProductGallery(props: ProductGalleryProps) {
             history: false,
         };
 
-        createGalleryRef.current.then((createGallery) => {
+        createGalleryRef.current.then(createGallery => {
             // IMPORTANT: Inside this function, we can use variables and functions only through ref.
 
             if (unmountedRef.current) {
@@ -197,10 +196,7 @@ function ProductGallery(props: ProductGalleryProps) {
             galleryRef.current = createGallery(items, options);
             galleryRef.current.listen('beforeChange', () => {
                 if (galleryRef.current && slickFeaturedRef.current) {
-                    slickFeaturedRef.current.slickGoTo(
-                        galleryRef.current.getCurrentIndex(),
-                        true,
-                    );
+                    slickFeaturedRef.current.slickGoTo(galleryRef.current.getCurrentIndex(), true);
                 }
             });
             galleryRef.current.listen('destroy', () => {
@@ -226,7 +222,7 @@ function ProductGallery(props: ProductGalleryProps) {
             return;
         }
 
-        setState((prev) => ({ ...prev, currentIndex: index }));
+        setState(prev => ({ ...prev, currentIndex: index }));
 
         if (slickFeaturedRef.current) {
             slickFeaturedRef.current.slickGoTo(getIndexDependOnDir(index));
@@ -234,15 +230,15 @@ function ProductGallery(props: ProductGalleryProps) {
     };
 
     const handleFeaturedBeforeChange: SlickProps['beforeChange'] = (oldIndex, newIndex) => {
-        setState((prev) => ({
+        setState(prev => ({
             ...prev,
             currentIndex: getIndexDependOnDir(newIndex),
             transition: true,
         }));
     };
 
-    const handleFeaturedAfterChange: SlickProps['afterChange'] = (index) => {
-        setState((prev) => ({
+    const handleFeaturedAfterChange: SlickProps['afterChange'] = index => {
+        setState(prev => ({
             ...prev,
             currentIndex: getIndexDependOnDir(index),
             transition: false,
@@ -255,23 +251,26 @@ function ProductGallery(props: ProductGalleryProps) {
 
     // componentDidMount
     useEffect(() => {
-        createGalleryRef.current = import('../../photoswipe').then((module) => module.default);
+        createGalleryRef.current = import('../../photoswipe').then(module => module.default);
     }, []);
 
     // componentWillUnmount
-    useEffect(() => () => {
-        if (galleryRef.current) {
-            galleryRef.current.destroy();
-        }
+    useEffect(
+        () => () => {
+            if (galleryRef.current) {
+                galleryRef.current.destroy();
+            }
 
-        unmountedRef.current = true;
-    }, []);
+            unmountedRef.current = true;
+        },
+        []
+    );
 
     useEffect(() => {
         // this is necessary to reset the transition state,
         // because when the direction changes, the afterChange event does not fire
         const timer = setTimeout(() => {
-            setState((prev) => ({ ...prev, transition: false }));
+            setState(prev => ({ ...prev, transition: false }));
         }, 0);
 
         return () => {
@@ -286,43 +285,40 @@ function ProductGallery(props: ProductGalleryProps) {
     const featured = images.map((image, index) => (
         <div key={index} className="product-image product-image--location--gallery">
             <div className={'md:grid hidden'}>
-
                 {/*<ReactImageZoom*/}
                 {/*    img={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}*/}
 
                 {/*/>*/}
 
-
-
-                <ReactImageMagnify {...{
-                    className:'bg-gray-300 z-50',
-                    enlargedImageContainerClassName: 'z-50 ml-32 px-auto ',
-                    enlargedImagePortalId:'zoom-img-id',
-                    enlargedImageContainerStyle:{
-                        position:'fixed',
-                        left:'980px',
-                        top:'170px',
-                        width: '100%'
-                    },
-                    enlargedImageClassName:'bg-gray-300 w-full',
-                    enlargedImageStyle:{
-                      width:'313px',
-                      height: '594px'
-
-                    },
-                    smallImage: {
-                        alt: 'Wristwatch by Ted Baker London',
-                        isFluidWidth: true,
-                        sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px',
-                        src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
-                    },
-                    largeImage: {
-                        src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
-                        width: 1800,
-                        height: 1800,
-
-                    }
-                }} />
+                <ReactImageMagnify
+                    {...{
+                        className: 'bg-gray-300 z-50',
+                        enlargedImageContainerClassName: 'z-50 ml-32 px-auto ',
+                        enlargedImagePortalId: 'zoom-img-id',
+                        enlargedImageContainerStyle: {
+                            position: 'fixed',
+                            left: '980px',
+                            top: '170px',
+                            width: '100%',
+                        },
+                        enlargedImageClassName: 'bg-gray-300 w-full',
+                        enlargedImageStyle: {
+                            width: '313px',
+                            height: '594px',
+                        },
+                        smallImage: {
+                            alt: 'Wristwatch by Ted Baker London',
+                            isFluidWidth: true,
+                            sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px',
+                            src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
+                        },
+                        largeImage: {
+                            src: `${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`,
+                            width: 1800,
+                            height: 1800,
+                        },
+                    }}
+                />
             </div>
             <div className={'md:hidden '}>
                 <AppLink
@@ -343,14 +339,14 @@ function ProductGallery(props: ProductGalleryProps) {
                         className="product-image__img"
                         src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
                         alt=""
-                        ref={(element) => { imagesRefs.current[index] = element; }}
+                        ref={element => {
+                            imagesRefs.current[index] = element;
+                        }}
                         data-width="700"
                         data-height="700"
                     />
                 </AppLink>
-
             </div>
-
         </div>
     ));
 
@@ -360,14 +356,13 @@ function ProductGallery(props: ProductGalleryProps) {
         });
 
         return (
-            <button
-                type="button"
-                key={index}
-                onClick={() => handleThumbnailClick(index)}
-                className={classes}
-            >
+            <button type="button" key={index} onClick={() => handleThumbnailClick(index)} className={classes}>
                 <div className="product-image__body">
-                    <img className="product-image__img product-gallery__carousel-image" src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}` } alt="" />
+                    <img
+                        className="product-image__img product-gallery__carousel-image"
+                        src={`${process.env.NEXT_PUBLIC_BASE_URI}${image.url}`}
+                        alt=""
+                    />
                 </div>
             </button>
         );
@@ -387,9 +382,7 @@ function ProductGallery(props: ProductGalleryProps) {
                     </StroykaSlick>
                 </div>
                 <div className="product-gallery__carousel">
-                    <StroykaSlick {...slickSettingsThumbnails[layout]}>
-                        {thumbnails}
-                    </StroykaSlick>
+                    <StroykaSlick {...slickSettingsThumbnails[layout]}>{thumbnails}</StroykaSlick>
                 </div>
             </div>
         </div>

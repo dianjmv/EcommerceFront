@@ -8,17 +8,14 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
-            width:{
-                '192':'35rem'
-            }
+            width: {
+                192: '35rem',
+            },
         },
     },
-    variants: {
-
-    },
+    variants: {},
     plugins: [],
     corePlugins: {
-
         fontFamily: false,
-    }
-}
+    },
+};

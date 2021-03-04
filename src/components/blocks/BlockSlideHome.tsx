@@ -1,5 +1,5 @@
 // react
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -10,15 +10,15 @@ import MDReactComponent from 'markdown-react-js';
 import AppLink from '../shared/AppLink';
 import departmentsService from '../../services/departmentsService';
 import StroykaSlick from '../shared/StroykaSlick';
-import {useDirection} from '../../store/locale/localeHooks';
-import {useMedia} from '../../services/hooks';
-import {getCompanyBanners} from "../../api/companyInfo";
-import {IBanners} from "../../interfaces/banners";
-import {useCompanyInfo} from "../../store/company/companyHooks";
+import { useDirection } from '../../store/locale/localeHooks';
+import { useMedia } from '../../services/hooks';
+import { getCompanyBanners } from '../../api/companyInfo';
+import { IBanners } from '../../interfaces/banners';
+import { useCompanyInfo } from '../../store/company/companyHooks';
 
 export interface BlockSlideShowProps {
     withDepartments?: boolean;
-    banners: IBanners[]
+    banners: IBanners[];
 }
 
 const slickSettings = {
@@ -82,25 +82,27 @@ const _slides = [
 ];
 
 function BlockSlideHome(props: BlockSlideShowProps) {
-    const {withDepartments = false, banners = []} = props;
+    const { withDepartments = false, banners = [] } = props;
     const direction = useDirection();
     const departmentsAreaRef = useRef<HTMLDivElement | null>(null);
     const isDesktop = useMedia('(min-width: 992px)');
     const companyInfo = useCompanyInfo();
-    const [slides, setSlides] = useState<IBanners[] | []>([])
+    const [slides, setSlides] = useState<IBanners[] | []>([]);
 
-    useEffect(() => () => {
-        departmentsService.area = null;
-    }, []);
+    useEffect(
+        () => () => {
+            departmentsService.area = null;
+        },
+        []
+    );
 
     useEffect(() => {
         departmentsService.area = departmentsAreaRef.current;
     }, [isDesktop, departmentsAreaRef]);
 
     useEffect(() => {
-        setSlides(companyInfo.banners)
-    }, [])
-
+        setSlides(companyInfo.banners);
+    }, []);
 
     const setDepartmentsAreaRef = (ref: HTMLDivElement | null) => {
         departmentsAreaRef.current = ref;
@@ -110,18 +112,13 @@ function BlockSlideHome(props: BlockSlideShowProps) {
         }
     };
 
-    const blockClasses = classNames(
-        'block-slideshow block',
-        {
-            'block-slideshow--layout--full': !withDepartments,
-            'block-slideshow--layout--with-departments': withDepartments,
-        },
-    );
-
-
+    const blockClasses = classNames('block-slideshow block', {
+        'block-slideshow--layout--full': !withDepartments,
+        'block-slideshow--layout--with-departments': withDepartments,
+    });
 
     // @ts-ignore
-    const slidesList = companyInfo.banners.map((slide) => {
+    const slidesList = companyInfo.banners.map(slide => {
         return (
             <div key={slide.id} className="block-slideshow__slide">
                 <div
@@ -137,38 +134,40 @@ function BlockSlideHome(props: BlockSlideShowProps) {
                     }}
                 />
                 <div className={`block-slideshow__slide-content w-full`}>
-                    {slide.banner_description ?
+                    {slide.banner_description ? (
                         <div
-                            className={`block-slideshow__slide-text w-90 text-${slide.banner_description.text_color==='white'?'white':slide.banner_description.text_color+'-500'} position-${slide.banner_description.orientation}`}
+                            className={`block-slideshow__slide-text w-90 text-${
+                                slide.banner_description.text_color === 'white'
+                                    ? 'white'
+                                    : slide.banner_description.text_color + '-500'
+                            } position-${slide.banner_description.orientation}`}
                         >
                             <MDReactComponent text={slide.banner_description.description} />
                         </div>
-                        : null}
+                    ) : null}
 
                     <div
-                        className={`block-slideshow__slide-button md:mt-0 mt-48 w-90 position-${slide.link_purchase.orientation}`}>
-                        <AppLink href={slide.link_purchase.link}
-                                 className={`btn btn-lg btn-${slide.link_purchase.button_color}`}>{slide.link_purchase.text_link}</AppLink>
+                        className={`block-slideshow__slide-button md:mt-0 mt-48 w-90 position-${slide.link_purchase.orientation}`}
+                    >
+                        <AppLink
+                            href={slide.link_purchase.link}
+                            className={`btn btn-lg btn-${slide.link_purchase.button_color}`}
+                        >
+                            {slide.link_purchase.text_link}
+                        </AppLink>
                     </div>
                 </div>
             </div>
         );
-
     });
     if (companyInfo.banners.length > 0) {
         return (
             <div className="block-slideshow block block-slideshow--layout--full">
-
-
-                        <div className={'w-full'}>
-                            <div className="block-slideshow__body">
-                                <StroykaSlick {...slickSettings}>
-                                    {slidesList}
-                                </StroykaSlick>
-                            </div>
-                        </div>
-
-
+                <div className={'w-full'}>
+                    <div className="block-slideshow__body">
+                        <StroykaSlick {...slickSettings}>{slidesList}</StroykaSlick>
+                    </div>
+                </div>
             </div>
         );
     }

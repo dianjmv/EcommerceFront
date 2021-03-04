@@ -13,12 +13,7 @@ export interface PaginationProps {
 }
 
 function Pagination(props: PaginationProps) {
-    const {
-        siblings = 1,
-        current = 1,
-        total = 1,
-        onPageChange,
-    } = props;
+    const { siblings = 1, current = 1, total = 1, onPageChange } = props;
 
     const setPage = (value: number) => {
         if (value < 1 || value > total || value === current) {

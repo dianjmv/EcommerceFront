@@ -1,18 +1,18 @@
-import {ImageBanner} from "./imageBanner";
+import { ImageBanner } from './imageBanner';
 
 export interface ILinkPurchase {
-    id: number,
-    text_link: string,
-    orientation: string,
-    link: string,
-    button_color: string,
+    id: number;
+    text_link: string;
+    orientation: string;
+    link: string;
+    button_color: string;
 }
 
-export interface IBannerDescription{
+export interface IBannerDescription {
     id: number;
     description: string;
     orientation: string;
-    text_color: string
+    text_color: string;
 }
 
 export interface IBanners {
@@ -23,6 +23,5 @@ export interface IBanners {
     image_classic: ImageBanner;
     image_mobile: ImageBanner;
     link_purchase: ILinkPurchase;
-    banner_description:IBannerDescription;
-
+    banner_description: IBannerDescription;
 }

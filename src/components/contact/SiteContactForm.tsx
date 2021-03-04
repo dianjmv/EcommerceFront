@@ -1,39 +1,42 @@
-import Head from "next/head";
-import React from "react";
-import {useCompanyInfo} from "../../store/company/companyHooks";
-import {Formik} from "formik";
-import Form from "./ContactFormComponent";
-import * as Yup from "yup";
-import {sendContactPetition} from "../../api/contact";
-import {ShowSuccesAlert} from "../../alerts/ShowSuccessAlert";
-import MapContainer from "../shared/MapContainer";
-import SocialNetworks from "../social-networks/SocialNetworks";
+import Head from 'next/head';
+import React from 'react';
+import { useCompanyInfo } from '../../store/company/companyHooks';
+import { Formik } from 'formik';
+import Form from './ContactFormComponent';
+import * as Yup from 'yup';
+import { sendContactPetition } from '../../api/contact';
+import { ShowSuccesAlert } from '../../alerts/ShowSuccessAlert';
+import MapContainer from '../shared/MapContainer';
+import SocialNetworks from '../social-networks/SocialNetworks';
 
+const mapUrl = `https://maps.googleapis.com/maps/api/js?v=3.exp$key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
 
-const mapUrl =`https://maps.googleapis.com/maps/api/js?v=3.exp$key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
-
-function SiteContactForm(){
-    const companyInfo = useCompanyInfo()
+function SiteContactForm() {
+    const companyInfo = useCompanyInfo();
     const initialValues = () => ({
         email: '',
         name: '',
         issue: '',
-        message: ''
-    })
+        message: '',
+    });
     const validationForm = Yup.object({
         email: Yup.string().email('El email no tiene el formato correcto').required('El email es requerído'),
         name: Yup.string().required('El nombre es requerido'),
         issue: Yup.string().required('El asunto es requerido'),
-        message: Yup.string().required('El mensaje es requerido')
-    })
-    const sendMessage = (values: any, {setSubmitting, setErrors, setStatus, resetForm}:any) => {
-        sendContactPetition(values).then((response)=>{
-            ShowSuccesAlert('Mensaje Enviado', 'success', 'Pronto nos pondremos en contacto con usted').then(result => (result))
-            resetForm({})
-        }).catch(err=>{
-            ShowSuccesAlert('Upss!!', 'error', 'Ocurrio un Error').then(result=>result)
-        })
-    }
+        message: Yup.string().required('El mensaje es requerido'),
+    });
+    const sendMessage = (values: any, { setSubmitting, setErrors, setStatus, resetForm }: any) => {
+        sendContactPetition(values)
+            .then(response => {
+                ShowSuccesAlert('Mensaje Enviado', 'success', 'Pronto nos pondremos en contacto con usted').then(
+                    result => result
+                );
+                resetForm({});
+            })
+            .catch(err => {
+                ShowSuccesAlert('Upss!!', 'error', 'Ocurrio un Error').then(result => result);
+            });
+    };
     return (
         <div>
             <Head>
@@ -48,22 +51,15 @@ function SiteContactForm(){
                 </div>
                 <div className={'md:px-28 bg-blue-700'}>
                     <h2 className={'text-white text-2xl mt-4 px-2'}>Déjanos un comentario</h2>
-                    <Formik initialValues={initialValues()} onSubmit={sendMessage}
-
-                            validationSchema={validationForm}>
-                        {
-                            props => {
-                                return (<Form formik={props}/>)
-                            }
-                        }
-
+                    <Formik initialValues={initialValues()} onSubmit={sendMessage} validationSchema={validationForm}>
+                        {props => {
+                            return <Form formik={props} />;
+                        }}
                     </Formik>
                 </div>
-
             </div>
-            <SocialNetworks/>
-
+            <SocialNetworks />
         </div>
-    )
+    );
 }
-export default SiteContactForm
+export default SiteContactForm;

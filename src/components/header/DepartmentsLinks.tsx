@@ -45,11 +45,7 @@ function DepartmentsLinks() {
         );
     });
 
-    return (
-        <ul className="departments__links">
-            {linksList}
-        </ul>
-    );
+    return <ul className="departments__links">{linksList}</ul>;
 }
 
 export default DepartmentsLinks;

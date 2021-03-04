@@ -3,7 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 // application
 import { AppAction } from '../types';
 import { IFilterValues, IListOptions } from '../../interfaces/list';
-import {IProduct, IProductsList} from '../../interfaces/product';
+import { IProduct, IProductsList } from '../../interfaces/product';
 import { IShopCategory } from '../../interfaces/category';
 import { SHOP_NAMESPACE, ShopState } from './shopTypes';
 
@@ -61,13 +61,13 @@ export interface ShopResetFiltersAction {
 }
 
 export type ShopAction =
-    ShopHydrateAction |
-    ShopInitAction |
-    ShopFetchCategorySuccessAction |
-    ShopFetchProductsListStartAction |
-    ShopFetchProductsListSuccessAction |
-    ShopSetOptionValueAction |
-    ShopSetFilterValueAction |
-    ShopResetFiltersAction;
+    | ShopHydrateAction
+    | ShopInitAction
+    | ShopFetchCategorySuccessAction
+    | ShopFetchProductsListStartAction
+    | ShopFetchProductsListSuccessAction
+    | ShopSetOptionValueAction
+    | ShopSetFilterValueAction
+    | ShopResetFiltersAction;
 
 export type ShopThunkAction<T = void> = AppAction<ShopAction, T>;

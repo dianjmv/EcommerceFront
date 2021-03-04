@@ -2,7 +2,7 @@ import { PropsWithChildren, HTMLAttributes, AnchorHTMLAttributes } from 'react';
 
 // third-party
 import Link, { LinkProps } from 'next/link';
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router';
 
 // application
 import { ILinkProps } from '../../interfaces/menus/link-props';
@@ -29,14 +29,16 @@ function AppLink(props: AppLinkProps) {
     const href = hrefProp || '/';
     const router = useRouter();
 
-
     let link;
 
     if (!isLink(href) || (isSimpleLink(href) && isExternal(href))) {
-        link = <a href={href} {...anchorProps}>{children}</a>;
+        link = (
+            <a href={href} {...anchorProps}>
+                {children}
+            </a>
+        );
     } else {
         const linkProps: LinkProps = typeof href === 'string' ? { href } : href;
-
 
         link = (
             <Link {...linkProps}>

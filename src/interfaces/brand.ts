@@ -1,6 +1,6 @@
-import {ImageBanner} from "./imageBanner";
-import {IProduct} from "./product";
-import {IBanners} from "./banners";
+import { ImageBanner } from './imageBanner';
+import { IProduct } from './product';
+import { IBanners } from './banners';
 
 export interface IBrand {
     id: string;
@@ -14,18 +14,17 @@ export interface IBrand {
     banner_image: ImageBanner;
     products: IProduct[];
     banners: IBanners[];
-    advantages:IAdvantage[];
+    advantages: IAdvantage[];
     url_video: string;
     advantage_image: ImageBanner;
     certificate_images: ImageBanner;
     use_level: IUseLevel[];
-
 }
-export interface IAdvantage{
+export interface IAdvantage {
     id: number;
     advantage: string;
 }
-export interface IUseLevel{
+export interface IUseLevel {
     id: number;
-    use_level:number;
+    use_level: number;
 }

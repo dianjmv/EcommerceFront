@@ -8,17 +8,17 @@ import url from '../../services/url';
 
 // data stubs
 import theme from '../../data/theme';
-import {useCompanyAddInfo, useCompanyInfo} from "../../store/company/companyHooks";
+import { useCompanyAddInfo, useCompanyInfo } from '../../store/company/companyHooks';
 // @ts-ignore
 import MDReactComponent from 'markdown-react-js';
-import CompanyRepository from "../../api/companyInfo";
-import {useEffect, useState} from "react";
-import {ICompanyInfo} from "../../interfaces/company-info";
+import CompanyRepository from '../../api/companyInfo';
+import { useEffect, useState } from 'react';
+import { ICompanyInfo } from '../../interfaces/company-info';
 import {
     ShopPageCategoryColumns,
     ShopPageCategorySidebarPosition,
-    ShopPageCategoryViewMode
-} from "../shop/ShopPageCategory";
+    ShopPageCategoryViewMode,
+} from '../shop/ShopPageCategory';
 
 const slickSettings = {
     dots: true,
@@ -47,11 +47,11 @@ const slickSettings = {
 interface SitePageAboutUsProps {
     banner: string;
     content: string;
-    tittle:string
+    tittle: string;
 }
 
-function SitePageAboutUs(props:SitePageAboutUsProps) {
-    const {banner, content, tittle} = props
+function SitePageAboutUs(props: SitePageAboutUsProps) {
+    const { banner, content, tittle } = props;
     const companyInfo = useCompanyInfo();
 
     return (
@@ -60,15 +60,17 @@ function SitePageAboutUs(props:SitePageAboutUsProps) {
                 <title>{`${companyInfo.company_name} | ${tittle}`}</title>
             </Head>
 
-            <div className="about-us__image"
-                 style={{backgroundImage: `url("${process.env.NEXT_PUBLIC_BASE_URI}${companyInfo ? banner : ''}")`}}/>
+            <div
+                className="about-us__image"
+                style={{ backgroundImage: `url("${process.env.NEXT_PUBLIC_BASE_URI}${companyInfo ? banner : ''}")` }}
+            />
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-12 col-xl-10">
                         <div className="about-us__body">
                             <h1 className="about-us__title text-5xl font-bold">{tittle}</h1>
                             <div className="about-us__text typography">
-                                <MDReactComponent text={content}/>
+                                <MDReactComponent text={content} />
                             </div>
                         </div>
                     </div>

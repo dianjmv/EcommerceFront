@@ -1,4 +1,4 @@
-export interface IContactPetition{
+export interface IContactPetition {
     name: string;
     issue: string;
     message: string;

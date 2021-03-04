@@ -9,9 +9,6 @@ import WidgetTags from '../widgets/WidgetTags';
 
 // data stubs
 
-
-
-
 export type BlogSidebarPosition = 'start' | 'end';
 
 export interface BlogSidebarProps {
@@ -29,18 +26,12 @@ function BlogSidebar(props: BlogSidebarProps) {
             <div className="block-sidebar__item">
                 <WidgetAboutus />
             </div>
-            <div className="block-sidebar__item">
-
-            </div>
-            <div className="block-sidebar__item">
-
-            </div>
+            <div className="block-sidebar__item"></div>
+            <div className="block-sidebar__item"></div>
             <div className="block-sidebar__item">
                 <WidgetNewsletter />
             </div>
-            <div className="block-sidebar__item">
-
-            </div>
+            <div className="block-sidebar__item"></div>
             <div className="block-sidebar__item">
                 <WidgetTags />
             </div>

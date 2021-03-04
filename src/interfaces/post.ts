@@ -1,15 +1,14 @@
-import {IBanners} from "./banners";
-import {IProduct} from "./product";
-import {ImageBanner} from "./imageBanner";
+import { IBanners } from './banners';
+import { IProduct } from './product';
+import { ImageBanner } from './imageBanner';
 
-export interface ITag{
+export interface ITag {
     id: number;
     tittle: string;
     slug: string;
     created_at: string;
     updated_at: string;
 }
-
 
 export interface IPost {
     id: number;
@@ -20,10 +19,10 @@ export interface IPost {
     is_active: boolean;
     created_at: string;
     updated_at: string;
-    slug: string
+    slug: string;
     thumbnails: ImageBanner;
     presentation: ImageBanner;
-    blog_categories: string[]
-    products: IProduct[]
-    blog_tags: ITag[]
+    blog_categories: string[];
+    products: IProduct[];
+    blog_tags: ITag[];
 }

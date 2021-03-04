@@ -67,11 +67,7 @@ const slickSettings: BlockPostsSlickProps = {
 };
 
 function BlockPosts(props: BlockPostsProps) {
-    const {
-        title,
-        layout = 'list-sm',
-        posts = [],
-    } = props;
+    const { title, layout = 'list-sm', posts = [] } = props;
     const slickRef = useRef<Slick | null>(null);
 
     const handleNextClick = () => {
@@ -86,23 +82,15 @@ function BlockPosts(props: BlockPostsProps) {
         }
     };
 
-    const postsList = posts.map((post) => <PostCard key={post.id} post={post} />);
+    const postsList = posts.map(post => <PostCard key={post.id} post={post} />);
 
     return (
         <div className={`block block-posts block-posts--layout--${layout}`} data-layout={layout}>
             <div className="container">
-                <BlockHeader
-                    arrows
-                    title={title}
-                    onNext={handleNextClick}
-                    onPrev={handlePrevClick}
-                />
+                <BlockHeader arrows title={title} onNext={handleNextClick} onPrev={handlePrevClick} />
 
                 <div className="block-posts__slider">
-                    <StroykaSlick
-                        ref={slickRef}
-                        {...slickSettings[layout]}
-                    >
+                    <StroykaSlick ref={slickRef} {...slickSettings[layout]}>
                         {postsList}
                     </StroykaSlick>
                 </div>

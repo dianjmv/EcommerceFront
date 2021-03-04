@@ -11,7 +11,7 @@ export interface RatingProps {
 function Rating(props: RatingProps) {
     const { value = 0 } = props;
 
-    const stars = [1, 2, 3, 4, 5].map((rating) => {
+    const stars = [1, 2, 3, 4, 5].map(rating => {
         const rootClasses = classNames('rating__star', {
             'rating__star--active': value >= rating,
         });
@@ -21,9 +21,7 @@ function Rating(props: RatingProps) {
 
     return (
         <div className="rating">
-            <div className="rating__body">
-                {stars}
-            </div>
+            <div className="rating__body">{stars}</div>
         </div>
     );
 }

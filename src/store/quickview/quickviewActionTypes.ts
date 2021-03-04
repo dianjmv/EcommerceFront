@@ -14,8 +14,6 @@ export interface QuickviewCloseAction {
     type: typeof QUICKVIEW_CLOSE;
 }
 
-export type QuickviewAction =
-    QuickviewOpenAction |
-    QuickviewCloseAction;
+export type QuickviewAction = QuickviewOpenAction | QuickviewCloseAction;
 
 export type QuickviewThunkAction<T = void> = AppAction<QuickviewAction, T>;

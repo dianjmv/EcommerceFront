@@ -1,10 +1,5 @@
 // react
-import React, {
-    Fragment,
-    ChangeEvent,
-    useEffect,
-    useState,
-} from 'react';
+import React, { Fragment, ChangeEvent, useEffect, useState } from 'react';
 
 // third-party
 import Head from 'next/head';
@@ -51,14 +46,18 @@ function ShopPageCheckout() {
     const totals = cart.totals.map((total, index) => (
         <tr key={index}>
             <th>{total.title}</th>
-            <td><CurrencyFormat value={total.price} /></td>
+            <td>
+                <CurrencyFormat value={total.price} />
+            </td>
         </tr>
     ));
 
-    const cartItems = cart.items.map((item) => (
+    const cartItems = cart.items.map(item => (
         <tr key={item.id}>
             <td>{`${item.product.title} × ${item.quantity}`}</td>
-            <td><CurrencyFormat value={item.total} /></td>
+            <td>
+                <CurrencyFormat value={item.total} />
+            </td>
         </tr>
     ));
 
@@ -70,14 +69,14 @@ function ShopPageCheckout() {
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody className="checkout__totals-products">
-                {cartItems}
-            </tbody>
+            <tbody className="checkout__totals-products">{cartItems}</tbody>
             {totals.length > 0 && (
                 <tbody className="checkout__totals-subtotals">
                     <tr>
                         <th>Subtotal</th>
-                        <td><CurrencyFormat value={cart.subtotal} /></td>
+                        <td>
+                            <CurrencyFormat value={cart.subtotal} />
+                        </td>
                     </tr>
                     {totals}
                 </tbody>
@@ -85,13 +84,15 @@ function ShopPageCheckout() {
             <tfoot className="checkout__totals-footer">
                 <tr>
                     <th>Total</th>
-                    <td><CurrencyFormat value={cart.total} /></td>
+                    <td>
+                        <CurrencyFormat value={cart.total} />
+                    </td>
                 </tr>
             </tfoot>
         </table>
     );
 
-    const payments = dataShopPayments.map((payment) => {
+    const payments = dataShopPayments.map(payment => {
         const renderPayment: RenderPaymentFn = ({ setItemRef, setContentRef }) => (
             <li className="payment-methods__item" ref={setItemRef}>
                 <label className="payment-methods__item-header">
@@ -141,11 +142,9 @@ function ShopPageCheckout() {
                 <h1 className={'text-white text-5xl font-bold'}>Finalizar Compra</h1>
             </div>
 
-
             <div className="checkout block mt-4">
                 <div className="container">
                     <div className="row">
-
                         <div className="col-12 col-lg-6 col-xl-7">
                             <div className="card mb-lg-0">
                                 <div className="card-body">
@@ -153,29 +152,16 @@ function ShopPageCheckout() {
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
                                             <label htmlFor="checkout-first-name">Nombre</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="checkout-first-name"
-
-                                            />
+                                            <input type="text" className="form-control" id="checkout-first-name" />
                                         </div>
                                         <div className="form-group col-md-6">
                                             <label htmlFor="checkout-last-name">Apellido</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="checkout-last-name"
-
-                                            />
+                                            <input type="text" className="form-control" id="checkout-last-name" />
                                         </div>
                                     </div>
                                     <div className={'form-row'}>
                                         <div className="form-group col-lg-6">
-                                            <label htmlFor="checkout-company-name">
-                                                Tipo de identificación
-
-                                            </label>
+                                            <label htmlFor="checkout-company-name">Tipo de identificación</label>
                                             <select id="checkout-country" className="form-control">
                                                 <option>Cédula</option>
                                                 <option>RUC</option>
@@ -183,15 +169,8 @@ function ShopPageCheckout() {
                                             </select>
                                         </div>
                                         <div className={'col-lg-6'}>
-                                            <label htmlFor="checkout-company-name">
-                                                Identificación
-
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="checkout-company-name"
-                                            />
+                                            <label htmlFor="checkout-company-name">Identificación</label>
+                                            <input type="text" className="form-control" id="checkout-company-name" />
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -236,22 +215,22 @@ function ShopPageCheckout() {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="checkout-address">
-                                            Código Postal
-                                        </label>
+                                        <label htmlFor="checkout-address">Código Postal</label>
                                         <input type="text" className="form-control" id="checkout-address" />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="checkout-address">
-                                            Teléfono
-                                        </label>
+                                        <label htmlFor="checkout-address">Teléfono</label>
                                         <input type="text" className="form-control" id="checkout-address" />
                                     </div>
                                     <div className="form-group">
                                         <div className="form-check">
                                             <span className="form-check-input input-check">
                                                 <span className="input-check__body">
-                                                    <input className="input-check__input" type="checkbox" id="checkout-create-account" />
+                                                    <input
+                                                        className="input-check__input"
+                                                        type="checkbox"
+                                                        id="checkout-create-account"
+                                                    />
                                                     <span className="input-check__box" />
                                                     <Check9x7Svg className="input-check__icon" />
                                                 </span>
@@ -265,7 +244,11 @@ function ShopPageCheckout() {
                                         <div className="form-check">
                                             <span className="form-check-input input-check">
                                                 <span className="input-check__body">
-                                                    <input className="input-check__input" type="checkbox" id="checkout-different-address" />
+                                                    <input
+                                                        className="input-check__input"
+                                                        type="checkbox"
+                                                        id="checkout-different-address"
+                                                    />
                                                     <span className="input-check__box" />
                                                     <Check9x7Svg className="input-check__icon" />
                                                 </span>
@@ -277,14 +260,11 @@ function ShopPageCheckout() {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="checkout-comment">
-                                            Notas del pedido
-                                            {' '}
-                                            <span className="text-muted">(opcional)</span>
+                                            Notas del pedido <span className="text-muted">(opcional)</span>
                                         </label>
                                         <textarea id="checkout-comment" className="form-control" rows={4} />
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -296,31 +276,32 @@ function ShopPageCheckout() {
                                     {cartTable}
 
                                     <div className="payment-methods">
-                                        <ul className="payment-methods__list">
-                                            {payments}
-                                        </ul>
+                                        <ul className="payment-methods__list">{payments}</ul>
                                     </div>
 
                                     <div className="checkout__agree form-group">
                                         <div className="form-check">
                                             <span className="form-check-input input-check">
                                                 <span className="input-check__body">
-                                                    <input className="input-check__input" type="checkbox" id="checkout-terms" />
+                                                    <input
+                                                        className="input-check__input"
+                                                        type="checkbox"
+                                                        id="checkout-terms"
+                                                    />
                                                     <span className="input-check__box" />
                                                     <Check9x7Svg className="input-check__icon" />
                                                 </span>
                                             </span>
                                             <label className="form-check-label" htmlFor="checkout-terms">
                                                 I have read and agree to the website
-                                                <AppLink href={url.terms()}>
-                                                    terms and conditions
-                                                </AppLink>
-                                                *
+                                                <AppLink href={url.terms()}>terms and conditions</AppLink>*
                                             </label>
                                         </div>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary btn-xl btn-block">Place Order</button>
+                                    <button type="submit" className="btn btn-primary btn-xl btn-block">
+                                        Place Order
+                                    </button>
                                 </div>
                             </div>
                         </div>

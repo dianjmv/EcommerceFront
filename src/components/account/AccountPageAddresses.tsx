@@ -13,7 +13,7 @@ import dataAccountAddresses from '../../data/accountAddresses';
 import theme from '../../data/theme';
 
 export default function AccountPageAddresses() {
-    const addresses = dataAccountAddresses.map((address) => (
+    const addresses = dataAccountAddresses.map(address => (
         <Fragment key={address.id}>
             <div className="addresses-list__item card address-card">
                 {address.default && <div className="address-card__badge">Default</div>}
@@ -23,9 +23,7 @@ export default function AccountPageAddresses() {
                     <div className="address-card__row">
                         {address.country}
                         <br />
-                        {address.postcode}
-                        ,
-                        {address.city}
+                        {address.postcode},{address.city}
                         <br />
                         {address.address}
                     </div>

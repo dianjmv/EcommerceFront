@@ -33,16 +33,14 @@ function isColorFilterValue(value: any): value is IColorFilterValue {
 }
 
 const CheckFilterHandler: IFilterHandler = {
-    serialize: (value) => {
+    serialize: value => {
         if (!isCheckFilterValue(value)) {
             throw Error('Provide a valid "check" filter value!');
         }
 
         return value.join(',');
     },
-    deserialize: (value) => (
-        value ? value.split(',') : []
-    ),
+    deserialize: value => (value ? value.split(',') : []),
     isDefaultValue: (filter, value) => {
         if (!isCheckFilterValue(value)) {
             throw Error('Provide a valid "check" filter value!');
@@ -54,16 +52,14 @@ const CheckFilterHandler: IFilterHandler = {
 };
 
 const ColorFilterHandler: IFilterHandler = {
-    serialize: (value) => {
+    serialize: value => {
         if (!isColorFilterValue(value)) {
             throw Error('Provide a valid "color" filter value!');
         }
 
         return value.join(',');
     },
-    deserialize: (value: string) => (
-        value ? value.split(',') : []
-    ),
+    deserialize: (value: string) => (value ? value.split(',') : []),
     isDefaultValue: (filter, value) => {
         if (!isColorFilterValue(value)) {
             throw Error('Provide a valid "check" filter value!');
@@ -75,7 +71,7 @@ const ColorFilterHandler: IFilterHandler = {
 };
 
 const RadioFilterHandler: IFilterHandler = {
-    serialize: (value) => {
+    serialize: value => {
         if (!isRadioFilterValue(value)) {
             throw Error('Provide a valid "radio" filter value!');
         }
@@ -90,7 +86,7 @@ const RadioFilterHandler: IFilterHandler = {
 
         return RadioFilterHandler.getDefaultValue(filter) === value;
     },
-    getDefaultValue: (filter) => {
+    getDefaultValue: filter => {
         if (filter.type !== 'radio') {
             throw Error('Provide a "radio" filter!');
         }
@@ -100,16 +96,14 @@ const RadioFilterHandler: IFilterHandler = {
 };
 
 const RangeFilterHandler: IFilterHandler = {
-    serialize: (value) => {
+    serialize: value => {
         if (!isRangeFilterValue(value)) {
             throw Error('Provide a valid "range" filter value!');
         }
 
         return value.join('-');
     },
-    deserialize: (value: string) => (
-        value ? value.split('-').map(parseFloat) : undefined
-    ),
+    deserialize: (value: string) => (value ? value.split('-').map(parseFloat) : undefined),
     isDefaultValue: (filter, value) => {
         if (filter.type !== 'range') {
             throw Error('Provide a "range" filter!');
@@ -120,7 +114,7 @@ const RangeFilterHandler: IFilterHandler = {
 
         return filter.min === value[0] && filter.max === value[1];
     },
-    getDefaultValue: (filter) => {
+    getDefaultValue: filter => {
         if (filter.type !== 'range') {
             throw Error('Provide a "range" filter!');
         }
@@ -131,12 +125,16 @@ const RangeFilterHandler: IFilterHandler = {
 
 function getFilterHandler<T extends IFilter>(filter: T): IFilterHandler<T, T['value']> | null {
     switch (filter.type) {
-    case 'check': return CheckFilterHandler;
-    case 'color': return ColorFilterHandler;
-    case 'radio': return RadioFilterHandler;
-    case 'range': return RangeFilterHandler;
-    default:
-        return null;
+        case 'check':
+            return CheckFilterHandler;
+        case 'color':
+            return ColorFilterHandler;
+        case 'radio':
+            return RadioFilterHandler;
+        case 'range':
+            return RangeFilterHandler;
+        default:
+            return null;
     }
 }
 

@@ -6,7 +6,8 @@ const dataBlogWidgetLatestComments: IComment[] = [
         author: 'Emma Williams',
         avatar: '',
         postTitle: 'Nullam at varius sapien sed sit amet condimentum elit',
-        text: 'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
+        text:
+            'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
         date: '3 minutes ago',
     },
     {
@@ -14,7 +15,8 @@ const dataBlogWidgetLatestComments: IComment[] = [
         author: 'Airic Ford',
         avatar: '',
         postTitle: 'Integer efficitur efficitur velit non pulvinar pellentesque dictum viverra',
-        text: 'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
+        text:
+            'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
         date: '25 minutes ago',
     },
     {
@@ -22,7 +24,8 @@ const dataBlogWidgetLatestComments: IComment[] = [
         author: 'Loyd Walker',
         avatar: '',
         postTitle: 'Curabitur quam augue vestibulum in mauris fermentum pellentesque libero',
-        text: 'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
+        text:
+            'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
         date: '2 hours ago',
     },
     {
@@ -30,7 +33,8 @@ const dataBlogWidgetLatestComments: IComment[] = [
         author: 'Jessica Moore',
         avatar: '',
         postTitle: 'Vestibulum leo sapien sollicitudin at magna eu interdum congue feugiat',
-        text: 'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
+        text:
+            'In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge...',
         date: '3 days ago',
     },
 ];

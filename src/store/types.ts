@@ -14,9 +14,12 @@ export type Fn<R = any> = (...args: any[]) => R;
 
 export type ThunkActionFn = Fn<ThunkAction<any, any, any, any>>;
 
-export type ThunkReturnType<T extends (...args: any[]) => ThunkAction<any, any, any, any>>
-    = T extends (...args: any[]) => ThunkAction<infer R, any, any, any> ? R : any;
+export type ThunkReturnType<T extends (...args: any[]) => ThunkAction<any, any, any, any>> = T extends (
+    ...args: any[]
+) => ThunkAction<infer R, any, any, any>
+    ? R
+    : any;
 
 export type AppReducerStateType<T extends AppReducer<any, any>> = T extends AppReducer<infer R, any> ? R : any;
 
-export type FirstArgType<T> = T extends ((arg: infer B) => any) ? B : never;
+export type FirstArgType<T> = T extends (arg: infer B) => any ? B : never;

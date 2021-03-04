@@ -1,10 +1,5 @@
 import { IProduct } from '../../interfaces/product';
-import {
-    CartItem,
-    CartItemOption,
-    CartState,
-    CartTotal,
-} from './cartTypes';
+import { CartItem, CartItemOption, CartState, CartTotal } from './cartTypes';
 import {
     CART_ADD_ITEM,
     CART_REMOVE_ITEM,
@@ -15,16 +10,16 @@ import {
 import { withClientState } from '../client';
 
 function findItemIndex(items: CartItem[], product: IProduct, options: CartItemOption[]): number {
-    return items.findIndex((item) => {
+    return items.findIndex(item => {
         if (item.product.id !== product.id || item.options.length !== options.length) {
             return false;
         }
 
         for (let i = 0; i < options.length; i += 1) {
             const option = options[i];
-            const itemOption = item.options.find((itemOption) => (
-                itemOption.optionId === option.optionId && itemOption.valueId === option.valueId
-            ));
+            const itemOption = item.options.find(
+                itemOption => itemOption.optionId === option.optionId && itemOption.valueId === option.valueId
+            );
 
             if (!itemOption) {
                 return false;
@@ -71,14 +66,17 @@ function addItem(state: CartState, product: IProduct, options: CartItemOption[],
 
     if (itemIndex === -1) {
         lastItemId += 1;
-        newItems = [...state.items, {
-            id: lastItemId,
-            product: JSON.parse(JSON.stringify(product)),
-            options: JSON.parse(JSON.stringify(options)),
-            price: product.sale_price,
-            total: product.sale_price * quantity,
-            quantity,
-        }];
+        newItems = [
+            ...state.items,
+            {
+                id: lastItemId,
+                product: JSON.parse(JSON.stringify(product)),
+                options: JSON.parse(JSON.stringify(options)),
+                price: product.sale_price,
+                total: product.sale_price * quantity,
+                quantity,
+            },
+        ];
     } else {
         const item = state.items[itemIndex];
 
@@ -110,7 +108,7 @@ function addItem(state: CartState, product: IProduct, options: CartItemOption[],
 
 function removeItem(state: CartState, itemId: number) {
     const { items } = state;
-    const newItems = items.filter((item) => item.id !== itemId);
+    const newItems = items.filter(item => item.id !== itemId);
 
     const subtotal = calcSubtotal(newItems);
     const totals = calcTotals(newItems);
@@ -129,8 +127,8 @@ function removeItem(state: CartState, itemId: number) {
 function updateQuantities(state: CartState, quantities: CartItemQuantity[]) {
     let needUpdate = false;
 
-    const newItems = state.items.map((item) => {
-        const quantity = quantities.find((x) => x.itemId === item.id && x.value !== item.quantity);
+    const newItems = state.items.map(item => {
+        const quantity = quantities.find(x => x.itemId === item.id && x.value !== item.quantity);
 
         if (!quantity) {
             return item;
@@ -176,17 +174,17 @@ export const CART_NAMESPACE = 'cart';
 
 function cartBaseReducer(state = initialState, action: CartAction): CartState {
     switch (action.type) {
-    case CART_ADD_ITEM:
-        return addItem(state, action.product, action.options, action.quantity);
+        case CART_ADD_ITEM:
+            return addItem(state, action.product, action.options, action.quantity);
 
-    case CART_REMOVE_ITEM:
-        return removeItem(state, action.itemId);
+        case CART_REMOVE_ITEM:
+            return removeItem(state, action.itemId);
 
-    case CART_UPDATE_QUANTITIES:
-        return updateQuantities(state, action.quantities);
+        case CART_UPDATE_QUANTITIES:
+            return updateQuantities(state, action.quantities);
 
-    default:
-        return state;
+        default:
+            return state;
     }
 }
 

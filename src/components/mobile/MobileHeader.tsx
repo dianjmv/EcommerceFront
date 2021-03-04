@@ -1,10 +1,5 @@
 // react
-import {
-    useEffect,
-    useRef,
-    useState,
-    memo,
-} from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -22,13 +17,15 @@ import url from '../../services/url';
 import { useCart } from '../../store/cart/cartHooks';
 import { useMobileMenuOpen } from '../../store/mobile-menu/mobileMenuHooks';
 import { useWishlist } from '../../store/wishlist/wishlistHooks';
-import {useCompanyInfo} from "../../store/company/companyHooks";
+import { useCompanyInfo } from '../../store/company/companyHooks';
 
 function MobileHeader() {
     const [searchOpen, setSearchOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const cart = useCart();
-    const { items: { length: wishlistCount } } = useWishlist();
+    const {
+        items: { length: wishlistCount },
+    } = useWishlist();
     const mobileMenuOpen = useMobileMenuOpen();
 
     useEffect(() => {
@@ -49,7 +46,8 @@ function MobileHeader() {
         'mobile-header__search--open': searchOpen,
     });
     const companyInfoState = useCompanyInfo();
-    const logo = companyInfoState.logo.length>0? `${process.env.NEXT_PUBLIC_BASE_URI}${companyInfoState.logo[0].url}`:''
+    const logo =
+        companyInfoState.logo.length > 0 ? `${process.env.NEXT_PUBLIC_BASE_URI}${companyInfoState.logo[0].url}` : '';
 
     return (
         <div className="mobile-header">
@@ -60,7 +58,7 @@ function MobileHeader() {
                             <Menu18x14Svg />
                         </button>
                         <AppLink href={url.home()} className="mobile-header__logo w-32">
-                            <img src={logo} alt=""/>
+                            <img src={logo} alt="" />
                         </AppLink>
                         <Search
                             context="mobile-header"

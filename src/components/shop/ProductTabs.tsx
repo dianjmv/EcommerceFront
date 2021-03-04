@@ -27,39 +27,34 @@ function ProductTabs(props: ProductTabsProps) {
         { key: 'reviews', title: 'Reviews', content: <ProductTabReviews /> },
     ];
 
-    const tabsButtons = tabs.map((tab) => {
+    const tabsButtons = tabs.map(tab => {
         const classes = classNames('product-tabs__item', {
             'product-tabs__item--active': currentTab === tab.key,
         });
 
         return (
-            <button
-                key={tab.key}
-                type="button"
-                onClick={() => setCurrentTab(tab.key)}
-                className={classes}
-            >
+            <button key={tab.key} type="button" onClick={() => setCurrentTab(tab.key)} className={classes}>
                 {tab.title}
             </button>
         );
     });
 
-    const tabsContent = tabs.map((tab) => {
+    const tabsContent = tabs.map(tab => {
         const classes = classNames('product-tabs__pane', {
             'product-tabs__pane--active': currentTab === tab.key,
         });
 
-        return <div key={tab.key} className={classes}>{tab.content}</div>;
+        return (
+            <div key={tab.key} className={classes}>
+                {tab.content}
+            </div>
+        );
     });
 
     return (
         <div className={classes}>
-            <div className="product-tabs__list">
-                {tabsButtons}
-            </div>
-            <div className="product-tabs__content">
-                {tabsContent}
-            </div>
+            <div className="product-tabs__list">{tabsButtons}</div>
+            <div className="product-tabs__content">{tabsContent}</div>
         </div>
     );
 }

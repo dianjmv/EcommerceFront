@@ -31,7 +31,7 @@ function ShopPageWishlist() {
     let content;
 
     if (items.length) {
-        const itemsList = items.map((item) => {
+        const itemsList = items.map(item => {
             let image;
 
             if (item.images.length > 0) {
@@ -49,7 +49,11 @@ function ShopPageWishlist() {
                     'btn-loading': loading,
                 });
 
-                return <button type="button" onClick={run} className={classes}>Add To Cart</button>;
+                return (
+                    <button type="button" onClick={run} className={classes}>
+                        Add To Cart
+                    </button>
+                );
             };
 
             const renderRemoveButton: RenderFn = ({ run, loading }) => {
@@ -57,14 +61,16 @@ function ShopPageWishlist() {
                     'btn-loading': loading,
                 });
 
-                return <button type="button" onClick={run} className={classes} aria-label="Remove"><Cross12Svg /></button>;
+                return (
+                    <button type="button" onClick={run} className={classes} aria-label="Remove">
+                        <Cross12Svg />
+                    </button>
+                );
             };
 
             return (
                 <tr key={item.id} className="wishlist__row">
-                    <td className="wishlist__column wishlist__column--image">
-                        {image}
-                    </td>
+                    <td className="wishlist__column wishlist__column--image">{image}</td>
                     <td className="wishlist__column wishlist__column--product">
                         <AppLink href={url.product(item)} className="wishlist__product-name">
                             {item.title}
@@ -77,18 +83,14 @@ function ShopPageWishlist() {
                     <td className="wishlist__column wishlist__column--stock">
                         <div className="badge badge-success">In Stock</div>
                     </td>
-                    <td className="wishlist__column wishlist__column--price"><CurrencyFormat value={item.price} /></td>
+                    <td className="wishlist__column wishlist__column--price">
+                        <CurrencyFormat value={item.price} />
+                    </td>
                     <td className="wishlist__column wishlist__column--tocart">
-                        <AsyncAction
-                            action={() => cartAddItem(item)}
-                            render={renderAddToCarButton}
-                        />
+                        <AsyncAction action={() => cartAddItem(item)} render={renderAddToCarButton} />
                     </td>
                     <td className="wishlist__column wishlist__column--remove">
-                        <AsyncAction
-                            action={() => wishlistRemoveItem(item.id)}
-                            render={renderRemoveButton}
-                        />
+                        <AsyncAction action={() => wishlistRemoveItem(item.id)} render={renderRemoveButton} />
                     </td>
                 </tr>
             );
@@ -108,9 +110,7 @@ function ShopPageWishlist() {
                                 <th className="wishlist__column wishlist__column--remove" aria-label="Remove" />
                             </tr>
                         </thead>
-                        <tbody className="wishlist__body">
-                            {itemsList}
-                        </tbody>
+                        <tbody className="wishlist__body">{itemsList}</tbody>
                     </table>
                 </div>
             </div>

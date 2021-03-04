@@ -42,9 +42,7 @@ function Megamenu(props: MegamenuProps) {
 
     return (
         <div className={`megamenu megamenu--${location}`} style={menuStyle}>
-            <div className="row">
-                {columns}
-            </div>
+            <div className="row">{columns}</div>
         </div>
     );
 }

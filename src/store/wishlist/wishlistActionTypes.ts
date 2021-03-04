@@ -15,8 +15,6 @@ export interface WishlistRemoveItemAction {
     productId: number;
 }
 
-export type WishlistAction =
-    WishlistAddItemAction |
-    WishlistRemoveItemAction;
+export type WishlistAction = WishlistAddItemAction | WishlistRemoveItemAction;
 
 export type WishlistThunkAction<T = void> = AppAction<WishlistAction, T>;

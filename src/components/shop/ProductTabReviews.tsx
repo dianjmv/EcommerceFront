@@ -4,18 +4,14 @@ import Rating from '../shared/Rating';
 
 // data stubs
 
-
 function ProductTabReviews() {
-
-
     return (
         <div className="reviews-view">
             <div className="reviews-view__list">
                 <h3 className="reviews-view__header">Customer Reviews</h3>
 
                 <div className="reviews-list">
-                    <ol className="reviews-list__content">
-                    </ol>
+                    <ol className="reviews-list__content"></ol>
                     <div className="reviews-list__pagination">
                         <Pagination current={1} siblings={2} total={10} />
                     </div>
@@ -39,11 +35,21 @@ function ProductTabReviews() {
                             </div>
                             <div className="form-group col-md-4">
                                 <label htmlFor="review-author">Your Name</label>
-                                <input type="text" className="form-control" id="review-author" placeholder="Your Name" />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="review-author"
+                                    placeholder="Your Name"
+                                />
                             </div>
                             <div className="form-group col-md-4">
                                 <label htmlFor="review-email">Email Address</label>
-                                <input type="text" className="form-control" id="review-email" placeholder="Email Address" />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="review-email"
+                                    placeholder="Email Address"
+                                />
                             </div>
                         </div>
                         <div className="form-group">
@@ -51,7 +57,9 @@ function ProductTabReviews() {
                             <textarea className="form-control" id="review-text" rows={6} />
                         </div>
                         <div className="form-group mb-0">
-                            <button type="submit" className="btn btn-primary btn-lg">Post Your Review</button>
+                            <button type="submit" className="btn btn-primary btn-lg">
+                                Post Your Review
+                            </button>
                         </div>
                     </div>
                 </div>

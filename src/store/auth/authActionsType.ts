@@ -1,14 +1,13 @@
-import {IUserLogged} from "../../interfaces/user";
+import { IUserLogged } from '../../interfaces/user';
 
-export const ADD_USER_LOGGED='ADD_USER_LOGGED'
-export const REMOVE_USER_LOGGED = 'REMOVE_USER_LOGGED'
-export interface AddUserLoggedActionType{
+export const ADD_USER_LOGGED = 'ADD_USER_LOGGED';
+export const REMOVE_USER_LOGGED = 'REMOVE_USER_LOGGED';
+export interface AddUserLoggedActionType {
     type: typeof ADD_USER_LOGGED;
-    userLogged: IUserLogged
+    userLogged: IUserLogged;
 }
-export interface RemoveUserLoggedActionType{
+export interface RemoveUserLoggedActionType {
     type: typeof REMOVE_USER_LOGGED;
 }
 
-export type AuthActionsType=AddUserLoggedActionType|RemoveUserLoggedActionType
-
+export type AuthActionsType = AddUserLoggedActionType | RemoveUserLoggedActionType;

@@ -1,4 +1,4 @@
-import {ImageBanner} from "./imageBanner";
+import { ImageBanner } from './imageBanner';
 
 export interface IUser {
     last_name: string;
@@ -14,19 +14,19 @@ export interface IUser {
     avatar?: ImageBanner;
 }
 
-export interface IUserLogin{
+export interface IUserLogin {
     email: string;
     password: string;
 }
 
-export interface IUserRegister{
+export interface IUserRegister {
     last_name: string;
     username: string;
     email: string;
     first_name: string;
-    password:string;
+    password: string;
 }
-export interface IUserLogged{
+export interface IUserLogged {
     jwt: string;
     user: IUser;
 }

@@ -12,11 +12,7 @@ function CategorySidebarItem(props: CategorySidebarItemProps) {
     const { children, className } = props;
     const classes = classNames('block-sidebar__item', className);
 
-    return (
-        <div className={classes}>
-            {children}
-        </div>
-    );
+    return <div className={classes}>{children}</div>;
 }
 
 export default CategorySidebarItem;

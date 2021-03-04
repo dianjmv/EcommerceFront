@@ -10,17 +10,17 @@ export const MOBILE_MENU_NAMESPACE = 'mobileMenu';
 
 export default function mobileMenuReducer(state = initialState, action: MobileMenuAction) {
     switch (action.type) {
-    case MOBILE_MENU_OPEN:
-        return {
-            ...state,
-            open: true,
-        };
-    case MOBILE_MENU_CLOSE:
-        return {
-            ...state,
-            open: false,
-        };
-    default:
-        return state;
+        case MOBILE_MENU_OPEN:
+            return {
+                ...state,
+                open: true,
+            };
+        case MOBILE_MENU_CLOSE:
+            return {
+                ...state,
+                open: false,
+            };
+        default:
+            return state;
     }
 }

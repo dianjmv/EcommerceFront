@@ -30,18 +30,9 @@ function IndicatorSearch() {
         </Fragment>
     );
 
-    const searchDropdown = (
-        <Search context="indicator" inputRef={inputRef} onClose={handleClose} />
-    );
+    const searchDropdown = <Search context="indicator" inputRef={inputRef} onClose={handleClose} />;
 
-    return (
-        <Indicator
-            ref={indicatorRef}
-            dropdown={searchDropdown}
-            icon={searchIcon}
-            onOpen={handleOpen}
-        />
-    );
+    return <Indicator ref={indicatorRef} dropdown={searchDropdown} icon={searchIcon} onOpen={handleOpen} />;
 }
 
 export default IndicatorSearch;

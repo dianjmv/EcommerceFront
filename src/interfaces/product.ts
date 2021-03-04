@@ -1,15 +1,15 @@
 import { IBrand } from './brand';
 import { IFilter } from './filter';
 import { IFilterableList, IPaginatedList } from './list';
-import {ICategory, IShopCategory} from './category';
-import {ImageBanner} from "./imageBanner";
-import {IReview} from "./review";
-import {ISpec} from "./spec";
-import exp from "constants";
-import {IVariant} from "./variant";
-import {ICollection} from "./collection";
-import {IQuestion} from "./question";
-import {ISegment} from "./segment";
+import { ICategory, IShopCategory } from './category';
+import { ImageBanner } from './imageBanner';
+import { IReview } from './review';
+import { ISpec } from './spec';
+import exp from 'constants';
+import { IVariant } from './variant';
+import { ICollection } from './collection';
+import { IQuestion } from './question';
+import { ISegment } from './segment';
 
 export interface IProductAttributeValue {
     slug: string;
@@ -43,7 +43,7 @@ export interface IProduct {
     updated_at: string;
     variants: IVariant[];
     caracteristicas: ICharacteristic[];
-    images : ImageBanner[];
+    images: ImageBanner[];
     banners: ImageBanner[];
     product_categories: ICategory[];
     brands: IBrand[];
@@ -53,8 +53,8 @@ export interface IProduct {
     especificaciones: ISpec[];
     resumenOpiniones: IOptionsSummary;
     slug: string;
-    model:string;
-    segments: ISegment[]
+    model: string;
+    segments: ISegment[];
 }
 
 export interface IOptionsSummary {
@@ -66,15 +66,15 @@ export interface IOptionsSummary {
     cantidad5: number;
 }
 
-export interface ICharacteristic{
+export interface ICharacteristic {
     id: number;
     descripcion: string;
-    title:string;
+    title: string;
 }
 
 export interface ProductsPaginated {
     page: number;
-    products: IProduct[]
+    products: IProduct[];
 }
 
 export type IProductsList = IPaginatedList<IProduct> & IFilterableList<IProduct, IFilter>;

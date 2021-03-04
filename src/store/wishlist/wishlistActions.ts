@@ -28,24 +28,22 @@ export function wishlistRemoveItemSuccess(productId: number): WishlistRemoveItem
 
 export function wishlistAddItem(product: IProduct): WishlistThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(wishlistAddItemSuccess(product));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }
 
 export function wishlistRemoveItem(productId: number): WishlistThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(wishlistRemoveItemSuccess(productId));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }

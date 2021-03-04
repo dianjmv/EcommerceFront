@@ -1,11 +1,5 @@
 // react
-import React, {
-    Fragment,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
 // third-party
 import Head from 'next/head';
@@ -29,11 +23,11 @@ import { useShop } from '../../store/shop/shopHooks';
 
 // data stubs
 import theme from '../../data/theme';
-import {useAddProducts, useProductsAvailable} from "../../store/product/productHooks";
-import ProductsRepository from "../../api/productsRepository";
-import {useCompanyInfo} from "../../store/company/companyHooks";
-import {ISegment} from "../../interfaces/segment";
-import ContactForm from "../contact/ContactForm";
+import { useAddProducts, useProductsAvailable } from '../../store/product/productHooks';
+import ProductsRepository from '../../api/productsRepository';
+import { useCompanyInfo } from '../../store/company/companyHooks';
+import { ISegment } from '../../interfaces/segment';
+import ContactForm from '../contact/ContactForm';
 
 export type ShopPageCategoryColumns = 3 | 4 | 5;
 export type ShopPageCategoryViewMode = 'grid' | 'grid-with-features' | 'list';
@@ -43,11 +37,11 @@ export interface ShopPageCategoryProps {
     columns: ShopPageCategoryColumns;
     viewMode: ShopPageCategoryViewMode;
     sidebarPosition?: ShopPageCategorySidebarPosition;
-    segment?: ISegment[]
+    segment?: ISegment[];
 }
 
 function ShopPageSegment(props: ShopPageCategoryProps) {
-    const { columns, viewMode, sidebarPosition = 'start', segment=[]  } = props;
+    const { columns, viewMode, sidebarPosition = 'start', segment = [] } = props;
     const offcanvas = columns === 3 ? 'mobile' : 'always';
     const productsViewGrid = `grid-${columns}-${columns > 3 ? 'full' : 'sidebar'}` as ProductsViewGrid;
 
@@ -56,9 +50,7 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     const productsState = useProductsAvailable();
     const addProducts = useAddProducts();
     const companyInfo = useCompanyInfo();
-    const productsRepository = new ProductsRepository()
-
-
+    const productsRepository = new ProductsRepository();
 
     const router = useRouter();
     const [latestProducts, setLatestProducts] = useState<IProduct[]>([]);
@@ -68,32 +60,35 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
     const openSidebarFn = useCallback(() => setSidebarOpen(true), [setSidebarOpen]);
     const closeSidebarFn = useCallback(() => setSidebarOpen(false), [setSidebarOpen]);
 
-
-
     // Replace current url.
     useEffect(() => {
         const query = buildQuery(shopState.options, shopState.filters);
-        const href = queryString.stringifyUrl({
-            ...queryString.parseUrl(router.asPath),
-            query: queryString.parse(query),
-        }, { encode: false });
+        const href = queryString.stringifyUrl(
+            {
+                ...queryString.parseUrl(router.asPath),
+                query: queryString.parse(query),
+            },
+            { encode: false }
+        );
 
-        router.replace(router.pathname, href, {
-            shallow: true,
-        }).then(() => {
-            // This is necessary for the "History API" to work.
-            window.history.replaceState(
-                {
-                    ...window.history.state,
-                    options: {
-                        ...window.history.state.options,
-                        shallow: false,
+        router
+            .replace(router.pathname, href, {
+                shallow: true,
+            })
+            .then(() => {
+                // This is necessary for the "History API" to work.
+                window.history.replaceState(
+                    {
+                        ...window.history.state,
+                        options: {
+                            ...window.history.state.options,
+                            shallow: false,
+                        },
                     },
-                },
-                '',
-                href,
-            );
-        });
+                    '',
+                    href
+                );
+            });
     }, [shopState.options, shopState.filters]);
 
     // Load latest products.
@@ -101,22 +96,22 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
         let canceled = false;
 
         if (offcanvas === 'always') {
-            if (productsState.products.length>0){
-                setLatestProducts(productsState.products)
-            }else {
-                productsRepository.getAllProducts().then(({data})=>{
-                    addProducts(data)
-                    setLatestProducts(data)
-                })
+            if (productsState.products.length > 0) {
+                setLatestProducts(productsState.products);
+            } else {
+                productsRepository.getAllProducts().then(({ data }) => {
+                    addProducts(data);
+                    setLatestProducts(data);
+                });
             }
         } else {
-            if (productsState.products.length>0){
-                setLatestProducts(productsState.products)
-            }else {
-                productsRepository.getAllProducts().then(({data})=>{
-                    addProducts(data)
-                    setLatestProducts(data)
-                })
+            if (productsState.products.length > 0) {
+                setLatestProducts(productsState.products);
+            } else {
+                productsRepository.getAllProducts().then(({ data }) => {
+                    addProducts(data);
+                    setLatestProducts(data);
+                });
             }
         }
 
@@ -125,28 +120,32 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
         };
     }, [offcanvas]);
 
-
-
-    const sidebarComponent = useMemo(() => (
-        <CategorySidebar open={sidebarOpen} closeFn={closeSidebarFn} offcanvas={offcanvas}>
-            <CategorySidebarItem>
-                <WidgetFilters title="Filtros" offcanvas={offcanvas}  forPage={{
-                    type:'segments',
-                    slug:segment[0].slug
-                }}/>
-            </CategorySidebarItem>
-        </CategorySidebar>
-    ), [sidebarOpen, closeSidebarFn, offcanvas, latestProducts]);
+    const sidebarComponent = useMemo(
+        () => (
+            <CategorySidebar open={sidebarOpen} closeFn={closeSidebarFn} offcanvas={offcanvas}>
+                <CategorySidebarItem>
+                    <WidgetFilters
+                        title="Filtros"
+                        offcanvas={offcanvas}
+                        forPage={{
+                            type: 'segments',
+                            slug: segment[0].slug,
+                        }}
+                    />
+                </CategorySidebarItem>
+            </CategorySidebar>
+        ),
+        [sidebarOpen, closeSidebarFn, offcanvas, latestProducts]
+    );
 
     // if (shopState.categoryIsLoading || (shopState.productsListIsLoading && !shopState.productsList)) {
     //     return <BlockLoader />;
     // }
 
-
     const breadcrumb = [
         { title: 'Inicio', url: url.home() },
         { title: 'Segmentos', url: '/segments' },
-        {title: segment[0].name}
+        { title: segment[0].name },
     ];
     let pageTitle = '';
     let content;
@@ -166,8 +165,8 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
             offcanvas={offcanvas}
             openSidebarFn={openSidebarFn}
             forpage={{
-                type:'segments',
-                slug:segment[0].slug
+                type: 'segments',
+                slug: segment[0].slug,
             }}
         />
     );
@@ -180,18 +179,12 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
             </div>
         );
     } else {
-        const sidebar = (
-            <div className="shop-layout__sidebar">
-
-            </div>
-        );
+        const sidebar = <div className="shop-layout__sidebar"></div>;
 
         content = (
             <div className="container">
                 <div className={`shop-layout shop-layout--sidebar--${sidebarPosition}`}>
-                    <div className="shop-layout__sidebar">
-                        {sidebarComponent}
-                    </div>
+                    <div className="shop-layout__sidebar">{sidebarComponent}</div>
                     <div className="shop-layout__content">
                         <div className="block">{productsView}</div>
                     </div>
@@ -201,24 +194,26 @@ function ShopPageSegment(props: ShopPageCategoryProps) {
         );
     }
 
-
     return (
         <Fragment>
             <Head>
-                <title>{companyInfo !== undefined ? companyInfo.company_name: null} | Segmentos</title>
+                <title>{companyInfo !== undefined ? companyInfo.company_name : null} | Segmentos</title>
             </Head>
-            <div className={'bg-gray-200 text-center text-white font-bold text-5xl py-20'} style={{
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${segment[0].banner.url})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center'
-            }}>
+            <div
+                className={'bg-gray-200 text-center text-white font-bold text-5xl py-20'}
+                style={{
+                    backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${segment[0].banner.url})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                }}
+            >
                 {segment[0].name}
             </div>
 
             <PageHeader header={pageTitle} breadcrumb={breadcrumb} />
             {content}
-            <ContactForm/>
+            <ContactForm />
         </Fragment>
     );
 }

@@ -16,10 +16,7 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module',
     },
-    plugins: [
-        'react',
-        '@typescript-eslint',
-    ],
+    plugins: ['react', '@typescript-eslint'],
     settings: {
         'import/resolver': {
             node: {
@@ -56,13 +53,18 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-        'max-len': ['error', 120, 2, {
-            ignoreUrls: true,
-            ignoreComments: false,
-            ignoreRegExpLiterals: true,
-            ignoreStrings: true,
-            ignoreTemplateLiterals: true,
-        }],
+        'max-len': [
+            'error',
+            120,
+            2,
+            {
+                ignoreUrls: true,
+                ignoreComments: false,
+                ignoreRegExpLiterals: true,
+                ignoreStrings: true,
+                ignoreTemplateLiterals: true,
+            },
+        ],
         'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
     },
 };

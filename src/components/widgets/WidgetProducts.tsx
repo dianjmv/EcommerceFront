@@ -14,7 +14,7 @@ export interface WidgetProductsProps {
 
 function WidgetProducts(props: WidgetProductsProps) {
     const { title, products = [] } = props;
-    const productsList = products.map((product) => {
+    const productsList = products.map(product => {
         let image;
         let price;
 
@@ -30,8 +30,6 @@ function WidgetProducts(props: WidgetProductsProps) {
             );
         }
 
-
-
         return (
             <div key={product.id} className="widget-products__item">
                 {image}
@@ -39,9 +37,7 @@ function WidgetProducts(props: WidgetProductsProps) {
                     <div className="widget-products__name">
                         <AppLink href={url.product(product)}>{product.title}</AppLink>
                     </div>
-                    <div className="widget-products__prices">
-                        {price}
-                    </div>
+                    <div className="widget-products__prices">{price}</div>
                 </div>
             </div>
         );
@@ -50,9 +46,7 @@ function WidgetProducts(props: WidgetProductsProps) {
     return (
         <div className="widget-products widget">
             <h4 className="widget__title">{title}</h4>
-            <div className="widget-products__list">
-                {productsList}
-            </div>
+            <div className="widget-products__list">{productsList}</div>
         </div>
     );
 }

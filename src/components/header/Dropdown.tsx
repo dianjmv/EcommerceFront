@@ -1,10 +1,5 @@
 // react
-import {
-    ReactNode,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -22,17 +17,12 @@ export interface DropdownProps<T extends IMenuItem> {
 }
 
 function Dropdown<T extends IMenuItem>(props: DropdownProps<T>) {
-    const {
-        title,
-        items,
-        withIcons = false,
-        onClick,
-    } = props;
+    const { title, items, withIcons = false, onClick } = props;
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const handleButtonClick = () => {
-        setOpen((prev) => !prev);
+        setOpen(prev => !prev);
     };
 
     const handleItemClick = (item: T) => {
@@ -67,12 +57,7 @@ function Dropdown<T extends IMenuItem>(props: DropdownProps<T>) {
             </button>
 
             <div className="topbar-dropdown__body">
-                <Menu
-                    layout="topbar"
-                    withIcons={withIcons}
-                    items={items}
-                    onClick={handleItemClick}
-                />
+                <Menu layout="topbar" withIcons={withIcons} items={items} onClick={handleItemClick} />
             </div>
         </div>
     );

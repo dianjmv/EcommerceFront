@@ -16,7 +16,7 @@ function BlockProductColumns(props: BlockProductColumnsProps) {
     const { columns = [] } = props;
 
     const columnsList = columns.map((column, index) => {
-        const products = column.products.map((product) => (
+        const products = column.products.map(product => (
             <div key={product.id} className="block-product-columns__item">
                 <ProductCard product={product} layout="horizontal" />
             </div>
@@ -26,9 +26,7 @@ function BlockProductColumns(props: BlockProductColumnsProps) {
             <div key={index} className="col">
                 <BlockHeader title={column.title} />
 
-                <div className="block-product-columns__column">
-                    {products}
-                </div>
+                <div className="block-product-columns__column">{products}</div>
             </div>
         );
     });
@@ -36,9 +34,7 @@ function BlockProductColumns(props: BlockProductColumnsProps) {
     return (
         <div className="block block-product-columns d-lg-block d-none">
             <div className="container">
-                <div className="row">
-                    {columnsList}
-                </div>
+                <div className="row">{columnsList}</div>
             </div>
         </div>
     );

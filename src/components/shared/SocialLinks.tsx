@@ -25,7 +25,7 @@ function SocialLinks(props: SocialLinksProps) {
         { type: 'youtube', url: theme.author.profile_url, icon: 'fab fa-youtube' },
         { type: 'instagram', url: theme.author.profile_url, icon: 'fab fa-instagram' },
         { type: 'rss', url: theme.author.profile_url, icon: 'fas fa-rss' },
-    ].map((item) => (
+    ].map(item => (
         <li key={item.type} className="social-links__item">
             <a
                 className={`social-links__link social-links__link--type--${item.type}`}
@@ -40,9 +40,7 @@ function SocialLinks(props: SocialLinksProps) {
 
     return (
         <div className={classes}>
-            <ul className="social-links__list">
-                {items}
-            </ul>
+            <ul className="social-links__list">{items}</ul>
         </div>
     );
 }

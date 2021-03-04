@@ -28,24 +28,22 @@ export function compareRemoveItemSuccess(productId: number): CompareRemoveItemAc
 
 export function compareAddItem(product: IProduct): CompareThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(compareAddItemSuccess(product));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }
 
 export function compareRemoveItem(productId: number): CompareThunkAction<Promise<void>> {
     // sending request to server, timeout is used as a stub
-    return (dispatch) => (
-        new Promise((resolve) => {
+    return dispatch =>
+        new Promise(resolve => {
             setTimeout(() => {
                 dispatch(compareRemoveItemSuccess(productId));
                 resolve();
             }, 500);
-        })
-    );
+        });
 }

@@ -10,7 +10,7 @@ export interface BlogCommentsListProps {
 function BlogCommentsList(props: BlogCommentsListProps) {
     const { level = 0, comments = [] } = props;
 
-    const commentsList = comments.map((comment) => {
+    const commentsList = comments.map(comment => {
         let children;
 
         if (comment.children && comment.children.length) {
@@ -25,7 +25,9 @@ function BlogCommentsList(props: BlogCommentsListProps) {
             <li key={comment.id} className="comments-list__item">
                 <div className="comment">
                     <div className="comment__avatar">
-                        <AppLink href="/"><img src={comment.avatar} alt="" /></AppLink>
+                        <AppLink href="/">
+                            <img src={comment.avatar} alt="" />
+                        </AppLink>
                     </div>
                     <div className="comment__content">
                         <div className="comment__header">
@@ -33,7 +35,9 @@ function BlogCommentsList(props: BlogCommentsListProps) {
                                 <AppLink href="/">{comment.author}</AppLink>
                             </div>
                             <div className="comment__reply">
-                                <button type="button" className="btn btn-xs btn-light">Reply</button>
+                                <button type="button" className="btn btn-xs btn-light">
+                                    Reply
+                                </button>
                             </div>
                         </div>
                         <div className="comment__text">{comment.text}</div>
@@ -45,11 +49,7 @@ function BlogCommentsList(props: BlogCommentsListProps) {
         );
     });
 
-    return (
-        <ol className={`comments-list comments-list--level--${level}`}>
-            {commentsList}
-        </ol>
-    );
+    return <ol className={`comments-list comments-list--level--${level}`}>{commentsList}</ol>;
 }
 
 export default BlogCommentsList;

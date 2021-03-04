@@ -11,7 +11,7 @@ import { ICheckFilter, ICheckFilterValue } from '../../interfaces/filter';
 export interface FilterCheckProps {
     data: ICheckFilter;
     value: ICheckFilterValue;
-    onChangeValue?: (event: { filter: ICheckFilter, value: ICheckFilterValue }) => void;
+    onChangeValue?: (event: { filter: ICheckFilter; value: ICheckFilterValue }) => void;
 }
 
 function FilterCheck(props: FilterCheckProps) {
@@ -29,11 +29,11 @@ function FilterCheck(props: FilterCheckProps) {
             updateValue([...value, event.target.value]);
         }
         if (!event.target.checked && value.includes(event.target.value)) {
-            updateValue(value.filter((x) => x !== event.target.value));
+            updateValue(value.filter(x => x !== event.target.value));
         }
     };
 
-    const itemsList = data.items.map((item) => {
+    const itemsList = data.items.map(item => {
         let count;
 
         if (item.count) {
@@ -68,9 +68,7 @@ function FilterCheck(props: FilterCheckProps) {
 
     return (
         <div className="filter-list">
-            <div className="filter-list__list">
-                {itemsList}
-            </div>
+            <div className="filter-list__list">{itemsList}</div>
         </div>
     );
 }

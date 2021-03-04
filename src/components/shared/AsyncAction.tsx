@@ -36,9 +36,12 @@ function AsyncAction(props: AsyncActionProps) {
         });
     };
 
-    useEffect(() => () => {
-        canceledRef.current = true;
-    }, [canceledRef]);
+    useEffect(
+        () => () => {
+            canceledRef.current = true;
+        },
+        [canceledRef]
+    );
 
     if (render) {
         return render({ run, loading });

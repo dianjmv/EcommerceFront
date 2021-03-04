@@ -9,6 +9,4 @@ export interface MobileMenuCloseAction {
     type: typeof MOBILE_MENU_CLOSE;
 }
 
-export type MobileMenuAction =
-    MobileMenuOpenAction |
-    MobileMenuCloseAction;
+export type MobileMenuAction = MobileMenuOpenAction | MobileMenuCloseAction;

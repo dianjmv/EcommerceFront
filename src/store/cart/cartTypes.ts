@@ -8,7 +8,7 @@ export interface CartItemOption {
 }
 
 export interface CartItem {
-    id: number
+    id: number;
     product: IProduct;
     options: CartItemOption[];
     price: number;

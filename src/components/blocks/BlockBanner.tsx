@@ -19,9 +19,7 @@ export default function BlockBanner() {
                         <br className="block-banner__mobile-br" />
                         Hand Tools
                     </div>
-                    <div className="block-banner__text">
-                        Hammers, Chisels, Universal Pliers, Nippers, Jigsaws, Saws
-                    </div>
+                    <div className="block-banner__text">Hammers, Chisels, Universal Pliers, Nippers, Jigsaws, Saws</div>
                     <div className="block-banner__button">
                         <span className="btn btn-sm btn-primary">Shop Now</span>
                     </div>

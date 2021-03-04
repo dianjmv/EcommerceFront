@@ -5,14 +5,11 @@ import { WishlistState } from './wishlistTypes';
 import { withClientState } from '../client';
 
 function addItem(state: WishlistState, product: IProduct): WishlistState {
-    const itemIndex = state.items.findIndex((x) => x.id === product.id);
+    const itemIndex = state.items.findIndex(x => x.id === product.id);
 
     if (itemIndex === -1) {
         return {
-            items: [
-                ...state.items,
-                JSON.parse(JSON.stringify(product)),
-            ],
+            items: [...state.items, JSON.parse(JSON.stringify(product))],
         };
     }
 
@@ -21,7 +18,7 @@ function addItem(state: WishlistState, product: IProduct): WishlistState {
 
 function removeItem(state: WishlistState, productId: number): WishlistState {
     return {
-        items: state.items.filter((x) => x.id !== productId),
+        items: state.items.filter(x => x.id !== productId),
     };
 }
 
@@ -33,14 +30,14 @@ export const WISHLIST_NAMESPACE = 'wishlist';
 
 function wishlistBaseReducer(state = initialState, action: WishlistAction) {
     switch (action.type) {
-    case WISHLIST_ADD_ITEM:
-        return addItem(state, action.product);
+        case WISHLIST_ADD_ITEM:
+            return addItem(state, action.product);
 
-    case WISHLIST_REMOVE_ITEM:
-        return removeItem(state, action.productId);
+        case WISHLIST_REMOVE_ITEM:
+            return removeItem(state, action.productId);
 
-    default:
-        return state;
+        default:
+            return state;
     }
 }
 

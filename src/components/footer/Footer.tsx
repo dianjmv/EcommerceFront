@@ -8,11 +8,11 @@ import ToTop from './ToTop';
 
 // data stubs
 import theme from '../../data/theme';
-import {useCompanyInfo} from "../../store/company/companyHooks";
+import { useCompanyInfo } from '../../store/company/companyHooks';
 
 const Footer: FunctionComponent = () => {
-    const date   = new Date()
-    const compnayInfo = useCompanyInfo()
+    const date = new Date();
+    const compnayInfo = useCompanyInfo();
     const informationLinks = [
         { title: 'Acerca de nosotros', url: '/enterprise/about-us' },
         { title: 'Ubicanos', url: '/enterprise' },
@@ -50,12 +50,14 @@ const Footer: FunctionComponent = () => {
                 </div>
 
                 <div className="site-footer__bottom">
-                    <div className="site-footer__copyright">
-
-                    </div>
+                    <div className="site-footer__copyright"></div>
                     <div className="site-footer__payments md:flex grid grid-cols-1">
                         <div className={'mr-6 mt-2'}>
-                            Copyright {date.getFullYear()} <span className={'capitalize'}> {compnayInfo.company_name}. Todos los derechos reservados</span>
+                            Copyright {date.getFullYear()}{' '}
+                            <span className={'capitalize'}>
+                                {' '}
+                                {compnayInfo.company_name}. Todos los derechos reservados
+                            </span>
                         </div>
 
                         <img src="/images/payments-group.png" alt="" />

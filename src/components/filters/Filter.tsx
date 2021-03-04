@@ -22,41 +22,16 @@ function Filter(props: FilterProps) {
     const { data, value, onChangeValue } = props;
 
     switch (data.type) {
-
-    case 'range':
-        return (
-            <FilterRange
-                data={data}
-                value={getFilterValue(data, value)}
-                onChangeValue={onChangeValue}
-            />
-        );
-    case 'check':
-        return (
-            <FilterCheck
-                data={data}
-                value={getFilterValue(data, value)}
-                onChangeValue={onChangeValue}
-            />
-        );
-    case 'radio':
-        return (
-            <FilterRadio
-                data={data}
-                value={getFilterValue(data, value)}
-                onChangeValue={onChangeValue}
-            />
-        );
-    case 'color':
-        return (
-            <FilterColor
-                data={data}
-                value={getFilterValue(data, value)}
-                onChangeValue={onChangeValue}
-            />
-        );
-    default:
-        return null;
+        case 'range':
+            return <FilterRange data={data} value={getFilterValue(data, value)} onChangeValue={onChangeValue} />;
+        case 'check':
+            return <FilterCheck data={data} value={getFilterValue(data, value)} onChangeValue={onChangeValue} />;
+        case 'radio':
+            return <FilterRadio data={data} value={getFilterValue(data, value)} onChangeValue={onChangeValue} />;
+        case 'color':
+            return <FilterColor data={data} value={getFilterValue(data, value)} onChangeValue={onChangeValue} />;
+        default:
+            return null;
     }
 }
 

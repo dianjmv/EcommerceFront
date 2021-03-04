@@ -1,11 +1,6 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from 'react';
 
-function BrandsComponent (){
-    return(
-        <Fragment>
-
-        </Fragment>
-    )
-
+function BrandsComponent() {
+    return <Fragment></Fragment>;
 }
 export default BrandsComponent;

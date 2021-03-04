@@ -1,4 +1,3 @@
-
 {
   "header": {
     "reportVersion": 1,
@@ -268,9 +267,7 @@
   },
   "javascriptStack": {
     "message": "No stack.",
-    "stack": [
-      "Unavailable."
-    ]
+    "stack": ["Unavailable."]
   },
   "nativeStack": [
     {
@@ -421,8 +418,7 @@
       "writes": 2507
     }
   },
-  "libuv": [
-  ],
+  "libuv": [],
   "environmentVariables": {
     "=C:": "C:\\Desarrollos\\Sistec\\SouhImport\\EcommerceFront",
     "ALLUSERSPROFILE": "C:\\ProgramData",

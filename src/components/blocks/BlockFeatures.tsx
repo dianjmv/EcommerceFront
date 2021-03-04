@@ -11,14 +11,14 @@ export interface BlockFeaturesProps {
 }
 
 function BlockFeatures(props: BlockFeaturesProps) {
-    const {layout = 'classic'} = props;
+    const { layout = 'classic' } = props;
 
     return (
         <div className={`block block-features block-features--layout--${layout} mb-0`}>
             <div className="block-features__list border-none mb-0">
                 <div className="block-features__item md:ml-20">
                     <div className="block-features__icon">
-                        <FiFreeDelivery48Svg/>
+                        <FiFreeDelivery48Svg />
                     </div>
                     <div className="block-features__content">
                         <div className="block-features__title text-white">Envio Seguro</div>
@@ -28,7 +28,7 @@ function BlockFeatures(props: BlockFeaturesProps) {
 
                 <div className="block-features__item">
                     <div className="block-features__icon">
-                        <Fi24Hours48Svg/>
+                        <Fi24Hours48Svg />
                     </div>
                     <div className="block-features__content">
                         <div className="block-features__title text-white">Soporte 24/7</div>
@@ -38,8 +38,7 @@ function BlockFeatures(props: BlockFeaturesProps) {
 
                 <div className="block-features__item">
                     <div className="block-features__icon">
-                        <FiTag48Svg/>
-
+                        <FiTag48Svg />
                     </div>
                     <div className="block-features__content">
                         <div className="block-features__title text-white">Compra Online</div>
@@ -49,7 +48,7 @@ function BlockFeatures(props: BlockFeaturesProps) {
 
                 <div className="block-features__item">
                     <div className="block-features__icon">
-                        <FiPaymentSecurity48Svg/>
+                        <FiPaymentSecurity48Svg />
                     </div>
                     <div className="block-features__content">
                         <div className="block-features__title text-white">100% Segura</div>

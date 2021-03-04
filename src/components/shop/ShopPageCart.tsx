@@ -18,10 +18,10 @@ import { CartItem } from '../../store/cart/cartTypes';
 // data stubs
 import theme from '../../data/theme';
 import { useCart, useCartRemoveItem, useCartUpdateQuantities } from '../../store/cart/cartHooks';
-import {useCompanyInfo} from "../../store/company/companyHooks";
-import ContactForm from "../contact/ContactForm";
+import { useCompanyInfo } from '../../store/company/companyHooks';
+import ContactForm from '../contact/ContactForm';
 // @ts-ignore
-import LinesEllipsis from 'react-lines-ellipsis'
+import LinesEllipsis from 'react-lines-ellipsis';
 
 export interface Quantity {
     itemId: number;
@@ -35,30 +35,30 @@ function ShopPageCart() {
     const cartUpdateQuantities = useCartUpdateQuantities();
     const companyInfo = useCompanyInfo();
 
-    const updateQuantities = () => (
-        cartUpdateQuantities(quantities.map((x) => ({
-            ...x,
-            value: typeof x.value === 'string' ? parseFloat(x.value) : x.value,
-        })))
-    );
+    const updateQuantities = () =>
+        cartUpdateQuantities(
+            quantities.map(x => ({
+                ...x,
+                value: typeof x.value === 'string' ? parseFloat(x.value) : x.value,
+            }))
+        );
 
-    const cartNeedUpdate = () => (
-        quantities.filter((x) => {
-            const item = cart.items.find((item) => item.id === x.itemId);
+    const cartNeedUpdate = () =>
+        quantities.filter(x => {
+            const item = cart.items.find(item => item.id === x.itemId);
 
             return item && item.quantity !== x.value && x.value !== '';
-        }).length > 0
-    );
+        }).length > 0;
 
     const getItemQuantity = (item: CartItem) => {
-        const quantity = quantities.find((x) => x.itemId === item.id);
+        const quantity = quantities.find(x => x.itemId === item.id);
 
         return quantity ? quantity.value : item.quantity;
     };
 
     const handleChangeQuantity = (item: CartItem, quantity: string | number) => {
-        setQuantities((prevState) => {
-            const index = prevState.findIndex((x) => x.itemId === item.id);
+        setQuantities(prevState => {
+            const index = prevState.findIndex(x => x.itemId === item.id);
 
             if (index === -1) {
                 return [
@@ -89,7 +89,7 @@ function ShopPageCart() {
     let content;
 
     if (cart.quantity) {
-        const cartItems = cart.items.map((item) => {
+        const cartItems = cart.items.map(item => {
             let image;
             let options;
 
@@ -97,7 +97,11 @@ function ShopPageCart() {
                 image = (
                     <div className="product-image">
                         <AppLink href={url.product(item.product)} className="product-image__body">
-                            <img className="product-image__img" src={`${process.env.NEXT_PUBLIC_BASE_URI}${item.product.images[0].url}`} alt="" />
+                            <img
+                                className="product-image__img"
+                                src={`${process.env.NEXT_PUBLIC_BASE_URI}${item.product.images[0].url}`}
+                                alt=""
+                            />
                         </AppLink>
                     </div>
                 );
@@ -132,22 +136,17 @@ function ShopPageCart() {
 
             return (
                 <tr key={item.id} className="cart-table__row">
-                    <td className="cart-table__column cart-table__column--remove">
-                        {removeButton}
-                    </td>
-                    <td className="cart-table__column cart-table__column--image">
-                        {image}
-                    </td>
+                    <td className="cart-table__column cart-table__column--remove">{removeButton}</td>
+                    <td className="cart-table__column cart-table__column--image">{image}</td>
                     <td className="cart-table__column cart-table__column--product">
                         <AppLink href={url.product(item.product)} className="cart-table__product-name">
                             <LinesEllipsis
                                 text={item.product.descripcion}
-                                maxLine='2'
-                                ellipsis='...'
+                                maxLine="2"
+                                ellipsis="..."
                                 trimRight
-                                basedOn='letters'
+                                basedOn="letters"
                             />
-
                         </AppLink>
                         {options}
                     </td>
@@ -156,7 +155,7 @@ function ShopPageCart() {
                     </td>
                     <td className="cart-table__column cart-table__column--quantity" data-title="Cantidad">
                         <InputNumber
-                            onChange={(quantity) => handleChangeQuantity(item, quantity)}
+                            onChange={quantity => handleChangeQuantity(item, quantity)}
                             value={getItemQuantity(item)}
                             min={1}
                         />
@@ -164,7 +163,6 @@ function ShopPageCart() {
                     <td className="cart-table__column cart-table__column--total" data-title="Total">
                         <CurrencyFormat value={item.total} />
                     </td>
-
                 </tr>
             );
         });
@@ -174,7 +172,9 @@ function ShopPageCart() {
                 <thead className="cart__totals-header">
                     <tr>
                         <th>Subtotal</th>
-                        <td><CurrencyFormat value={cart.subtotal} /></td>
+                        <td>
+                            <CurrencyFormat value={cart.subtotal} />
+                        </td>
                     </tr>
                 </thead>
                 <tbody className="cart__totals-body">
@@ -232,18 +232,24 @@ function ShopPageCart() {
                                 <th className="cart-table__column cart-table__column--price">Precio</th>
                                 <th className="cart-table__column cart-table__column--quantity">Cantidad</th>
                                 <th className="cart-table__column cart-table__column--total">Total</th>
-
                             </tr>
                         </thead>
-                        <tbody className="cart-table__body">
-                            {cartItems}
-                        </tbody>
+                        <tbody className="cart-table__body">{cartItems}</tbody>
                     </table>
                     <div className="cart__actions">
                         <form className="cart__coupon-form">
-                            <label htmlFor="input-coupon-code" className="sr-only">Password</label>
-                            <input type="text" className="form-control" id="input-coupon-code" placeholder="Código del Cupón" />
-                            <button type="submit" className="btn btn-primary">Aplicar Cupón</button>
+                            <label htmlFor="input-coupon-code" className="sr-only">
+                                Password
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="input-coupon-code"
+                                placeholder="Código del Cupón"
+                            />
+                            <button type="submit" className="btn btn-primary">
+                                Aplicar Cupón
+                            </button>
                         </form>
                         <div className="cart__buttons">
                             <AppLink href="/" className="btn btn-light">
@@ -263,7 +269,9 @@ function ShopPageCart() {
                                         <tfoot className="cart__totals-footer">
                                             <tr>
                                                 <th>Total</th>
-                                                <td><CurrencyFormat value={cart.total} /></td>
+                                                <td>
+                                                    <CurrencyFormat value={cart.total} />
+                                                </td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -303,10 +311,8 @@ function ShopPageCart() {
                 <title>{companyInfo !== undefined ? `${companyInfo.company_name}` : null} Carrito</title>
             </Head>
 
-
-
             {content}
-            <ContactForm/>
+            <ContactForm />
         </Fragment>
     );
 }

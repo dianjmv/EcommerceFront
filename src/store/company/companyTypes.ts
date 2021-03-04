@@ -1,8 +1,8 @@
-import {ICompanyInfo} from "../../interfaces/company-info";
-import {ICatalog} from "../../interfaces/catalog";
-import {IBanners} from "../../interfaces/banners";
-import {Image} from "../../interfaces/image";
-import {ImageBanner} from "../../interfaces/imageBanner";
+import { ICompanyInfo } from '../../interfaces/company-info';
+import { ICatalog } from '../../interfaces/catalog';
+import { IBanners } from '../../interfaces/banners';
+import { Image } from '../../interfaces/image';
+import { ImageBanner } from '../../interfaces/imageBanner';
 
 export interface CompanyInfoState {
     id: number;
@@ -26,8 +26,8 @@ export interface CompanyInfoState {
     faqs_banner: any;
     privacy_politics_banner: any;
     terms_and_conditions_banner: any;
-    devolution:any;
-    devolution_banner:any
+    devolution: any;
+    devolution_banner: any;
     whatsapp_number: string;
     whatsapp_message: string;
 }

@@ -1,10 +1,5 @@
 // react
-import {
-    ComponentType,
-    useEffect,
-    useMemo,
-    Fragment,
-} from 'react';
+import { ComponentType, useEffect, useMemo, Fragment } from 'react';
 // third-party
 import { AppProps } from 'next/app';
 import { IntlProvider } from 'react-intl';
@@ -17,12 +12,12 @@ import { useApplyClientState } from '../store/client';
 import { useDirection, useLocale, useMessages } from '../store/locale/localeHooks';
 // styles
 import '../scss/index.scss';
-import "tailwindcss/tailwind.css";
+import 'tailwindcss/tailwind.css';
 
 export type StroykaAppProps = AppProps & {
     Component: NextComponentType<NextPageContext, any> & {
-        Layout: ComponentType
-    }
+        Layout: ComponentType;
+    };
 };
 
 function StroykaApp({ Component, pageProps, router }: StroykaAppProps) {

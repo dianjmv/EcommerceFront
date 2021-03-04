@@ -34,27 +34,31 @@ export default function ShopPageOrderSuccess() {
                     </div>
                 </td>
                 <td className="order-list__column-product">
-                    <AppLink href={url.product(item)}>
-                        {item.name}
-                    </AppLink>
+                    <AppLink href={url.product(item)}>{item.name}</AppLink>
                     {options.length > 0 && (
                         <div className="order-list__options">
-                            <ul className="order-list__options-list">
-                                {options}
-                            </ul>
+                            <ul className="order-list__options-list">{options}</ul>
                         </div>
                     )}
                 </td>
-                <td className="order-list__column-quantity" data-title="Qty:">{item.quantity}</td>
-                <td className="order-list__column-total"><CurrencyFormat value={item.total} /></td>
+                <td className="order-list__column-quantity" data-title="Qty:">
+                    {item.quantity}
+                </td>
+                <td className="order-list__column-total">
+                    <CurrencyFormat value={item.total} />
+                </td>
             </tr>
         );
     });
 
     const additionalLines = order.additionalLines.map((line, index) => (
         <tr key={index}>
-            <th className="order-list__column-label" colSpan={3}>{line.label}</th>
-            <td className="order-list__column-total"><CurrencyFormat value={line.total} /></td>
+            <th className="order-list__column-label" colSpan={3}>
+                {line.label}
+            </th>
+            <td className="order-list__column-total">
+                <CurrencyFormat value={line.total} />
+            </td>
         </tr>
     ));
 
@@ -89,7 +93,9 @@ export default function ShopPageOrderSuccess() {
                             </li>
                             <li className="order-success__meta-item">
                                 <span className="order-success__meta-title">Total:</span>
-                                <span className="order-success__meta-value"><CurrencyFormat value={order.total} /></span>
+                                <span className="order-success__meta-value">
+                                    <CurrencyFormat value={order.total} />
+                                </span>
                             </li>
                             <li className="order-success__meta-item">
                                 <span className="order-success__meta-title">Payment method:</span>
@@ -103,27 +109,35 @@ export default function ShopPageOrderSuccess() {
                             <table>
                                 <thead className="order-list__header">
                                     <tr>
-                                        <th className="order-list__column-label" colSpan={2}>Product</th>
+                                        <th className="order-list__column-label" colSpan={2}>
+                                            Product
+                                        </th>
                                         <th className="order-list__column-quantity">Qty</th>
                                         <th className="order-list__column-total">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody className="order-list__products">
-                                    {items}
-                                </tbody>
+                                <tbody className="order-list__products">{items}</tbody>
                                 {additionalLines.length > 0 && (
                                     <tbody className="order-list__subtotals">
                                         <tr>
-                                            <th className="order-list__column-label" colSpan={3}>Subtotal</th>
-                                            <td className="order-list__column-total"><CurrencyFormat value={order.subtotal} /></td>
+                                            <th className="order-list__column-label" colSpan={3}>
+                                                Subtotal
+                                            </th>
+                                            <td className="order-list__column-total">
+                                                <CurrencyFormat value={order.subtotal} />
+                                            </td>
                                         </tr>
                                         {additionalLines}
                                     </tbody>
                                 )}
                                 <tfoot className="order-list__footer">
                                     <tr>
-                                        <th className="order-list__column-label" colSpan={3}>Total</th>
-                                        <td className="order-list__column-total"><CurrencyFormat value={order.total} /></td>
+                                        <th className="order-list__column-label" colSpan={3}>
+                                            Total
+                                        </th>
+                                        <td className="order-list__column-total">
+                                            <CurrencyFormat value={order.total} />
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>

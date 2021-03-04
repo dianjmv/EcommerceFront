@@ -1,11 +1,11 @@
 import { ICustomFields } from './custom-fields';
-import {ImageBanner} from "./imageBanner";
-import {IProduct} from "./product";
+import { ImageBanner } from './imageBanner';
+import { IProduct } from './product';
 
 export interface IBaseCategory {
     type: string;
     id: number;
-    code:string;
+    code: string;
     slug: string;
     name: string;
     description: string;

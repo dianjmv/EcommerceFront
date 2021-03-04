@@ -16,17 +16,21 @@ export interface WidgetCategoriesProps {
 
 function WidgetSearchCategory(props: WidgetCategoriesProps) {
     const { categories = [], location = 'blog' } = props;
-    const categoriesList = categories.map((category) => {
+    const categoriesList = categories.map(category => {
         const renderCategory: RenderCategoryFn = ({ toggle, setItemRef, setContentRef }) => {
             let expander;
             let childrenItems;
             return (
                 <li className="widget-categories__item" ref={setItemRef}>
                     <div className="widget-categories__row flex">
-                        <AppLink href={`/shop/categories/${category.slug}`} >
+                        <AppLink href={`/shop/categories/${category.slug}`}>
                             <ArrowRoundedRight6x9Svg className="widget-categories__arrow" />
                             <div className={'flex items-center'}>
-                                <img src={`${process.env.NEXT_PUBLIC_BASE_URI}${category.icon.url}`} alt=""  className={'mr-2'}/>
+                                <img
+                                    src={`${process.env.NEXT_PUBLIC_BASE_URI}${category.icon.url}`}
+                                    alt=""
+                                    className={'mr-2'}
+                                />
                                 {category.name}
                             </div>
                         </AppLink>
@@ -42,10 +46,8 @@ function WidgetSearchCategory(props: WidgetCategoriesProps) {
     return (
         <div className={`widget-categories widget-categories--location--${location} widget border-none`}>
             <h4 className="widget__title font-bold">Categorías</h4>
-            <hr/>
-            <ul className="widget-categories__list">
-                {categoriesList}
-            </ul>
+            <hr />
+            <ul className="widget-categories__list">{categoriesList}</ul>
         </div>
     );
 }

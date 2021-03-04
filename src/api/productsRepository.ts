@@ -1,15 +1,15 @@
-import BaseRepository from "./repository/baseRepository";
-import axios from "axios";
-import {IProduct} from "../interfaces/product";
-import {IFilter, IFilterProduct} from "../interfaces/filter";
-import {ICategory} from "../interfaces/category";
-import {IUser} from "../interfaces/user";
-export interface IProductSeller{
+import BaseRepository from './repository/baseRepository';
+import axios from 'axios';
+import { IProduct } from '../interfaces/product';
+import { IFilter, IFilterProduct } from '../interfaces/filter';
+import { ICategory } from '../interfaces/category';
+import { IUser } from '../interfaces/user';
+export interface IProductSeller {
     id: number;
     quantity: number;
-    product: IProduct
+    product: IProduct;
 }
-export interface IMostSellerProduct{
+export interface IMostSellerProduct {
     id: number;
     total_price: number;
     user: IUser;
@@ -18,43 +18,37 @@ export interface IMostSellerProduct{
     products: IProductSeller[];
 }
 
-class ProductsRepository{
-
+class ProductsRepository {
     private baseUrl = new BaseRepository();
 
-    public getAllProducts(){
+    public getAllProducts() {
         const url = `${this.baseUrl.getBaseUrl()}/products?_sort=updated_at:DESC`;
         return axios.get<IProduct[]>(url);
-
     }
 
-    public getProductBySlug(slug:string){
+    public getProductBySlug(slug: string) {
         const url = `${this.baseUrl.getBaseUrl()}/products/?slug=${slug}&_sort=updated_at:DESC`;
         return axios.get<IProduct[]>(url);
     }
 
-    public getProductsOrderByName(order:string){
+    public getProductsOrderByName(order: string) {
         const url = `${this.baseUrl.getBaseUrl()}/products?_sort=title:${order}`;
         return axios.get<IProduct[]>(url);
     }
 
-    public getProductsOrderByPrice(order:string){
+    public getProductsOrderByPrice(order: string) {
         const url = `${this.baseUrl.getBaseUrl()}/products?_sort=sale_price:${order}`;
         return axios.get<IProduct[]>(url);
     }
 
-    public getProductsFiltered(filter:IFilterProduct[]){
-        const url = `${this.baseUrl.getBaseUrl()}/products-filtered`
-        const data = {"filters":filter}
-        return axios.post<IProduct[]>(url, data)
+    public getProductsFiltered(filter: IFilterProduct[]) {
+        const url = `${this.baseUrl.getBaseUrl()}/products-filtered`;
+        const data = { filters: filter };
+        return axios.post<IProduct[]>(url, data);
     }
-    public getProductsMostSeller(){
+    public getProductsMostSeller() {
         const url = `${this.baseUrl.getBaseUrl()}/most-sellers`;
         return axios.get<IMostSellerProduct[]>(url);
     }
-
-
 }
-export default ProductsRepository
-
-
+export default ProductsRepository;

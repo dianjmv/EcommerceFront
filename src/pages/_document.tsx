@@ -1,15 +1,9 @@
 // third-party
-import Document, {
-    DocumentContext,
-    Head,
-    Html,
-    Main,
-    NextScript,
-} from 'next/document';
+import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
-        return { ...await Document.getInitialProps(ctx) };
+        return { ...(await Document.getInitialProps(ctx)) };
     }
 
     render() {
@@ -20,7 +14,10 @@ class MyDocument extends Document {
                     <link rel="shortcut icon" href="/favicon.ico" />
 
                     {/* fonts */}
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" />
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i"
+                    />
                 </Head>
                 <body>
                     <div className="site-preloader">

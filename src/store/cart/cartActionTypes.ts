@@ -28,9 +28,6 @@ export interface CartUpdateQuantitiesAction {
     quantities: CartItemQuantity[];
 }
 
-export type CartAction =
-    CartAddItemAction |
-    CartRemoveItemAction |
-    CartUpdateQuantitiesAction;
+export type CartAction = CartAddItemAction | CartRemoveItemAction | CartUpdateQuantitiesAction;
 
 export type CartThunkAction<T = void> = AppAction<CartAction, T>;

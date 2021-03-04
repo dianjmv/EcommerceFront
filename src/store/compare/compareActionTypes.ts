@@ -15,8 +15,6 @@ export interface CompareRemoveItemAction {
     productId: number;
 }
 
-export type CompareAction =
-    CompareAddItemAction |
-    CompareRemoveItemAction;
+export type CompareAction = CompareAddItemAction | CompareRemoveItemAction;
 
 export type CompareThunkAction<T = void> = AppAction<CompareAction, T>;

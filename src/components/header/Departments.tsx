@@ -31,7 +31,7 @@ class Departments extends Component<{}, DepartmentsState> {
     componentDidMount() {
         document.addEventListener('mousedown', this.handleOutsideClick);
 
-        this.unsubscribeAria = departmentsService.subscribe((area) => {
+        this.unsubscribeAria = departmentsService.subscribe(area => {
             this.setState({
                 fixed: !!area,
                 area,
@@ -115,7 +115,7 @@ class Departments extends Component<{}, DepartmentsState> {
     };
 
     handleButtonClick = () => {
-        this.setState((state) => ({
+        this.setState(state => ({
             open: !state.open,
         }));
     };

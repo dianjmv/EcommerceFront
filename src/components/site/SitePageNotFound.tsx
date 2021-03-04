@@ -17,9 +17,7 @@ function SitePageNotFound() {
 
             <div className="container">
                 <div className="not-found">
-                    <div className="not-found__404">
-                        Oops! Error 404
-                    </div>
+                    <div className="not-found__404">Oops! Error 404</div>
 
                     <div className="not-found__content">
                         <h1 className="not-found__title">Página no encontrada</h1>
@@ -30,9 +28,7 @@ function SitePageNotFound() {
                             Prueba iniciando sesión
                         </p>
 
-                        <p className="not-found__text">
-                            O vuelve a la pagina principal
-                        </p>
+                        <p className="not-found__text">O vuelve a la pagina principal</p>
 
                         <AppLink href={url.home()} className="btn btn-secondary btn-sm">
                             Volver a la página principal

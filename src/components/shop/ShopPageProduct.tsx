@@ -11,7 +11,7 @@ import ProductTabs from './ProductTabs';
 
 import url from '../../services/url';
 import { IProduct } from '../../interfaces/product';
-import {ICategory, IShopCategory} from '../../interfaces/category';
+import { ICategory, IShopCategory } from '../../interfaces/category';
 
 // blocks
 import BlockProductsCarousel from '../blocks/BlockProductsCarousel';
@@ -23,19 +23,19 @@ import WidgetProducts from '../widgets/WidgetProducts';
 // data stubs
 import theme from '../../data/theme';
 
-import WidgetSearchCategory from "../widgets/WidgetSearchCategory";
-import WidgetSearchBrand from "../widgets/WidgetSearchBrand";
-import {IBrand} from "../../interfaces/brand";
+import WidgetSearchCategory from '../widgets/WidgetSearchCategory';
+import WidgetSearchBrand from '../widgets/WidgetSearchBrand';
+import { IBrand } from '../../interfaces/brand';
 
-import WidgetSearchSegment from "../widgets/WidgetSearchSegment";
-import {ISegment} from "../../interfaces/segment";
+import WidgetSearchSegment from '../widgets/WidgetSearchSegment';
+import { ISegment } from '../../interfaces/segment';
 
-import {useCompanyInfo} from "../../store/company/companyHooks";
-import ContactForm from "../contact/ContactForm";
-import CategoryRepository from "../../api/categoryRepository";
-import BrandsRepository from "../../api/brandsRepository";
-import SegmentRepository from "../../api/segmentRepository";
-import ProductsRepository from "../../api/productsRepository";
+import { useCompanyInfo } from '../../store/company/companyHooks';
+import ContactForm from '../contact/ContactForm';
+import CategoryRepository from '../../api/categoryRepository';
+import BrandsRepository from '../../api/brandsRepository';
+import SegmentRepository from '../../api/segmentRepository';
+import ProductsRepository from '../../api/productsRepository';
 
 export type ShopPageProductLayout = 'standard' | 'sidebar' | 'columnar';
 
@@ -49,46 +49,40 @@ export interface ShopPageProductProps {
 }
 
 function ShopPageProduct(props: ShopPageProductProps) {
-    const {
-        product,
-        layout = 'standard',
-        sidebarPosition = 'start',
-    } = props;
+    const { product, layout = 'standard', sidebarPosition = 'start' } = props;
     const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([]);
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [latestProducts, setLatestProducts] = useState<IProduct[]>([]);
-    const [brands, setBrands]= useState <IBrand[]> ([]);
-    const [segments, setSegments] = useState <ISegment[]>([]);
+    const [brands, setBrands] = useState<IBrand[]>([]);
+    const [segments, setSegments] = useState<ISegment[]>([]);
     const compnayInfo = useCompanyInfo();
-    const categoriesRepository = new CategoryRepository()
-    const brandsRepository = new BrandsRepository()
-    const segmentsRepository = new SegmentRepository()
-    const productsRepository = new ProductsRepository()
-
+    const categoriesRepository = new CategoryRepository();
+    const brandsRepository = new BrandsRepository();
+    const segmentsRepository = new SegmentRepository();
+    const productsRepository = new ProductsRepository();
 
     // Load related products.
     useEffect(() => {
         let canceled = false;
-        productsRepository.getProductsMostSeller().then(({data})=>{
-            const products:IProduct[] = [];
-            for (let sell of data){
-                for (let infoSell of sell.products){
+        productsRepository.getProductsMostSeller().then(({ data }) => {
+            const products: IProduct[] = [];
+            for (let sell of data) {
+                for (let infoSell of sell.products) {
                     let exist = false;
-                    for (let productFiltered of products){
-                        if (productFiltered.id === infoSell.product.id && infoSell.product.id !== product.id){
-                            exist = true
-                            break
+                    for (let productFiltered of products) {
+                        if (productFiltered.id === infoSell.product.id && infoSell.product.id !== product.id) {
+                            exist = true;
+                            break;
                         }
                     }
-                    if (!exist){
-                        products.push(infoSell.product)
+                    if (!exist) {
+                        products.push(infoSell.product);
                     }
                 }
             }
 
-            setRelatedProducts(products)
-
-        })
+            setRelatedProducts(products);
+        });
         return () => {
             canceled = true;
         };
@@ -101,15 +95,15 @@ function ShopPageProduct(props: ShopPageProductProps) {
         if (layout !== 'sidebar') {
             setCategories([]);
         } else {
-            segmentsRepository.getAllSegments().then(({data})=>{
-                setSegments(data)
-            })
+            segmentsRepository.getAllSegments().then(({ data }) => {
+                setSegments(data);
+            });
 
-            brandsRepository.getAllBrands().then(({data})=>{
-                setBrands(data)
-            })
+            brandsRepository.getAllBrands().then(({ data }) => {
+                setBrands(data);
+            });
 
-            categoriesRepository.getAllCategories().then(({data}) => {
+            categoriesRepository.getAllCategories().then(({ data }) => {
                 if (canceled) {
                     return;
                 }
@@ -130,7 +124,7 @@ function ShopPageProduct(props: ShopPageProductProps) {
         if (layout !== 'sidebar') {
             setLatestProducts([]);
         } else {
-            return
+            return;
         }
 
         return () => {
@@ -184,7 +178,6 @@ function ShopPageProduct(props: ShopPageProductProps) {
                     </div>
                     {sidebarPosition === 'end' && sidebar}
                 </div>
-
             </div>
         );
     } else {
@@ -196,16 +189,12 @@ function ShopPageProduct(props: ShopPageProductProps) {
                         <ProductTabs />
                     </div>
                     <div>
-                        <ContactForm/>
+                        <ContactForm />
                     </div>
                 </div>
 
                 {relatedProducts.length > 0 && (
-                    <BlockProductsCarousel
-                        title="Productos Relacionados"
-                        layout="grid-5"
-                        products={relatedProducts}
-                    />
+                    <BlockProductsCarousel title="Productos Relacionados" layout="grid-5" products={relatedProducts} />
                 )}
             </Fragment>
         );
@@ -220,7 +209,7 @@ function ShopPageProduct(props: ShopPageProductProps) {
             <PageHeader breadcrumb={breadcrumb} />
 
             {content}
-            <ContactForm/>
+            <ContactForm />
         </Fragment>
     );
 }

@@ -19,13 +19,15 @@ function IndicatorCart() {
     const cartRemoveItem = useCartRemoveItem();
     let dropdown;
     let totals;
-    console.log(cart)
+    console.log(cart);
 
     if (cart.totals.length > 0) {
         totals = cart.totals.map((total, index) => (
             <tr key={index}>
                 <th>{total.title}</th>
-                <td><CurrencyFormat value={total.price} /></td>
+                <td>
+                    <CurrencyFormat value={total.price} />
+                </td>
             </tr>
         ));
 
@@ -33,14 +35,16 @@ function IndicatorCart() {
             <Fragment>
                 <tr>
                     <th>Subtotal</th>
-                    <td><CurrencyFormat value={cart.subtotal} /></td>
+                    <td>
+                        <CurrencyFormat value={cart.subtotal} />
+                    </td>
                 </tr>
                 {totals}
             </Fragment>
         );
     }
 
-    const items = cart.items.map((item) => {
+    const items = cart.items.map(item => {
         let options;
         let image;
 
@@ -58,7 +62,11 @@ function IndicatorCart() {
             image = (
                 <div className="product-image dropcart__product-image">
                     <AppLink href={url.product(item.product)} className="product-image__body">
-                        <img className="product-image__img" src={`${process.env.NEXT_PUBLIC_BASE_URI}${item.product.images[0].url}` } alt="" />
+                        <img
+                            className="product-image__img"
+                            src={`${process.env.NEXT_PUBLIC_BASE_URI}${item.product.images[0].url}`}
+                            alt=""
+                        />
                     </AppLink>
                 </div>
             );
@@ -92,7 +100,9 @@ function IndicatorCart() {
                     <div className="dropcart__product-meta">
                         <span className="dropcart__product-quantity">{item.quantity}</span>
                         {' × '}
-                        <span className="dropcart__product-price"><CurrencyFormat value={item.price} /></span>
+                        <span className="dropcart__product-price">
+                            <CurrencyFormat value={item.price} />
+                        </span>
                     </div>
                 </div>
                 {removeButton}
@@ -103,9 +113,7 @@ function IndicatorCart() {
     if (cart.quantity) {
         dropdown = (
             <div className="dropcart">
-                <div className="dropcart__products-list">
-                    {items}
-                </div>
+                <div className="dropcart__products-list">{items}</div>
 
                 <div className="dropcart__totals">
                     <table>
@@ -113,31 +121,33 @@ function IndicatorCart() {
                             {totals}
                             <tr>
                                 <th>Total</th>
-                                <td><CurrencyFormat value={cart.total} /></td>
+                                <td>
+                                    <CurrencyFormat value={cart.total} />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div className="dropcart__buttons">
-                    <AppLink href={url.cart()} className="btn btn-secondary">Ver el Carrito</AppLink>
-                    <AppLink href={url.checkout()} className="btn btn-primary">Pagar</AppLink>
+                    <AppLink href={url.cart()} className="btn btn-secondary">
+                        Ver el Carrito
+                    </AppLink>
+                    <AppLink href={url.checkout()} className="btn btn-primary">
+                        Pagar
+                    </AppLink>
                 </div>
             </div>
         );
     } else {
         dropdown = (
             <div className="dropcart">
-                <div className="dropcart__empty">
-                    Tu carrito está vacío
-                </div>
+                <div className="dropcart__empty">Tu carrito está vacío</div>
             </div>
         );
     }
 
-    return (
-        <Indicator url="/shop/cart" dropdown={dropdown} value={cart.quantity} icon={<Cart20Svg />} />
-    );
+    return <Indicator url="/shop/cart" dropdown={dropdown} value={cart.quantity} icon={<Cart20Svg />} />;
 }
 
 export default IndicatorCart;

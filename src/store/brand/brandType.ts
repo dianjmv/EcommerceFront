@@ -1,5 +1,5 @@
-import {IBrand} from "../../interfaces/brand";
+import { IBrand } from '../../interfaces/brand';
 
 export interface BrandStateType {
-    brands:IBrand[]
+    brands: IBrand[];
 }

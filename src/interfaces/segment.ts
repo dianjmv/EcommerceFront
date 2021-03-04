@@ -1,8 +1,8 @@
-import {ImageBanner} from "./imageBanner";
-import {IProduct} from "./product";
-import {IBrand} from "./brand";
+import { ImageBanner } from './imageBanner';
+import { IProduct } from './product';
+import { IBrand } from './brand';
 
-export interface ISegment{
+export interface ISegment {
     id: number;
     code: string;
     name: string;
@@ -13,12 +13,11 @@ export interface ISegment{
     thumbnail: ImageBanner;
     banner: ImageBanner;
     products: IProduct[];
-    product_brands:IBrand[];
+    product_brands: IBrand[];
     level: ILevelUseSegment[];
 }
-export interface ILevelUseSegment{
+export interface ILevelUseSegment {
     id: number;
     level: number;
     product_brand: IBrand;
-
 }
