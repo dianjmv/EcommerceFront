@@ -44,18 +44,11 @@ function NavPanel(props: NavPanelProps) {
             <div className="nav-panel__container container">
                 <div className="nav-panel__row">
                     {logo}
-
                     <div className="nav-panel__nav-links nav-links">
                         <NavLinks />
                     </div>
-
                     <div className="nav-panel__indicators">
-                        {searchIndicator}
-
-                        <Indicator url="/shop/wishlist" value={wishlistCount} icon={<Heart20Svg />} />
-
                         <CartIndicator />
-
                         <IndicatorAccount />
                     </div>
                 </div>

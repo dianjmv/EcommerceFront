@@ -17,15 +17,9 @@ class MobileMenuData {
         },
 
         {
-            type: 'link',
+            type:'link',
             title: 'Empresa',
-            children: [
-                { title: 'Acerca de nosotros', url: '/enterprise/about-us', type: 'link' },
-                { title: 'Preguntas Frecuentes', url: '/enterprise/faqs', type: 'link' },
-                { title: 'Devoluciones y Garantias', url: '/enterprise/devolutions', type: 'link' },
-                { title: 'Terminos y Condiciones', url: '/enterprise/terms-conditions', type: 'link' },
-                { title: 'Politicas de privacidad', url: '/enterprise/privacy', type: 'link' },
-            ],
+            url: '/enterprise',
         },
 
         {
@@ -63,6 +57,33 @@ class MobileMenuData {
             type: 'link',
             title: 'Contacto',
             url: '/contact',
+        },
+    ];
+    private dataMenuAccount: IMobileMenu = [
+        {
+            type: 'link',
+            title: 'Editar Perfil',
+            url: '/account/profile',
+        },
+
+
+        {
+            type:'link',
+            title: 'Historial de Ordenes',
+            url: '/account/orders',
+        },
+
+        {
+            type: 'link',
+            title: 'Cambiar Contraseña',
+            url: '/account/password',
+        },
+
+        {
+            type: 'link',
+            title: 'Cerrar Sesión',
+            url: '/account/login',
+
         },
     ];
 

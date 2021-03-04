@@ -1,5 +1,5 @@
 // react
-import { useEffect, useRef, useState, memo } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -18,6 +18,8 @@ import { useCart } from '../../store/cart/cartHooks';
 import { useMobileMenuOpen } from '../../store/mobile-menu/mobileMenuHooks';
 import { useWishlist } from '../../store/wishlist/wishlistHooks';
 import { useCompanyInfo } from '../../store/company/companyHooks';
+import Person20Svg from "../../svg/person-20.svg";
+import IndicatorAccount from "../header/IndicatorAccount";
 
 function MobileHeader() {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -60,30 +62,15 @@ function MobileHeader() {
                         <AppLink href={url.home()} className="mobile-header__logo w-32">
                             <img src={logo} alt="" />
                         </AppLink>
-                        <Search
-                            context="mobile-header"
-                            className={searchClasses}
-                            inputRef={inputRef}
-                            onClose={handleCloseSearch}
-                        />
                         <div className="mobile-header__indicators">
-                            <Indicator
-                                className="indicator--mobile indicator--mobile-search d-md-none"
-                                onClick={handleOpenSearch}
-                                icon={<Search20Svg />}
-                            />
-                            <Indicator
-                                className="indicator--mobile d-sm-flex d-none"
-                                url={url.wishlist()}
-                                value={wishlistCount}
-                                icon={<Heart20Svg />}
-                            />
+
                             <Indicator
                                 className="indicator--mobile"
                                 url={url.cart()}
                                 value={cart.quantity}
                                 icon={<Cart20Svg />}
                             />
+                            <IndicatorAccount/>
                         </div>
                     </div>
                 </div>

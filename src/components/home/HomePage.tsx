@@ -29,6 +29,7 @@ import SocialNetworks from '../social-networks/SocialNetworks';
 import ContactForm from '../contact/ContactForm';
 import { ImageBanner } from '../../interfaces/imageBanner';
 import BlockSlideHome from '../blocks/BlockSlideHome';
+import {useResetFilters} from "../../store/filter/filterHooks";
 
 export interface InitData {
     featuredProducts?: IProduct[];
@@ -42,7 +43,7 @@ export interface HomePageOneProps {
 }
 
 function HomePage(props: InitData) {
-    const { featuredProducts } = props;
+
     const [company, setCompany] = useState<ICompanyInfo>();
     const companyInfo = useCompanyInfo();
     const addProductsState = useAddProducts();
@@ -50,6 +51,18 @@ function HomePage(props: InitData) {
     const brandsCompany = useBrandCompany();
     const [products, setProducts] = useState<IProduct[] | []>([]);
     const productsRepository = new ProductsRepository();
+    const resetFilters = useResetFilters()
+    const [productsFeatured, setProductsFeatured] = useState<IProduct[]>([])
+    useEffect(()=>{
+        resetFilters()
+        productsRepository
+            .getAllProducts()
+            .then(({ data }) => setProducts(data))
+            .catch(err => console.log(err))
+            .finally();
+        setProductsFeatured(products.filter(product => product.is_featured))
+    },[productsAvailables.products])
+
 
     useEffect(() => {
         setCompany(companyInfo);
@@ -84,12 +97,12 @@ function HomePage(props: InitData) {
                               title="Productos Destacados"
                               layout="large-first"
                               // @ts-ignore
-                              products={featuredProducts.filter((product, index) => {
+                              products={productsFeatured.filter((product, index) => {
                                   return index < 8;
                               })}
                           />
                       ),
-                      [productsAvailables.products]
+                      [productsFeatured]
                   )
                 : null}
             <div className={'text-center mt-10'}>
