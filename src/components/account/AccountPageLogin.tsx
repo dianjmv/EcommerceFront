@@ -83,6 +83,7 @@ export default function AccountPageLogin() {
             .login({ email: values.login_email, password: values.login_password })
             .then(({ data }) => {
                 addUserForLogin(data);
+                router.push('/');
             })
             .catch(({ response }) => {
                 setLoading(false);
@@ -90,7 +91,6 @@ export default function AccountPageLogin() {
             })
             .finally(() => {
                 setLoading(false);
-                router.push('/');
                 resetForm({});
             });
     };
@@ -107,6 +107,7 @@ export default function AccountPageLogin() {
             })
             .then(({ data }) => {
                 addUserForLogin(data);
+                router.push('/');
             })
             .catch(({ response }) => {
                 toast.error(response.data.message[0].messages[0].message);
@@ -114,7 +115,6 @@ export default function AccountPageLogin() {
             })
             .finally(() => {
                 setLoadingRegister(false);
-                router.push('/');
                 resetForm({});
             });
     };

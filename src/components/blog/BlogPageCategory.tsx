@@ -81,7 +81,6 @@ function BlogPageCategory(props: BlogPageCategoryProps) {
     }
 
     function searchBlog(searchInput: ChangeEvent): void {
-
         const filteredPosts = posts.filter(post =>
             // @ts-ignore
             post.title.toLowerCase().includes(searchInput.target.value.toLowerCase())

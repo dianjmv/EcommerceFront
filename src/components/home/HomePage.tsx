@@ -121,7 +121,7 @@ function HomePage(props: InitData) {
                         : null}
                 </div>
             </div>
-            <SocialNetworks />
+            <SocialNetworks widthCatalog={true} />
             <ContactForm />
         </div>
     );
