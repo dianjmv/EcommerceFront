@@ -18,8 +18,8 @@ import { useCart } from '../../store/cart/cartHooks';
 import { useMobileMenuOpen } from '../../store/mobile-menu/mobileMenuHooks';
 import { useWishlist } from '../../store/wishlist/wishlistHooks';
 import { useCompanyInfo } from '../../store/company/companyHooks';
-import Person20Svg from "../../svg/person-20.svg";
-import IndicatorAccount from "../header/IndicatorAccount";
+import Person20Svg from '../../svg/person-20.svg';
+import IndicatorAccount from '../header/IndicatorAccount';
 
 function MobileHeader() {
     const [searchOpen, setSearchOpen] = useState(false);
@@ -63,14 +63,13 @@ function MobileHeader() {
                             <img src={logo} alt="" />
                         </AppLink>
                         <div className="mobile-header__indicators">
-
                             <Indicator
                                 className="indicator--mobile"
                                 url={url.cart()}
                                 value={cart.quantity}
                                 icon={<Cart20Svg />}
                             />
-                            <IndicatorAccount/>
+                            <IndicatorAccount />
                         </div>
                     </div>
                 </div>

@@ -81,8 +81,9 @@ function BlogPageCategory(props: BlogPageCategoryProps) {
     }
 
     function searchBlog(searchInput: ChangeEvent): void {
-        // @ts-ignore
+
         const filteredPosts = posts.filter(post =>
+            // @ts-ignore
             post.title.toLowerCase().includes(searchInput.target.value.toLowerCase())
         );
         paginatePosts(filteredPosts);
@@ -111,13 +112,15 @@ function BlogPageCategory(props: BlogPageCategoryProps) {
                 <title>{`Blog — ${companyInfo.company_name}`}</title>
             </Head>
             <div
-                className={'w-full text-center pt-14  '}
+                className={'w-full text-center '}
                 style={{
                     backgroundImage: `url(${process.env.NEXT_PUBLIC_BASE_URI}${companyInfo.blog_page_banner.url})`,
-                    height: '200px',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
                 }}
             >
-                <h1 className={'text-4xl font-bold text-white '}>Blog</h1>
+                <h1 className={'font-bold text-5xl text-white py-20'}>Blog</h1>
             </div>
             <div className="px-4 mt-8">
                 <div className={'grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-2'}>

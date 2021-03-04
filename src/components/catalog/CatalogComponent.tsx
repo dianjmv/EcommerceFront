@@ -21,7 +21,7 @@ function CatalogComponent() {
                     <title>{companyInfo !== undefined ? `${companyInfo.company_name} | Catálogo` : null}</title>
                 </Head>
                 <div className={'grid gri-cols-1 container text-center justify-center'}>
-                    <h1 className={'text-3xl text-black font-bold '}> Catálogo de Productos </h1>
+                    <h1 className={'text-5xl text-black font-bold '}> Catálogo de Productos </h1>
                     <p className={'text-center mt-6 md:px-32 px-5'}>
                         Poder para la Industria, los equipos Neo son diseñados con ingeniería de alto grado de
                         exigencia, siendo estos los de mayor calidad, expresada en su potencia y eficiencia al momento

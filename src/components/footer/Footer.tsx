@@ -22,8 +22,8 @@ const Footer: FunctionComponent = () => {
 
     const accountLinks = [
         { title: 'Preguntas Frecuentes', url: '/enterprise/faqs' },
-        { title: 'Mi Cuenta', url: '' },
-        { title: 'Mis Pedidos', url: '' },
+        { title: 'Mi Cuenta', url: '/account/dashboard' },
+        { title: 'Mis Pedidos', url: '/account/orders' },
         { title: 'Devoluciones y Grantías', url: '/enterprise/devolutions' },
         { title: 'Términos y Condiciones', url: '/enterprise/terms-conditions' },
         { title: 'Políticas de Privacidad', url: '/enterprise/privacy' },

@@ -42,8 +42,8 @@ function SiteContactForm() {
             <Head>
                 <title>{`${companyInfo.company_name} | Contactenos`}</title>
             </Head>
-            <div className={'bg-blue-700 text-center py-6 '}>
-                <h1 className={'text-white text-5xl font-bold'}>Contáctanos</h1>
+            <div className={'bg-blue-700 text-center'}>
+                <h1 className={'font-bold text-5xl text-white py-20'}>Contáctanos</h1>
             </div>
             <div className={'grid md:grid-cols-2 grid-cols-1 mt-10'}>
                 <div className={'md:h-full h-96'}>

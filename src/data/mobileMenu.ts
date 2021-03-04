@@ -17,7 +17,7 @@ class MobileMenuData {
         },
 
         {
-            type:'link',
+            type: 'link',
             title: 'Empresa',
             url: '/enterprise',
         },
@@ -66,9 +66,8 @@ class MobileMenuData {
             url: '/account/profile',
         },
 
-
         {
-            type:'link',
+            type: 'link',
             title: 'Historial de Ordenes',
             url: '/account/orders',
         },
@@ -83,7 +82,6 @@ class MobileMenuData {
             type: 'link',
             title: 'Cerrar Sesión',
             url: '/account/login',
-
         },
     ];
 

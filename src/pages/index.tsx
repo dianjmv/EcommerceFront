@@ -12,9 +12,9 @@ import CompanyRepository from '../api/companyInfo';
 import BrandsRepository from '../api/brandsRepository';
 import React, { useEffect, useState } from 'react';
 import { IProduct } from '../interfaces/product';
-import {useFilterProduct, useResetFilters} from '../store/filter/filterHooks';
+import { useFilterProduct, useResetFilters } from '../store/filter/filterHooks';
 import { useStartLoading, useStopLoading } from '../store/loading/loadingHooks';
-import {data} from "autoprefixer";
+import { data } from 'autoprefixer';
 
 export interface PageProps {
     initData?: InitData;
@@ -33,7 +33,7 @@ function Page(props: PageProps) {
     const resetFilters = useResetFilters();
     const startLoading = useStartLoading();
     const stopLoading = useStopLoading();
-    const useFilters = useFilterProduct()
+    const useFilters = useFilterProduct();
     const [featuredProducts, setFeaturedProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
@@ -60,8 +60,6 @@ function Page(props: PageProps) {
             .catch(err => console.error(err));
         setProducts(productsAvailables.products);
     }, []);
-
-
 
     return <HomePage />;
 }
