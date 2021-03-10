@@ -1,5 +1,5 @@
 // react
-import React, {ChangeEvent, Fragment, useEffect, useState} from 'react';
+import React, { ChangeEvent, Fragment, useEffect, useState } from 'react';
 
 // third-party
 import Head from 'next/head';
@@ -8,11 +8,11 @@ import Head from 'next/head';
 import BlogPost from './BlogPost';
 
 // data stubs
-import {IPost} from '../../interfaces/post';
+import { IPost } from '../../interfaces/post';
 import SitePageNotFound from '../site/SitePageNotFound';
-import {useCompanyInfo} from '../../store/company/companyHooks';
+import { useCompanyInfo } from '../../store/company/companyHooks';
 import PostRepository from '../../api/postRepository';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 import AppLink from '../shared/AppLink';
 import ContactForm from '../contact/ContactForm';
 
@@ -47,10 +47,8 @@ export default function BlogPagePost(props: BlogPagePostProps) {
 
     function searchBlog(searchInput: ChangeEvent): void {
         // @ts-ignore
-        const {toLowerCase} = searchInput.target.value;
-        const filteredPosts = posts.filter(post =>
-            post.title.toLowerCase().includes(toLowerCase())
-        );
+        const { toLowerCase } = searchInput.target.value;
+        const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(toLowerCase()));
         setPostsFiltered(filteredPosts);
     }
 

@@ -70,7 +70,7 @@ function ShopPageProduct(props: ShopPageProductProps) {
                 let exist = false;
                 for (let infoSell of sell.products) {
                     for (let productFiltered of products) {
-                        if (productFiltered.id === infoSell.product.id ) {
+                        if (productFiltered.id === infoSell.product.id) {
                             exist = true;
                             break;
                         }

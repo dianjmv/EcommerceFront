@@ -38,7 +38,7 @@ const initialState: CompanyInfoState = {
     whatsapp_message: '',
     whatsapp_number: '',
     facebook_url: '',
-    youtube_url: ''
+    youtube_url: '',
 };
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 

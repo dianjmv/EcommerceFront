@@ -82,11 +82,7 @@ const SocialNetworks = ({ widthCatalog }: any) => {
 
                     <div className={'social-network h-full'}>
                         <Iframe url={companyInfo.facebook_url} width={'350px'} height={'500px'} />
-                        <Iframe
-                            url={companyInfo.youtube_url}
-                            width={'350px'}
-                            height={'500px'}
-                        />
+                        <Iframe url={companyInfo.youtube_url} width={'350px'} height={'500px'} />
 
                         {/*{*/}
                         {/*    companyInfo.social_networks.map((social) => {*/}
