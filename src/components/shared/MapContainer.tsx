@@ -64,7 +64,6 @@ function MapContainer(props: any) {
             bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY }}
             defaultCenter={[34.0522, -118.2437]}
             defaultZoom={11}
-            onChildClick={() => handleSetShowInfo()}
         >
             <Marker lat={34.0522} lng={-118.2437} show={showInfo} />
         </GoogleMapReact>

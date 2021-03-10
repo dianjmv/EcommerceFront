@@ -1,24 +1,19 @@
 // react
-import React, { ChangeEvent, Fragment, useEffect, useState } from 'react';
+import React, {ChangeEvent, Fragment, useEffect, useState} from 'react';
 
 // third-party
 import Head from 'next/head';
 
 // application
 import BlogPost from './BlogPost';
-import BlogSidebar from './BlogSidebar';
-import PageHeader from '../shared/PageHeader';
 
 // data stubs
-import theme from '../../data/theme';
-import { IPost } from '../../interfaces/post';
+import {IPost} from '../../interfaces/post';
 import SitePageNotFound from '../site/SitePageNotFound';
-import { useCompanyInfo } from '../../store/company/companyHooks';
+import {useCompanyInfo} from '../../store/company/companyHooks';
 import PostRepository from '../../api/postRepository';
-import { PostPaginated } from './BlogPageCategory';
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import AppLink from '../shared/AppLink';
-import PostCard, { PostCardLayout } from '../shared/PostCard';
 import ContactForm from '../contact/ContactForm';
 
 export type BlogPagePostLayout = 'classic' | 'full';
@@ -52,8 +47,9 @@ export default function BlogPagePost(props: BlogPagePostProps) {
 
     function searchBlog(searchInput: ChangeEvent): void {
         // @ts-ignore
+        const {toLowerCase} = searchInput.target.value;
         const filteredPosts = posts.filter(post =>
-            post.title.toLowerCase().includes(searchInput.target.value.toLowerCase())
+            post.title.toLowerCase().includes(toLowerCase())
         );
         setPostsFiltered(filteredPosts);
     }

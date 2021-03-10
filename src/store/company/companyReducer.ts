@@ -37,6 +37,8 @@ const initialState: CompanyInfoState = {
     devolution_banner: '',
     whatsapp_message: '',
     whatsapp_number: '',
+    facebook_url: '',
+    youtube_url: ''
 };
 export const COMPANY_INFO_NAMESPACE = 'companyInfo';
 

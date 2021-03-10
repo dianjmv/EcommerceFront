@@ -67,10 +67,10 @@ function ShopPageProduct(props: ShopPageProductProps) {
         productsRepository.getProductsMostSeller().then(({ data }) => {
             const products: IProduct[] = [];
             for (let sell of data) {
+                let exist = false;
                 for (let infoSell of sell.products) {
-                    let exist = false;
                     for (let productFiltered of products) {
-                        if (productFiltered.id === infoSell.product.id && infoSell.product.id !== product.id) {
+                        if (productFiltered.id === infoSell.product.id ) {
                             exist = true;
                             break;
                         }
@@ -80,7 +80,6 @@ function ShopPageProduct(props: ShopPageProductProps) {
                     }
                 }
             }
-
             setRelatedProducts(products);
         });
         return () => {

@@ -30,4 +30,6 @@ export interface CompanyInfoState {
     devolution_banner: any;
     whatsapp_number: string;
     whatsapp_message: string;
+    facebook_url: string
+    youtube_url: string
 }
